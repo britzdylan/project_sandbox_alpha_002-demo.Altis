@@ -1,0 +1,130 @@
+// ============================================================
+// Operation Sovereign Fury
+// Green Beret ODA — Unconventional Warfare Campaign
+// ============================================================
+
+author          = "britz";
+onLoadName      = "Operation Sovereign Fury";
+onLoadMission   = "Green Beret ODA — Unconventional Warfare Campaign";
+onLoadIntro     = "Altis, 2020s. CSAT has established conventional military control across the island. A 12-man ODA has been inserted to begin unconventional warfare operations.";
+loadScreen      = "";
+
+overviewText    = "Lead a 12-man Green Beret ODA in an unconventional warfare campaign to liberate Altis from CSAT occupation. Raise and advise local militia, call in support assets, and escalate from asymmetric operations to full-spectrum combined arms warfare.";
+overviewPicture = "";
+
+// Disable default Arma respawn — handled by ODA incapacitation system
+respawn         = 0;
+respawnDelay    = 0;
+
+// Disable automatic saving — handled by manual save system
+disabledAI      = 0;
+enableDebugConsole = 1;  // Set to 0 for release
+
+// ============================================================
+// RespawnTemplates — none used (custom incap system)
+// ============================================================
+
+// ============================================================
+// CfgFunctions — modular script loading - files default to <ROOT>/Functions/<Group>/*
+// ============================================================
+
+class CfgFunctions
+{
+    class OSF
+    {
+        // ---- Core ----
+        class core
+        {
+            class initGameState      { description = "Initialise global game state namespace"; };
+        };
+
+        // ---- Sectors ----
+        class sectors
+        {
+            class getSector          { description = "Get a named field from a sector's state hashmap"; };
+            class setSector          { description = "Set a named field and trigger side effects"; };
+            class getAllSectors      { description = "Return array of all sector IDs"; };
+            class updateMarker       { description = "Sync map marker color to sector status"; };
+        };
+
+        // ---- Save ----
+        class save
+        {
+            class saveState          { description = "Serialise game state to profileNamespace"; };
+            class loadState          { description = "Restore game state from profileNamespace"; };
+        };
+
+        // ---- ODA ---- (Phase A2 — uncomment when building)
+        // class oda
+        // {
+        //     file = "scripts\oda";
+        //     class odaInit            { description = "Initialise ODA roster and unit definitions"; };
+        //     class odaPassives        { description = "Calculate and apply active passive bonuses"; };
+        //     class odaIncap           { description = "Handle ODA member incapacitation event"; };
+        //     class odaRevive          { description = "Player medkit revive logic"; };
+        //     class odaMedicRevive     { description = "Medic auto-revive logic"; };
+        //     class odaDeath           { description = "Handle permanent death and replacement timer"; };
+        // };
+
+        // ---- Militia ---- (Phase A4 — uncomment when building)
+        // class militia
+        // {
+        //     file = "scripts\militia";
+        //     class militiaInit        { description = "Initialise militia system"; };
+        //     class militiaSpawn       { description = "Spawn militia units on allocation"; };
+        //     class militiaDismiss     { description = "Dismiss militia group and free command points"; };
+        // };
+
+        // ---- Counterattack ---- (Phase A5 — uncomment when building)
+        // class counterattack
+        // {
+        //     file = "scripts\counterattack";
+        //     class caEvaluate         { description = "Evaluate whether a counterattack should trigger"; };
+        //     class caLaunch           { description = "Launch counterattack waves on a sector"; };
+        //     class caWave             { description = "Spawn a single counterattack wave"; };
+        // };
+
+        // ---- Operations ---- (Phase B4 — uncomment when building)
+        // class operations
+        // {
+        //     file = "scripts\operations";
+        //     class opSetup            { description = "Pre-operation setup and briefing"; };
+        //     class opSuccess          { description = "Handle operation success"; };
+        //     class opFailure          { description = "Handle operation failure"; };
+        //     class opAlliedPool       { description = "Track allied AI force pool"; };
+        // };
+
+        // ---- Side Objectives ---- (Phase A8 — uncomment when building)
+        // class sideobj
+        // {
+        //     file = "scripts\sideobj";
+        //     class soScout            { description = "Resolve question mark marker on player approach"; };
+        //     class soAADestroy        { description = "AA emplacement side objective"; };
+        //     class soIntelGather      { description = "Intel documents side objective"; };
+        // };
+
+        // ---- TOC ---- (Phase A2 — uncomment when building)
+        // class toc
+        // {
+        //     file = "scripts\toc";
+        //     class tocInit            { description = "Initialise TOC interactions"; };
+        //     class tocSquadUI         { description = "Squad management interface"; };
+        //     class tocMilitiaUI       { description = "Militia allocation interface"; };
+        //     class tocRequisitionUI   { description = "Asset requisition interface"; };
+        // };
+
+        // ---- Utils ----
+        class utils
+        {
+            class setMissionVar      { description = "Set a missionNamespace variable with optional RPT logging"; };
+            class getMissionVar      { description = "Get a missionNamespace variable with default fallback and missing-key warning"; };
+            class setProfileVar      { description = "Set a profileNamespace variable with optional RPT logging"; };
+            class getProfileVar      { description = "Get a profileNamespace variable with default fallback and missing-key warning"; };
+            class hasVar             { description = "Check whether a key exists on any namespace"; };
+            class log                { description = "Write to RPT; also echoes to systemChat when OSF_debug is true"; };
+            class notify             { description = "Display HUD notification to player"; };
+            class progressBar        { description = "Display timed progress bar with callback"; };
+        };
+    };
+};
+

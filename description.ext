@@ -106,7 +106,7 @@ class CfgFunctions
         //     file = "scripts\toc";
                class strategicMapOpen   { description = "Open strategic map from TOC base object" };
                class tocInit            { description = "Initialise TOC interactions"; };
-        //     class tocSquadUI         { description = "Squad management interface"; };
+               class tocSquadUI         { description = "Squad management interface"; };
         //     class tocMilitiaUI       { description = "Militia allocation interface"; };
         //     class tocRequisitionUI   { description = "Asset requisition interface"; };
         };
@@ -169,3 +169,76 @@ class CfgIdentities
     class OSF_ODA_24  { name = "Lane";    face = "WhiteHead_24"; glasses = "None"; speaker = "Male04ENG"; pitch = 0.86; nameSound = "Lane";    };
 };
 
+#include "ui\defines.hpp"
+
+// ============================================================
+// OSF_SquadUI — Squad management read-only roster dialog
+// IDD 9001 | List IDC 9100 | Close IDC 9200
+// ============================================================
+class OSF_SquadUI
+{
+    idd = 9001;
+    movingEnable = false;
+    enableSimulation = false;
+    onLoad = "";
+    onUnload = "";
+
+    class controlsBackground
+    {
+        class OSF_SquadUI_BG : RscText
+        {
+            idc = -1;
+            x = "safeZoneX + safeZoneW * 0.15";
+            y = "safeZoneY + safeZoneH * 0.10";
+            w = "safeZoneW * 0.70";
+            h = "safeZoneH * 0.80";
+            text = "";
+            colorBackground[] = {0.08, 0.08, 0.08, 0.97};
+        };
+    };
+
+    class controls
+    {
+        class OSF_SquadUI_Title : RscText
+        {
+            idc = -1;
+            x = "safeZoneX + safeZoneW * 0.15";
+            y = "safeZoneY + safeZoneH * 0.10";
+            w = "safeZoneW * 0.70";
+            h = "safeZoneH * 0.050";
+            text = "SQUAD MANAGEMENT";
+            sizeEx = 0.040;
+            colorBackground[] = {0.18, 0.12, 0.02, 1.0};
+            colorText[] = {0.95, 0.82, 0.35, 1.0};
+        };
+
+        // Columns: SLOT(0-20%) | RANK(20-31%) | ROLE(31-53%) | MOS(53-61%)
+        //          STATUS(61-74%) | IN SQUAD(74-84%) | LOADOUT(84-100%)
+        class OSF_SquadUI_List : RscListNBox
+        {
+            idc = 9100;
+            x = "safeZoneX + safeZoneW * 0.155";
+            y = "safeZoneY + safeZoneH * 0.158";
+            w = "safeZoneW * 0.690";
+            h = "safeZoneH * 0.675";
+            columns[] = {0, 0.20, 0.31, 0.53, 0.61, 0.74, 0.84};
+            rowHeight = 0.040;
+            sizeEx = 0.028;
+            colorBackground[] = {0.05, 0.05, 0.05, 0.85};
+            colorText[] = {0.9, 0.9, 0.9, 1.0};
+            colorSelect[] = {0.20, 0.15, 0.05, 0.80};
+            colorSelectBackground[] = {0.30, 0.22, 0.05, 0.80};
+        };
+
+        class OSF_SquadUI_BtnClose : RscButton
+        {
+            idc = 9200;
+            x = "safeZoneX + safeZoneW * 0.775";
+            y = "safeZoneY + safeZoneH * 0.856";
+            w = "safeZoneW * 0.065";
+            h = "safeZoneH * 0.034";
+            text = "CLOSE";
+            action = "closeDialog 0;";
+        };
+    };
+};

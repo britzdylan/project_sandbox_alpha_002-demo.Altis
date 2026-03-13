@@ -100,9 +100,11 @@ private _tocRegistry = createHashMap;
 		"(_this distance _target) < 2",
 		{},
 		{},
-		{}, // _this#3 = arguments array
+		{
+			[] call OSF_fnc_tocSquadUI;
+		}, // _this#3 = arguments array
 		{},
-		[_entry],
+		[],
 		1,
 		0,
 		false,

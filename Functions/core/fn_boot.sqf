@@ -30,31 +30,7 @@ params [];
 [OSF_KEY_CAMPAIGN_PHASE,    1] call OSF_fnc_setMissionVar;   // 1=early, 2=mid, 3=late
 [OSF_KEY_ASSET_INVENTORY,  []] call OSF_fnc_setMissionVar;   // populated by requisition system (B5)
 
-// ---- ODA Roster ----
-// Build roster hashmap from odaData.sqf static definitions.
-// Each member is keyed by id. Runtime-only fields seeded empty here.
-// private _odaDefs = call compile preProcessFileLineNumbers "scripts\data\odaData.sqf";
-// private _odaRegistry = createHashMap;
 
-// {
-// 	private _m = _x;
-// 	private _memberMap = createHashMapFromArray [
-// 		["id", _m select 0],
-// 		["name", _m select 1],
-// 		["role", _m select 2],
-// 		["mos", _m select 3],
-// 		["status", _m select 4],
-// 		["inSquad", _m select 5],
-// 		["passiveBonus", _m select 6],
-// 		        // Runtime-only fields — seeded empty
-// 		["incapTimer", -1], // scheduled CBA/sleep handle; -1 = inactive
-// 		["replacementTimer", -1]    // seconds remaining on 6h pipeline; -1 = inactive
-// 	];
-// 	_odaRegistry set [_m select 0, _memberMap];
-// } forEach _odaDefs;
-
-// [OSF_KEY_ODA_ROSTER, _odaRegistry] call OSF_fnc_setMissionVar;
-// ["initGameState", format ["%1 ODA member(s) initialized.", count (keys _odaRegistry)]] call OSF_fnc_log;
 
 // ---- Sector state ----
 
@@ -91,8 +67,9 @@ params [];
 // 	[_x] call OSF_fnc_updateMarker;
 // } forEach (keys _registry);
 
-["initGameState", format ["%1 sector(s) initialized.", count (keys _registry)]] call OSF_fnc_log;
+// ["boot", format ["%1 sector(s) initialized.", count (keys _registry)]] call OSF_fnc_log; // re-enable when sector block is uncommented
 
 [] call OSF_fnc_tocInit;
+[] call OSF_fnv_odaInit;
 
 ["initGameState", "complete."] call OSF_fnc_log;

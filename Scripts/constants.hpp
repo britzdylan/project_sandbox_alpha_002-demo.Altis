@@ -20,7 +20,7 @@
 #define OSF_KEY_TOC_STATE       "OSF_tocState"
 
 // ------------------------------------------------------------
-// Profile namespace variable names
+// PROFILE namespace variable names
 // Used with OSF_fnc_getProfileVar / OSF_fnc_setProfileVar
 // ------------------------------------------------------------
 #define OSF_PROFILE_SECTOR_SAVE    "OSF_sectorSave"
@@ -34,3 +34,22 @@
 #define OSF_TOC_POS             "pos"
 #define OSF_TOC_STRATEGIC_MISSION   "strategicMapMission"
 #define OSF_TOC_STRATEGIC_OBJ_ID    "strategicMapObjectId"
+#define OSF_TOC_STRATEGIC_WEATHER   "strategicMapWeather"
+#define OSF_TOC_STRATEGIC_TIME      "strategicMapTime"
+
+// ------------------------------------------------------------
+// ODA member field names
+// Keys used inside individual ODA slot hashmaps
+// ------------------------------------------------------------
+#define OSF_ODA_SLOT_ID             "slotId"
+#define OSF_ODA_RANK                "rank"
+#define OSF_ODA_ROLE                "role"
+#define OSF_ODA_MOS                 "mos"
+#define OSF_ODA_PASSIVE_BONUS       "passiveBonus"
+#define OSF_ODA_STATUS              "status"
+#define OSF_ODA_IN_SQUAD            "inSquad"
+#define OSF_ODA_IDENTITY_CLASS      "identityClass"
+#define OSF_ODA_LOADOUT             "loadout"
+#define OSF_ODA_UNIT_REF            "unitRef"
+#define OSF_ODA_INCAPACITATED_TIMER "incapacitatedTimer"
+#define OSF_ODA_REPLACEMENT_TIMER   "replacementTimer"

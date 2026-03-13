@@ -34,7 +34,7 @@
 		        4, // [6] commandPoints
 		        1, // [7] importance
 		        ["so_aa_emplacement", "so_intel_documents"]     // [8] sideObjectives
-	]
+	]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
 
 	    // Future sectors appended here as additional arrays, e.g.:
 	    //, 

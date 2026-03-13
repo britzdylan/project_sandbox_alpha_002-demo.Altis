@@ -31,7 +31,7 @@ params [];
 // ---- ODA Roster ----
 // Build roster hashmap from odaData.sqf static definitions.
 // Each member is keyed by id. Runtime-only fields seeded empty here.
-private _odaDefs = call compile preProcessFileLineNumbers "Scripts\Data\odaData.sqf";
+private _odaDefs = call compile preProcessFileLineNumbers "scripts\data\odaData.sqf";
 private _odaRegistry = createHashMap;
 
 {
@@ -45,8 +45,8 @@ private _odaRegistry = createHashMap;
 		["inSquad", _m select 5],
 		["passiveBonus", _m select 6],
 		        // Runtime-only fields — seeded empty
-		        ["incapTimer", -1], // scheduled CBA/sleep handle; -1 = inactive
-		        ["replacementTimer", -1]    // seconds remaining on 6h pipeline; -1 = inactive
+		["incapTimer", -1], // scheduled CBA/sleep handle; -1 = inactive
+		["replacementTimer", -1]    // seconds remaining on 6h pipeline; -1 = inactive
 	];
 	_odaRegistry set [_m select 0, _memberMap];
 } forEach _odaDefs;
@@ -55,48 +55,39 @@ private _odaRegistry = createHashMap;
 ["initGameState", format ["%1 ODA member(s) initialized.", count (keys _odaRegistry)]] call OSF_fnc_log;
 
 // ---- Sector state ----
-private _hasSave = ["OSF_saveExists", false] call OSF_fnc_getProfileVar;
 
-if (_hasSave) then {
-	["initGameState", "save found, restoring state..."] call OSF_fnc_log;
-	[] call OSF_fnc_loadState;
-} else {
-	["initGameState", "no save, building fresh state from sectorData.sqf..."] call OSF_fnc_log;
+// load static sector definitions
+private _sectorDefs = call compile preProcessFileLineNumbers "scripts\data\sectorData.sqf";
 
-	    // load static sector definitions
-	private _sectorDefs = call compile preProcessFileLineNumbers "Scripts\Data\sectorData.sqf";
+private _registry = createHashMap;
 
-	private _registry = createHashMap;
+{
+	private _def = _x;
 
-	{
-		private _def = _x;
+	private _sectorMap = createHashMapFromArray [
+		["id", _def select 0],
+		["displayName", _def select 1],
+		["poiPos", _def select 2],
+		["boundaryMarker", _def select 3],
+		["status", _def select 4],
+		["adjacency", _def select 5],
+		["commandPoints", _def select 6],
+		["importance", _def select 7],
+		["sideObjectives", _def select 8],
+		            // Runtime-only fields — seeded empty
+		["completedSideObjectives", []],
+		["counterattackActive", false]
+	];
 
-		private _sectorMap = createHashMapFromArray [
-			["id", _def select 0],
-			["displayName", _def select 1],
-			["poiPos", _def select 2],
-			["boundaryMarker", _def select 3],
-			["status", _def select 4],
-			["adjacency", _def select 5],
-			["commandPoints", _def select 6],
-			["importance", _def select 7],
-			["sideObjectives", _def select 8],
-			            // Runtime-only fields — seeded empty
-			["completedSideObjectives", []],
-			["counterattackActive", false]
-		];
+	_registry set [_def select 0, _sectorMap];
+} forEach _sectorDefs;
 
-		_registry set [_def select 0, _sectorMap];
-	} forEach _sectorDefs;
+["OSF_sectorState", _registry] call OSF_fnc_setMissionVar;
 
-	["OSF_sectorState", _registry] call OSF_fnc_setMissionVar;
+    // Initialize markers for all sectors
+{
+	[_x] call OSF_fnc_updateMarker;
+} forEach (keys _registry);
 
-	    // Initialize markers for all sectors
-	{
-		[_x] call OSF_fnc_updateMarker;
-	} forEach (keys _registry);
-
-	["initGameState", format ["%1 sector(s) initialized.", count (keys _registry)]] call OSF_fnc_log;
-};
-
+["initGameState", format ["%1 sector(s) initialized.", count (keys _registry)]] call OSF_fnc_log;
 ["initGameState", "complete."] call OSF_fnc_log;

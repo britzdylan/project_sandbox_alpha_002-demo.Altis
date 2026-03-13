@@ -15,9 +15,11 @@
 // Usage:  [] call OSF_fnc_loadState;  (called internally by initGameState)
 // ============================================================
 
+#include "..\..\scripts\constants.hpp"
+
 params [];
 
-private _saveData = ["OSF_sectorSave", []] call OSF_fnc_getProfileVar;
+private _saveData = [OSF_PROFILE_SECTOR_SAVE, []] call OSF_fnc_getProfileVar;
 
 if (count _saveData == 0) exitWith {
     ["loadState", "save data is empty. Aborting load."] call OSF_fnc_log;
@@ -58,7 +60,7 @@ private _registry = createHashMap;
     _registry set [_sectorID, _sectorMap];
 } forEach _saveData;
 
-["OSF_sectorState", _registry] call OSF_fnc_setMissionVar;
+[OSF_KEY_SECTOR_STATE, _registry] call OSF_fnc_setMissionVar;
 
 // Restore map markers to match saved status
 {

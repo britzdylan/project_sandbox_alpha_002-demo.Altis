@@ -15,6 +15,8 @@
 // Usage:  [] call OSF_fnc_initGameState;
 // ============================================================
 
+#include "..\..\scripts\constants.hpp"
+
 params [];
 
 ["initGameState", "starting..."] call OSF_fnc_log;
@@ -23,10 +25,10 @@ params [];
 // These are always initialized fresh; they are written to profileNamespace
 // separately by fn_saveState and restored by fn_loadState (extend those
 // functions as new systems are added in later phases).
-["OSF_debug", true]           call OSF_fnc_setMissionVar;   // set false for release
-["OSF_operationFailures", 0]  call OSF_fnc_setMissionVar;   // game over at 3
-["OSF_campaignPhase", 1]  call OSF_fnc_setMissionVar;   // 1=early, 2=mid, 3=late
-["OSF_assetInventory", []]  call OSF_fnc_setMissionVar;   // populated by requisition system (B5)
+[OSF_KEY_DEBUG,           true] call OSF_fnc_setMissionVar;   // set false for release
+[OSF_KEY_OP_FAILURES,       0] call OSF_fnc_setMissionVar;   // game over at 3
+[OSF_KEY_CAMPAIGN_PHASE,    1] call OSF_fnc_setMissionVar;   // 1=early, 2=mid, 3=late
+[OSF_KEY_ASSET_INVENTORY,  []] call OSF_fnc_setMissionVar;   // populated by requisition system (B5)
 
 // ---- ODA Roster ----
 // Build roster hashmap from odaData.sqf static definitions.
@@ -51,7 +53,7 @@ private _odaRegistry = createHashMap;
 	_odaRegistry set [_m select 0, _memberMap];
 } forEach _odaDefs;
 
-["OSF_odaRoster", _odaRegistry] call OSF_fnc_setMissionVar;
+[OSF_KEY_ODA_ROSTER, _odaRegistry] call OSF_fnc_setMissionVar;
 ["initGameState", format ["%1 ODA member(s) initialized.", count (keys _odaRegistry)]] call OSF_fnc_log;
 
 // ---- Sector state ----
@@ -67,7 +69,7 @@ private _registry = createHashMap;
 	private _sectorMap = createHashMapFromArray [
 		["id", _def select 0],
 		["displayName", _def select 1],
-		["poiPos", _def select 2],
+		["operationId", _def select 2],
 		["boundaryMarker", _def select 3],
 		["status", _def select 4],
 		["adjacency", _def select 5],
@@ -82,7 +84,7 @@ private _registry = createHashMap;
 	_registry set [_def select 0, _sectorMap];
 } forEach _sectorDefs;
 
-["OSF_sectorState", _registry] call OSF_fnc_setMissionVar;
+[OSF_KEY_SECTOR_STATE, _registry] call OSF_fnc_setMissionVar;
 
     // Initialize markers for all sectors
 {
@@ -90,4 +92,7 @@ private _registry = createHashMap;
 } forEach (keys _registry);
 
 ["initGameState", format ["%1 sector(s) initialized.", count (keys _registry)]] call OSF_fnc_log;
+
+[] call OSF_fnc_tocInit;
+
 ["initGameState", "complete."] call OSF_fnc_log;

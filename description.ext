@@ -85,14 +85,13 @@ class CfgFunctions
         // };
 
         // ---- Operations ---- (Phase B4 — uncomment when building)
-        // class operations
-        // {
-        //     file = "scripts\operations";
-        //     class opSetup            { description = "Pre-operation setup and briefing"; };
-        //     class opSuccess          { description = "Handle operation success"; };
-        //     class opFailure          { description = "Handle operation failure"; };
-        //     class opAlliedPool       { description = "Track allied AI force pool"; };
-        // };
+        class operations
+        {
+            // class opSetup            { description = "Pre-operation setup and briefing"; };
+            // class opSuccess          { description = "Handle operation success"; };
+            // class opFailure          { description = "Handle operation failure"; };
+            // class opAlliedPool       { description = "Track allied AI force pool"; };
+        };
 
         // ---- Side Objectives ---- (Phase A8 — uncomment when building)
         // class sideobj
@@ -104,14 +103,15 @@ class CfgFunctions
         // };
 
         // ---- TOC ---- (Phase A2 — uncomment when building)
-        // class toc
-        // {
+        class toc
+        {
         //     file = "scripts\toc";
-        //     class tocInit            { description = "Initialise TOC interactions"; };
+               class strategicMapOpen   { description = "Open strategic map from TOC base object" }
+               class tocInit            { description = "Initialise TOC interactions"; };
         //     class tocSquadUI         { description = "Squad management interface"; };
         //     class tocMilitiaUI       { description = "Militia allocation interface"; };
         //     class tocRequisitionUI   { description = "Asset requisition interface"; };
-        // };
+        };
 
         // ---- Utils ----
         class utils
@@ -122,8 +122,7 @@ class CfgFunctions
             class getProfileVar      { description = "Get a profileNamespace variable with default fallback and missing-key warning"; };
             class hasVar             { description = "Check whether a key exists on any namespace"; };
             class log                { description = "Write to RPT; also echoes to systemChat when OSF_debug is true"; };
-            class notify             { description = "Display HUD notification to player"; };
-            class progressBar        { description = "Display timed progress bar with callback"; };
+            class getStateField { description = "Returns a named field from an item's runtime state hashmap." };
         };
     };
 };

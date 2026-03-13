@@ -14,7 +14,7 @@
 // Add your HBQ module variable names here once placed in Eden.
 // 
 // Example (replace hbqModule_tutorial_1 etc. with your actual Eden variable names):
-// ["sector_tutorial_nw", "hbqModules", [hbqModule_tutorial_1, hbqModule_tutorial_2]]
+// ["sector_tutorial", "hbqModules", [hbqModule_tutorial_1, hbqModule_tutorial_2]]
 //     call OSF_fnc_setSector;
 
 // ---- 3. System init stubs (uncomment as each phase is built) ----
@@ -34,7 +34,7 @@
 // ---- 4. Debug output ----
 // Remove before release. Confirms boot sequence ran and state is readable.
 ["init", "init.sqf complete."] call OSF_fnc_log;
-["init", format ["Tutorial sector status: %1", ["sector_tutorial_nw", "status"] call OSF_fnc_getSector]] call OSF_fnc_log;
+["init", format ["Tutorial sector status: %1", ["sector_tutorial", "status"] call OSF_fnc_getSector]] call OSF_fnc_log;
 
 waitUntil {
 	!isNull player && {
@@ -43,4 +43,4 @@ waitUntil {
 		player == player
 	}
 };
-hint format ["[OSF] Tutorial sector status: %1", ["sector_tutorial_nw", "status"] call OSF_fnc_getSector];
+hint format ["[OSF] Tutorial sector status: %1", ["sector_tutorial", "status"] call OSF_fnc_getSector];

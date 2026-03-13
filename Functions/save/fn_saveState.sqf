@@ -11,9 +11,11 @@
 // Usage:  [] call OSF_fnc_saveState;
 // ============================================================
 
+#include "..\..\scripts\constants.hpp"
+
 params [];
 
-private _registry = ["OSF_sectorState", createHashMap] call OSF_fnc_getMissionVar;
+private _registry = [OSF_KEY_SECTOR_STATE, createHashMap] call OSF_fnc_getMissionVar;
 
 // Fields safe to persist — order must match fn_loadState exactly
 private _safeFields = [
@@ -44,8 +46,8 @@ private _saveData = [];
     _saveData pushBack [_sectorID, _entry];
 } forEach (keys _registry);
 
-["OSF_sectorSave", _saveData] call OSF_fnc_setProfileVar;
-["OSF_saveExists", true]      call OSF_fnc_setProfileVar;
+[OSF_PROFILE_SECTOR_SAVE, _saveData] call OSF_fnc_setProfileVar;
+[OSF_PROFILE_SAVE_EXISTS, true]      call OSF_fnc_setProfileVar;
 saveProfileNamespace;
 
 ["saveState", format ["Game state saved. %1 sector(s) written.", count _saveData]] call OSF_fnc_log;

@@ -292,7 +292,7 @@ The northwest tip of Altis around the area of Therisa or the small coastal settl
 
 | Parameter | Value |
 |-----------|-------|
-| Sector ID | sector_tutorial_nw |
+| Sector ID | sector_tutorial |
 | Status at Start | Contested (only sector available) |
 | Approx. Size | 800m x 800m playable area |
 | Command Points | 4 (enough for 2–3 militia groups) |

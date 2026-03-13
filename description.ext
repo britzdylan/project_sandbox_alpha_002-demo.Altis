@@ -127,3 +127,45 @@ class CfgFunctions
     };
 };
 
+// ============================================================
+// CfgIdentities — ODA member appearance / voice pool
+// 24 entries; one is assigned at random per member on spawn
+// or replacement. Identity controls face, voice, and pitch only —
+// display name is always overridden from odaData after setIdentity.
+//
+// Class name format : OSF_ODA_##
+// face             : WhiteHead_## (western male faces)
+// glasses          : "None" (military; no civilian eyewear)
+// speaker          : Male##ENG (cycling across 10 EN voices)
+// pitch            : 0.88–1.12 (natural variation)
+// nameSound        : surname only (used by radio protocol)
+// ============================================================
+
+class CfgIdentities
+{
+    class OSF_ODA_01  { name = "Adams";   face = "WhiteHead_01"; glasses = "None"; speaker = "Male01ENG"; pitch = 1.00; nameSound = "Adams";   };
+    class OSF_ODA_02  { name = "Baker";   face = "WhiteHead_02"; glasses = "None"; speaker = "Male02ENG"; pitch = 0.95; nameSound = "Baker";   };
+    class OSF_ODA_03  { name = "Bell";    face = "WhiteHead_03"; glasses = "None"; speaker = "Male03ENG"; pitch = 1.05; nameSound = "Bell";    };
+    class OSF_ODA_04  { name = "Brooks";  face = "WhiteHead_04"; glasses = "None"; speaker = "Male04ENG"; pitch = 0.92; nameSound = "Brooks";  };
+    class OSF_ODA_05  { name = "Burns";   face = "WhiteHead_05"; glasses = "None"; speaker = "Male05ENG"; pitch = 1.08; nameSound = "Burns";   };
+    class OSF_ODA_06  { name = "Carter";  face = "WhiteHead_06"; glasses = "None"; speaker = "Male06ENG"; pitch = 0.97; nameSound = "Carter";  };
+    class OSF_ODA_07  { name = "Clark";   face = "WhiteHead_07"; glasses = "None"; speaker = "Male07ENG"; pitch = 1.03; nameSound = "Clark";   };
+    class OSF_ODA_08  { name = "Cooper";  face = "WhiteHead_08"; glasses = "None"; speaker = "Male08ENG"; pitch = 0.90; nameSound = "Cooper";  };
+    class OSF_ODA_09  { name = "Davis";   face = "WhiteHead_09"; glasses = "None"; speaker = "Male09ENG"; pitch = 1.10; nameSound = "Davis";   };
+    class OSF_ODA_10  { name = "Ellis";   face = "WhiteHead_10"; glasses = "None"; speaker = "Male10ENG"; pitch = 0.94; nameSound = "Ellis";   };
+    class OSF_ODA_11  { name = "Evans";   face = "WhiteHead_11"; glasses = "None"; speaker = "Male01ENG"; pitch = 1.06; nameSound = "Evans";   };
+    class OSF_ODA_12  { name = "Foster";  face = "WhiteHead_12"; glasses = "None"; speaker = "Male02ENG"; pitch = 0.88; nameSound = "Foster";  };
+    class OSF_ODA_13  { name = "Gray";    face = "WhiteHead_13"; glasses = "None"; speaker = "Male03ENG"; pitch = 1.12; nameSound = "Gray";    };
+    class OSF_ODA_14  { name = "Green";   face = "WhiteHead_14"; glasses = "None"; speaker = "Male04ENG"; pitch = 0.96; nameSound = "Green";   };
+    class OSF_ODA_15  { name = "Hall";    face = "WhiteHead_15"; glasses = "None"; speaker = "Male05ENG"; pitch = 1.04; nameSound = "Hall";    };
+    class OSF_ODA_16  { name = "Harris";  face = "WhiteHead_16"; glasses = "None"; speaker = "Male06ENG"; pitch = 0.91; nameSound = "Harris";  };
+    class OSF_ODA_17  { name = "Hayes";   face = "WhiteHead_17"; glasses = "None"; speaker = "Male07ENG"; pitch = 1.09; nameSound = "Hayes";   };
+    class OSF_ODA_18  { name = "Hill";    face = "WhiteHead_18"; glasses = "None"; speaker = "Male08ENG"; pitch = 0.93; nameSound = "Hill";    };
+    class OSF_ODA_19  { name = "Hughes";  face = "WhiteHead_19"; glasses = "None"; speaker = "Male09ENG"; pitch = 1.07; nameSound = "Hughes";  };
+    class OSF_ODA_20  { name = "Hunt";    face = "WhiteHead_20"; glasses = "None"; speaker = "Male10ENG"; pitch = 0.89; nameSound = "Hunt";    };
+    class OSF_ODA_21  { name = "James";   face = "WhiteHead_21"; glasses = "None"; speaker = "Male01ENG"; pitch = 1.01; nameSound = "James";   };
+    class OSF_ODA_22  { name = "Kelly";   face = "WhiteHead_22"; glasses = "None"; speaker = "Male02ENG"; pitch = 0.98; nameSound = "Kelly";   };
+    class OSF_ODA_23  { name = "King";    face = "WhiteHead_23"; glasses = "None"; speaker = "Male03ENG"; pitch = 1.11; nameSound = "King";    };
+    class OSF_ODA_24  { name = "Lane";    face = "WhiteHead_24"; glasses = "None"; speaker = "Male04ENG"; pitch = 0.86; nameSound = "Lane";    };
+};
+

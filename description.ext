@@ -35,7 +35,7 @@ class CfgFunctions
         // ---- Core ----
         class core
         {
-            class initGameState      { description = "Initialise global game state namespace"; };
+            class boot      { description = "Initialise global game state namespace"; };
         };
 
         // ---- Sectors ----

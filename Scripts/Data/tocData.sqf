@@ -3,8 +3,6 @@
 // 1: TOC Pos (Array)
 // 2: strategicMapMissions (Array)
 // 3: strategicMapObjectId (String)
-// 4: strategicMapWeather (Number)
-// 5: strategicMapTime (Boolean)
 // ----------------------------------------------------------
 
 [
@@ -36,8 +34,6 @@
 				[player]
 			]
 		],
-		"OSF_toc_strategic_map_board_001",
-		1,
-		true
+		"OSF_toc_strategic_map_board_001"
 	]
 ];

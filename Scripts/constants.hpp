@@ -34,5 +34,3 @@
 #define OSF_TOC_POS             "pos"
 #define OSF_TOC_STRATEGIC_MISSION   "strategicMapMission"
 #define OSF_TOC_STRATEGIC_OBJ_ID    "strategicMapObjectId"
-#define OSF_TOC_STRATEGIC_WEATHER   "strategicMapWeather"
-#define OSF_TOC_STRATEGIC_TIME      "strategicMapTime"

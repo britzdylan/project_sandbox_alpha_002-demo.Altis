@@ -7,7 +7,7 @@
 // ---- 1. Boot game state ----
 // Builds or restores the sector hashmap, initializes global vars,
 // and updates all map markers. Must run before anything else.
-[] call OSF_fnc_initGameState;
+[] call OSF_fnc_boot;
 
 // ---- 2. Register HBQ module object references ----
 // Eden-placed HBQ modules are referenced by their editor variable names.

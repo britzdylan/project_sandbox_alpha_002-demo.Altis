@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:community.bistudio.com)",
+      "WebSearch"
+    ]
+  }
+}

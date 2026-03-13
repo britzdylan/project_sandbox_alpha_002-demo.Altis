@@ -2,6 +2,7 @@
 // init.sqf — Operation Sovereign Fury
 // Mission entry point. Runs on every load (fresh and save restore).
 // ============================================================
+#include "scripts\constants.hpp"
 
 // ---- 1. Boot game state ----
 // Builds or restores the sector hashmap, initializes global vars,
@@ -34,7 +35,7 @@
 // ---- 4. Debug output ----
 // Remove before release. Confirms boot sequence ran and state is readable.
 ["init", "init.sqf complete."] call OSF_fnc_log;
-["init", format ["Tutorial sector status: %1", ["sector_tutorial", "status"] call OSF_fnc_getSector]] call OSF_fnc_log;
+["init", format ["Tutorial sector status: %1", [OSF_KEY_SECTOR_STATE, "sector_tutorial", "status"] call OSF_fnc_getStateField]] call OSF_fnc_log;
 
 waitUntil {
 	!isNull player && {
@@ -43,4 +44,4 @@ waitUntil {
 		player == player
 	}
 };
-hint format ["[OSF] Tutorial sector status: %1", ["sector_tutorial", "status"] call OSF_fnc_getSector];
+hint format ["[OSF] Tutorial sector status: %1", [OSF_KEY_SECTOR_STATE, "sector_tutorial", "status"] call OSF_fnc_getStateField];

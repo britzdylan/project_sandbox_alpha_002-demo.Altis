@@ -69,7 +69,7 @@ params [];
 
 // ["boot", format ["%1 sector(s) initialized.", count (keys _registry)]] call OSF_fnc_log; // re-enable when sector block is uncommented
 
+[] call OSF_fnc_odaInit;
 [] call OSF_fnc_tocInit;
-[] call OSF_fnv_odaInit;
 
 ["initGameState", "complete."] call OSF_fnc_log;

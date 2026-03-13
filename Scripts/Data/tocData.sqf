@@ -34,6 +34,7 @@
 				[player]
 			]
 		],
-		"OSF_toc_strategic_map_board_001"
+		"OSF_toc_strategic_map_board_001",
+		"OSF_toc_squad_manager_001"
 	]
 ];

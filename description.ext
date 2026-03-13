@@ -53,16 +53,16 @@ class CfgFunctions
         };
 
         // ---- ODA ---- (Phase A2 — uncomment when building)
-        // class oda
-        // {
+        class oda
+        {
         //     file = "scripts\oda";
-        //     class odaInit            { description = "Initialise ODA roster and unit definitions"; };
+            class odaInit            { description = "Initialise ODA roster and unit definitions"; };
         //     class odaPassives        { description = "Calculate and apply active passive bonuses"; };
         //     class odaIncap           { description = "Handle ODA member incapacitation event"; };
         //     class odaRevive          { description = "Player medkit revive logic"; };
         //     class odaMedicRevive     { description = "Medic auto-revive logic"; };
         //     class odaDeath           { description = "Handle permanent death and replacement timer"; };
-        // };
+        };
 
         // ---- Militia ---- (Phase A4 — uncomment when building)
         // class militia
@@ -104,7 +104,7 @@ class CfgFunctions
         class toc
         {
         //     file = "scripts\toc";
-               class strategicMapOpen   { description = "Open strategic map from TOC base object" }
+               class strategicMapOpen   { description = "Open strategic map from TOC base object" };
                class tocInit            { description = "Initialise TOC interactions"; };
         //     class tocSquadUI         { description = "Squad management interface"; };
         //     class tocMilitiaUI       { description = "Militia allocation interface"; };

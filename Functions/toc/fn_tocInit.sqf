@@ -20,8 +20,7 @@ private _tocRegistry = createHashMap;
 		[OSF_TOC_POS, _toc select 1],
 		[OSF_TOC_STRATEGIC_MISSION, _toc select 2],
 		[OSF_TOC_STRATEGIC_OBJ_ID, _toc select 3],
-		[OSF_TOC_STRATEGIC_WEATHER, _toc select 4],
-		[OSF_TOC_STRATEGIC_TIME, _toc select 5]
+		[OSF_TOC_SQUAD_MANAGER_OBJ_ID, _toc select 4]
 	];
 	_tocRegistry set [_toc select 0, _tocMap];
 } forEach _tocDefs;
@@ -29,16 +28,24 @@ private _tocRegistry = createHashMap;
 [OSF_KEY_TOC_STATE, _tocRegistry] call OSF_fnc_setMissionVar;
 ["initGameState", format ["%1 TOC data initialized.", count (keys _tocRegistry)]] call OSF_fnc_log;
 
-// ---- TOC Strategic Map HoldActions ----
+// ---- TOC HoldActions ----
 
 {
 	private _tocId = _x;
 	private _entry = _tocRegistry get _tocId;
-	private _objVarName = _entry get OSF_TOC_STRATEGIC_OBJ_ID;
-	private _obj = missionNamespace getVariable [_objVarName, objNull];
 
-	if (isNull _obj) exitWith {
-		["tocInit", format ["WARNING: TOC object '%1' not found for TOC '%2'", _objVarName, _tocId]] call OSF_fnc_log;
+	private _strategicMapObjVarName = _entry get OSF_TOC_STRATEGIC_OBJ_ID;
+	private _strategicMapObj = missionNamespace getVariable [_strategicMapObjVarName, objNull];
+
+	private _squadManagerObjVarName = _entry get OSF_TOC_SQUAD_MANAGER_OBJ_ID;
+	private _squadManagerObj = missionNamespace getVariable [_squadManagerObjVarName, objNull];
+
+	if (isNull _strategicMapObj) exitWith {
+		["tocInit", format ["WARNING: TOC object '%1' not found for TOC '%2'", _squadManagerObjVarName, _tocId]] call OSF_fnc_log;
+	};
+
+	if (isNull _squadManagerObj) exitWith {
+		["tocInit", format ["WARNING: TOC object '%1' not found for TOC '%2'", _squadManagerObjVarName, _tocId]] call OSF_fnc_log;
 	};
 
 	/* [
@@ -60,8 +67,10 @@ private _tocRegistry = createHashMap;
 			    showWindow
 		    ]
 	    */
+
+	// ------ Strategic Map
 	[
-		_obj,
+		_strategicMapObj,
 		"Open Operations Map",
 		"\a3\ui_f\data\igui\cfg\actions\take_ca.paa",
 		"\a3\ui_f\data\igui\cfg\actions\take_ca.paa",
@@ -74,12 +83,30 @@ private _tocRegistry = createHashMap;
 		}, // _this#3 = arguments array
 		{},
 		[_entry],
-		2,
+		1,
 		0,
 		false,
 		false,
 		true
 	] call BIS_fnc_holdActionAdd;
 
-	["tocInit", format ["Hold action added for TOC '%1' on object '%2'", _tocId, _objVarName]] call OSF_fnc_log;
+	// ------ Squad Manager
+	[
+		_squadManagerObj,
+		"Open squad management",
+		"\a3\ui_f\data\igui\cfg\actions\take_ca.paa",
+		"\a3\ui_f\data\igui\cfg\actions\take_ca.paa",
+		"(_this distance _target) < 2",
+		"(_this distance _target) < 2",
+		{},
+		{},
+		{}, // _this#3 = arguments array
+		{},
+		[_entry],
+		1,
+		0,
+		false,
+		false,
+		true
+	] call BIS_fnc_holdActionAdd;
 } forEach (keys _tocRegistry);

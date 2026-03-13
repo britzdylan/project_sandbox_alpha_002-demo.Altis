@@ -47,7 +47,7 @@ params ["_tocEntry"];
 
 private _strategicMapMissions = _tocEntry get OSF_TOC_STRATEGIC_MISSION;
 private _strategicMapWeather = random 1;
-private _strategicMapTime    = [true, false] selectRandom;
+private _strategicMapTime = selectRandom [true, false];
 private _pos = _strategicMapMissions select 0 select 0;
 
 [findDisplay 46, _pos, _strategicMapMissions, [], [], [], _strategicMapWeather, _strategicMapTime, 1] call BIS_fnc_strategicMapOpen;

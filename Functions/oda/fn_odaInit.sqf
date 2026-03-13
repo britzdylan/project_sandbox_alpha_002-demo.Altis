@@ -15,14 +15,15 @@ private _odaRegistry = createHashMap;
 		[OSF_ODA_ROLE,              _s select 2],
 		[OSF_ODA_MOS,               _s select 3],
 		[OSF_ODA_PASSIVE_BONUS,     _s select 4],
+		[OSF_ODA_UNIT_CLASS,        _s select 5],
 		// Runtime-only fields — seeded empty; populated at spawn
-		[OSF_ODA_STATUS,            "active"], // active, KIA or 
-		[OSF_ODA_IN_SQUAD,          true],
-		[OSF_ODA_IDENTITY_CLASS,    ""],       // assigned by fn_odaAssignIdentity at spawn
+		[OSF_ODA_STATUS,            OSF_ODA_STATUS_INACTIVE], // set to active by fn_odaSpawn
+		[OSF_ODA_IN_SQUAD,          false],
+		[OSF_ODA_IDENTITY_CLASS,    ""],       // assigned at spawn
 		[OSF_ODA_LOADOUT,           "recon"],
 		[OSF_ODA_UNIT_REF,          objNull],  // re-linked every load; never persisted
-		[OSF_ODA_INCAPACITATED_TIMER,   -1],   // CBA handle; -1 = inactive
-		[OSF_ODA_REPLACEMENT_TIMER,     -1]    // seconds remaining on 6h pipeline; -1 = inactive
+		[OSF_ODA_INCAPACITATED_TIMER,   -1],   // -1 = not incapacitated
+		[OSF_ODA_REPLACEMENT_TIMER,     -1]    // -1 = no pipeline running
 	];
 	_odaRegistry set [_s select 0, _slotMap];
 } forEach _odaDefs;

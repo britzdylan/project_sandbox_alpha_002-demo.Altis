@@ -45,6 +45,7 @@
 #define OSF_ODA_ROLE                "role"
 #define OSF_ODA_MOS                 "mos"
 #define OSF_ODA_PASSIVE_BONUS       "passiveBonus"
+#define OSF_ODA_UNIT_CLASS          "unitClass"
 #define OSF_ODA_STATUS              "status"
 #define OSF_ODA_IN_SQUAD            "inSquad"
 #define OSF_ODA_IDENTITY_CLASS      "identityClass"
@@ -52,3 +53,13 @@
 #define OSF_ODA_UNIT_REF            "unitRef"
 #define OSF_ODA_INCAPACITATED_TIMER "incapacitatedTimer"
 #define OSF_ODA_REPLACEMENT_TIMER   "replacementTimer"
+
+// ------------------------------------------------------------
+// ODA member status values
+// Used with OSF_ODA_STATUS field
+// ------------------------------------------------------------
+#define OSF_ODA_STATUS_ACTIVE           "active"
+#define OSF_ODA_STATUS_INACTIVE         "inactive"
+#define OSF_ODA_STATUS_RR               "r&r"
+#define OSF_ODA_STATUS_KIA              "kia"
+#define OSF_ODA_STATUS_REDEPLOYMENT     "redeployment_in_progress"

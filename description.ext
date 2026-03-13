@@ -172,8 +172,22 @@ class CfgIdentities
 #include "ui\defines.hpp"
 
 // ============================================================
-// OSF_SquadUI — Squad management read-only roster dialog
-// IDD 9001 | List IDC 9100 | Close IDC 9200
+// OSF_SquadUI — ODA Personnel Status Board
+// IDD 9001
+// Controls:  List 9100 | Stats 9300
+//            Deploy 9201 | Dismiss 9202 | Loadout 9203 | Close 9200
+//
+// Vertical layout (safeZoneH multipliers):
+//   0.100–0.158  Header zone (olive BG)
+//   0.160        Sep
+//   0.163–0.700  Roster list
+//   0.702        Sep
+//   0.706–0.730  Status count bar (IDC 9300)
+//   0.732        Sep (green)
+//   0.736–0.758  Color legend
+//   0.760        Sep
+//   0.765–0.799  Action buttons
+//   0.856–0.890  Close button
 // ============================================================
 class OSF_SquadUI
 {
@@ -185,7 +199,8 @@ class OSF_SquadUI
 
     class controlsBackground
     {
-        class OSF_SquadUI_BG : RscText
+        // Main panel — near-black with a faint green tint
+        class BG_Main : RscText
         {
             idc = -1;
             x = "safeZoneX + safeZoneW * 0.15";
@@ -193,74 +208,239 @@ class OSF_SquadUI
             w = "safeZoneW * 0.70";
             h = "safeZoneH * 0.80";
             text = "";
-            colorBackground[] = {0.08, 0.08, 0.08, 0.97};
+            colorBackground[] = {0.04, 0.05, 0.04, 0.97};
         };
-    };
-
-    class controls
-    {
-        class OSF_SquadUI_Title : RscText
+        // Header accent — dark olive strip
+        class BG_Header : RscText
         {
             idc = -1;
             x = "safeZoneX + safeZoneW * 0.15";
             y = "safeZoneY + safeZoneH * 0.10";
             w = "safeZoneW * 0.70";
-            h = "safeZoneH * 0.050";
-            text = "SQUAD MANAGEMENT";
-            sizeEx = 0.040;
-            colorBackground[] = {0.18, 0.12, 0.02, 1.0};
-            colorText[] = {0.95, 0.82, 0.35, 1.0};
+            h = "safeZoneH * 0.058";
+            text = "";
+            colorBackground[] = {0.06, 0.10, 0.06, 1.0};
+        };
+    };
+
+    class controls
+    {
+        // ── Header zone ──────────────────────────────────────────────
+
+        // Operation name — small amber label, top-left
+        class OSF_SquadUI_OpName : RscText
+        {
+            idc = -1;
+            x = "safeZoneX + safeZoneW * 0.155";
+            y = "safeZoneY + safeZoneH * 0.104";
+            w = "safeZoneW * 0.420";
+            h = "safeZoneH * 0.020";
+            text = "OPERATION SOVEREIGN FURY";
+            sizeEx = 0.018;
+            colorBackground[] = {0, 0, 0, 0};
+            colorText[] = {0.95, 0.78, 0.30, 1.0};
         };
 
+        // Classification stamp — small red, top-right
+        class OSF_SquadUI_Classification : RscText
+        {
+            idc = -1;
+            x = "safeZoneX + safeZoneW * 0.683";
+            y = "safeZoneY + safeZoneH * 0.104";
+            w = "safeZoneW * 0.112";
+            h = "safeZoneH * 0.020";
+            text = "CLASSIFIED // OSF";
+            sizeEx = 0.016;
+            colorBackground[] = {0, 0, 0, 0};
+            colorText[] = {0.88, 0.22, 0.22, 1.0};
+        };
+
+        // Board title — main heading, military green
+        class OSF_SquadUI_Title : RscText
+        {
+            idc = -1;
+            x = "safeZoneX + safeZoneW * 0.155";
+            y = "safeZoneY + safeZoneH * 0.126";
+            w = "safeZoneW * 0.690";
+            h = "safeZoneH * 0.030";
+            text = "ODA PERSONNEL STATUS BOARD";
+            sizeEx = 0.030;
+            colorBackground[] = {0, 0, 0, 0};
+            colorText[] = {0.62, 0.80, 0.42, 1.0};
+        };
+
+        // Separator 1 — amber, after header
+        class OSF_Sep1 : RscText
+        {
+            idc = -1;
+            x = "safeZoneX + safeZoneW * 0.155";
+            y = "safeZoneY + safeZoneH * 0.160";
+            w = "safeZoneW * 0.690";
+            h = "safeZoneH * 0.002";
+            text = "";
+            colorBackground[] = {0.95, 0.78, 0.30, 0.85};
+        };
+
+        // ── Roster list ───────────────────────────────────────────────
         // Columns: RANK(0-12%) | ROLE(12-35%) | MOS(35-44%)
         //          STATUS(44-64%) | IN SQUAD(64-76%) | LOADOUT(76-100%)
         class OSF_SquadUI_List : RscListNBox
         {
             idc = 9100;
             x = "safeZoneX + safeZoneW * 0.155";
-            y = "safeZoneY + safeZoneH * 0.158";
+            y = "safeZoneY + safeZoneH * 0.164";
             w = "safeZoneW * 0.690";
-            h = "safeZoneH * 0.600";
+            h = "safeZoneH * 0.536";
             columns[] = {0, 0.12, 0.35, 0.44, 0.64, 0.76};
-            rowHeight = 0.040;
-            sizeEx = 0.028;
-            colorBackground[] = {0.05, 0.05, 0.05, 0.85};
-            colorText[] = {0.9, 0.9, 0.9, 1.0};
-            colorSelect[] = {0.20, 0.15, 0.05, 0.80};
-            colorSelectBackground[] = {0.30, 0.22, 0.05, 0.80};
+            rowHeight = 0.038;
+            sizeEx = 0.026;
+            colorBackground[] = {0.03, 0.04, 0.03, 0.90};
+            colorText[] = {0.82, 0.88, 0.78, 1.0};
+            colorSelect[] = {0.95, 0.78, 0.30, 0.20};
+            colorSelectBackground[] = {0.95, 0.78, 0.30, 0.15};
         };
 
-        // --- Action buttons ---  IDC 9201-9203
-        // Enable/disable logic handled at runtime in fn_tocSquadUI
+        // Separator 2 — amber, after list
+        class OSF_Sep2 : RscText
+        {
+            idc = -1;
+            x = "safeZoneX + safeZoneW * 0.155";
+            y = "safeZoneY + safeZoneH * 0.702";
+            w = "safeZoneW * 0.690";
+            h = "safeZoneH * 0.002";
+            text = "";
+            colorBackground[] = {0.95, 0.78, 0.30, 0.85};
+        };
+
+        // ── Status count bar (populated by fn_tocSquadUI) ─────────────
+        class OSF_SquadUI_Stats : RscText
+        {
+            idc = 9300;
+            x = "safeZoneX + safeZoneW * 0.155";
+            y = "safeZoneY + safeZoneH * 0.707";
+            w = "safeZoneW * 0.690";
+            h = "safeZoneH * 0.024";
+            text = "";
+            sizeEx = 0.020;
+            colorBackground[] = {0, 0, 0, 0};
+            colorText[] = {0.62, 0.70, 0.55, 1.0};
+        };
+
+        // Separator 3 — muted green, before legend
+        class OSF_Sep3 : RscText
+        {
+            idc = -1;
+            x = "safeZoneX + safeZoneW * 0.155";
+            y = "safeZoneY + safeZoneH * 0.733";
+            w = "safeZoneW * 0.690";
+            h = "safeZoneH * 0.002";
+            text = "";
+            colorBackground[] = {0.28, 0.40, 0.20, 0.70};
+        };
+
+        // ── Status legend ─────────────────────────────────────────────
+        class OSF_Legend_Active : RscText
+        {
+            idc = -1;
+            x = "safeZoneX + safeZoneW * 0.155";
+            y = "safeZoneY + safeZoneH * 0.737";
+            w = "safeZoneW * 0.082";
+            h = "safeZoneH * 0.022";
+            text = "ACTIVE";
+            sizeEx = 0.018;
+            colorBackground[] = {0.06, 0.22, 0.06, 1.0};
+            colorText[] = {0.35, 0.85, 0.35, 1.0};
+        };
+        class OSF_Legend_Standby : RscText
+        {
+            idc = -1;
+            x = "safeZoneX + safeZoneW * 0.241";
+            y = "safeZoneY + safeZoneH * 0.737";
+            w = "safeZoneW * 0.082";
+            h = "safeZoneH * 0.022";
+            text = "STANDBY";
+            sizeEx = 0.018;
+            colorBackground[] = {0.14, 0.14, 0.14, 1.0};
+            colorText[] = {0.70, 0.70, 0.70, 1.0};
+        };
+        class OSF_Legend_RR : RscText
+        {
+            idc = -1;
+            x = "safeZoneX + safeZoneW * 0.327";
+            y = "safeZoneY + safeZoneH * 0.737";
+            w = "safeZoneW * 0.082";
+            h = "safeZoneH * 0.022";
+            text = "R&&R";
+            sizeEx = 0.018;
+            colorBackground[] = {0.28, 0.18, 0.04, 1.0};
+            colorText[] = {0.90, 0.75, 0.20, 1.0};
+        };
+        class OSF_Legend_KIA : RscText
+        {
+            idc = -1;
+            x = "safeZoneX + safeZoneW * 0.413";
+            y = "safeZoneY + safeZoneH * 0.737";
+            w = "safeZoneW * 0.082";
+            h = "safeZoneH * 0.022";
+            text = "KIA";
+            sizeEx = 0.018;
+            colorBackground[] = {0.28, 0.04, 0.04, 1.0};
+            colorText[] = {0.90, 0.25, 0.25, 1.0};
+        };
+        class OSF_Legend_Inbound : RscText
+        {
+            idc = -1;
+            x = "safeZoneX + safeZoneW * 0.499";
+            y = "safeZoneY + safeZoneH * 0.737";
+            w = "safeZoneW * 0.082";
+            h = "safeZoneH * 0.022";
+            text = "INBOUND";
+            sizeEx = 0.018;
+            colorBackground[] = {0.04, 0.16, 0.28, 1.0};
+            colorText[] = {0.30, 0.75, 0.95, 1.0};
+        };
+
+        // Separator 4 — amber, before action buttons
+        class OSF_Sep4 : RscText
+        {
+            idc = -1;
+            x = "safeZoneX + safeZoneW * 0.155";
+            y = "safeZoneY + safeZoneH * 0.762";
+            w = "safeZoneW * 0.690";
+            h = "safeZoneH * 0.002";
+            text = "";
+            colorBackground[] = {0.95, 0.78, 0.30, 0.85};
+        };
+
+        // ── Action buttons (IDC 9201-9203) ────────────────────────────
+        // Enable/disable logic wired at runtime by fn_tocSquadUI
         class OSF_SquadUI_BtnDeploy : RscButton
         {
             idc = 9201;
             x = "safeZoneX + safeZoneW * 0.155";
-            y = "safeZoneY + safeZoneH * 0.770";
+            y = "safeZoneY + safeZoneH * 0.767";
             w = "safeZoneW * 0.100";
             h = "safeZoneH * 0.034";
             text = "DEPLOY";
             colorBackground[] = {0.10, 0.30, 0.10, 1.0};
             action = "";
         };
-
         class OSF_SquadUI_BtnDismiss : RscButton
         {
             idc = 9202;
             x = "safeZoneX + safeZoneW * 0.265";
-            y = "safeZoneY + safeZoneH * 0.770";
-            w = "safeZoneW * 0.100";
+            y = "safeZoneY + safeZoneH * 0.767";
+            w = "safeZoneW * 0.120";
             h = "safeZoneH * 0.034";
             text = "DISMISS (R&&R)";
             colorBackground[] = {0.35, 0.22, 0.05, 1.0};
             action = "";
         };
-
         class OSF_SquadUI_BtnLoadout : RscButton
         {
             idc = 9203;
-            x = "safeZoneX + safeZoneW * 0.375";
-            y = "safeZoneY + safeZoneH * 0.770";
+            x = "safeZoneX + safeZoneW * 0.395";
+            y = "safeZoneY + safeZoneH * 0.767";
             w = "safeZoneW * 0.145";
             h = "safeZoneH * 0.034";
             text = "CHANGE LOADOUT";

@@ -38,6 +38,13 @@ private _statusColors = createHashMapFromArray [
 private _roster = [OSF_KEY_ODA_ROSTER, createHashMap] call OSF_fnc_getMissionVar;
 private _rowIdx = 1; // row 0 = header
 
+// Status counters for the stats bar
+private _cntActive      = 0;
+private _cntInactive    = 0;
+private _cntRR          = 0;
+private _cntKIA         = 0;
+private _cntRedeployment= 0;
+
 {
 	private _slot = _y;
 	private _status  = _slot get OSF_ODA_STATUS;
@@ -63,6 +70,15 @@ private _rowIdx = 1; // row 0 = header
 		if (_inSquad) then {[0.35, 0.85, 0.35, 1.0]} else {[0.70, 0.70, 0.70, 1.0]}
 	];
 
+	// Tally for stats bar
+	switch (_status) do {
+		case OSF_ODA_STATUS_ACTIVE:      { _cntActive       = _cntActive       + 1 };
+		case OSF_ODA_STATUS_INACTIVE:    { _cntInactive     = _cntInactive     + 1 };
+		case OSF_ODA_STATUS_RR:          { _cntRR           = _cntRR           + 1 };
+		case OSF_ODA_STATUS_KIA:         { _cntKIA          = _cntKIA          + 1 };
+		case OSF_ODA_STATUS_REDEPLOYMENT:{ _cntRedeployment = _cntRedeployment + 1 };
+	};
+
 	_rowIdx = _rowIdx + 1;
 } forEach _roster;
 
@@ -72,6 +88,12 @@ private _rowIdx = 1; // row 0 = header
 // Event handlers
 // ============================================================
 private _display = findDisplay 9001;
+
+// --- Populate stats bar ---
+(_display displayCtrl 9300) ctrlSetText format [
+	"DEPLOYED: %1    STANDBY: %2    R&R: %3    KIA: %4    INBOUND: %5",
+	_cntActive, _cntInactive, _cntRR, _cntKIA, _cntRedeployment
+];
 
 // Action buttons start disabled — nothing selected yet
 (_display displayCtrl 9201) ctrlEnable false;

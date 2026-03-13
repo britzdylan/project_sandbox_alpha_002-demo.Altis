@@ -212,22 +212,60 @@ class OSF_SquadUI
             colorText[] = {0.95, 0.82, 0.35, 1.0};
         };
 
-        // Columns: SLOT(0-20%) | RANK(20-31%) | ROLE(31-53%) | MOS(53-61%)
-        //          STATUS(61-74%) | IN SQUAD(74-84%) | LOADOUT(84-100%)
+        // Columns: RANK(0-12%) | ROLE(12-35%) | MOS(35-44%)
+        //          STATUS(44-64%) | IN SQUAD(64-76%) | LOADOUT(76-100%)
         class OSF_SquadUI_List : RscListNBox
         {
             idc = 9100;
             x = "safeZoneX + safeZoneW * 0.155";
             y = "safeZoneY + safeZoneH * 0.158";
             w = "safeZoneW * 0.690";
-            h = "safeZoneH * 0.675";
-            columns[] = {0, 0.20, 0.31, 0.53, 0.61, 0.74, 0.84};
+            h = "safeZoneH * 0.600";
+            columns[] = {0, 0.12, 0.35, 0.44, 0.64, 0.76};
             rowHeight = 0.040;
             sizeEx = 0.028;
             colorBackground[] = {0.05, 0.05, 0.05, 0.85};
             colorText[] = {0.9, 0.9, 0.9, 1.0};
             colorSelect[] = {0.20, 0.15, 0.05, 0.80};
             colorSelectBackground[] = {0.30, 0.22, 0.05, 0.80};
+        };
+
+        // --- Action buttons ---  IDC 9201-9203
+        // Enable/disable logic handled at runtime in fn_tocSquadUI
+        class OSF_SquadUI_BtnDeploy : RscButton
+        {
+            idc = 9201;
+            x = "safeZoneX + safeZoneW * 0.155";
+            y = "safeZoneY + safeZoneH * 0.770";
+            w = "safeZoneW * 0.100";
+            h = "safeZoneH * 0.034";
+            text = "DEPLOY";
+            colorBackground[] = {0.10, 0.30, 0.10, 1.0};
+            action = "";
+        };
+
+        class OSF_SquadUI_BtnDismiss : RscButton
+        {
+            idc = 9202;
+            x = "safeZoneX + safeZoneW * 0.265";
+            y = "safeZoneY + safeZoneH * 0.770";
+            w = "safeZoneW * 0.100";
+            h = "safeZoneH * 0.034";
+            text = "DISMISS (R&&R)";
+            colorBackground[] = {0.35, 0.22, 0.05, 1.0};
+            action = "";
+        };
+
+        class OSF_SquadUI_BtnLoadout : RscButton
+        {
+            idc = 9203;
+            x = "safeZoneX + safeZoneW * 0.375";
+            y = "safeZoneY + safeZoneH * 0.770";
+            w = "safeZoneW * 0.145";
+            h = "safeZoneH * 0.034";
+            text = "CHANGE LOADOUT";
+            colorBackground[] = {0.10, 0.18, 0.35, 1.0};
+            action = "";
         };
 
         class OSF_SquadUI_BtnClose : RscButton

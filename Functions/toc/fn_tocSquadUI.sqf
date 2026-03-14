@@ -1,7 +1,9 @@
 // ============================================================
 // OSF_fnc_tocSquadUI
-// Opens the squad management dialog, populates the ODA roster,
-// and wires selection-aware action buttons.
+// Opens the squad management dialog (if not already open) and
+// populates / refreshes the ODA roster and stats bar.
+// Event handlers are wired once on initial open; subsequent
+// calls (from button actions) only refresh the list in-place.
 //
 // params: none
 // Returns: nothing
@@ -9,7 +11,16 @@
 // ============================================================
 #include "..\..\scripts\constants.hpp"
 
-createDialog "OSF_SquadUI";
+private _display = findDisplay 9001;
+private _isOpen = !isNull _display;
+
+if (!_isOpen) then {
+	createDialog "OSF_SquadUI";
+	_display = findDisplay 9001;
+};
+
+// Clear listbox (removes all rows including previous header)
+lnbClear 9100;
 
 // --- Header row ---
 lnbAddRow [9100, ["RANK", "ROLE", "MOS", "STATUS", "IN SQUAD", "LOADOUT"]];
@@ -84,23 +95,30 @@ private _cntRedeployment= 0;
 
 ["tocSquadUI", format ["%1 slot(s) displayed.", count (keys _roster)]] call OSF_fnc_log;
 
-// ============================================================
-// Event handlers
-// ============================================================
-private _display = findDisplay 9001;
-
 // --- Populate stats bar ---
 (_display displayCtrl 9300) ctrlSetText format [
 	"DEPLOYED: %1    STANDBY: %2    R&R: %3    KIA: %4    INBOUND: %5",
 	_cntActive, _cntInactive, _cntRR, _cntKIA, _cntRedeployment
 ];
 
-// Action buttons start disabled — nothing selected yet
+// Buttons reset to disabled after every refresh (selection is cleared by lnbClear)
 (_display displayCtrl 9201) ctrlEnable false;
 (_display displayCtrl 9202) ctrlEnable false;
 (_display displayCtrl 9203) ctrlEnable false;
 
-// --- Row selection: enable buttons based on selected slot's status ---
+// ============================================================
+// Event handlers — wired once on initial open only
+// ============================================================
+private _loadouts = ["recon", "assault", "support", "sniper"];
+lbClear 9203;
+// Populate the loadout combo once (items don't change)
+{
+	(_display displayCtrl 9203) lbAdd toUpper _x;
+} forEach _loadouts;
+
+if (_isOpen) exitWith {};
+
+// --- Row selection: enable buttons and sync combo to selected slot ---
 (_display displayCtrl 9100) ctrlAddEventHandler ["LBSelChanged", {
 	params ["_ctrl", "_row"];
 	private _display = ctrlParent _ctrl;
@@ -121,8 +139,13 @@ private _display = findDisplay 9001;
 	(_display displayCtrl 9201) ctrlEnable (_status == OSF_ODA_STATUS_INACTIVE);
 	// Dismiss: only available when active
 	(_display displayCtrl 9202) ctrlEnable (_status == OSF_ODA_STATUS_ACTIVE);
-	// Change loadout: only available when active
-	(_display displayCtrl 9203) ctrlEnable (_status == OSF_ODA_STATUS_ACTIVE);
+	// Loadout combo: available when active or standby
+	(_display displayCtrl 9203) ctrlEnable (_status in [OSF_ODA_STATUS_ACTIVE, OSF_ODA_STATUS_INACTIVE]);
+
+	// Sync combo selection to the slot's current loadout
+	private _loadouts = ["recon", "assault", "support", "sniper"];
+	private _current = _slot getOrDefault [OSF_ODA_LOADOUT, "recon"];
+	(_display displayCtrl 9203) lbSetCurSel (_loadouts find _current);
 }];
 
 // --- DEPLOY button ---
@@ -130,8 +153,9 @@ private _display = findDisplay 9001;
 	private _row = lnbCurSelRow 9100;
 	if (_row <= 0) exitWith {};
 	private _slotId = lnbData [9100, [_row, 0]];
-	// TODO: [_slotId] call OSF_fnc_odaSpawn;
-	["tocSquadUI", format ["PLACEHOLDER: deploy %1", _slotId]] call OSF_fnc_log;
+	[_slotId] call OSF_fnc_odaSpawn;
+	lnbSetCurSelRow [9100, -1];
+	[] call OSF_fnc_tocSquadUI;
 }];
 
 // --- DISMISS button ---
@@ -139,15 +163,27 @@ private _display = findDisplay 9001;
 	private _row = lnbCurSelRow 9100;
 	if (_row <= 0) exitWith {};
 	private _slotId = lnbData [9100, [_row, 0]];
-	// TODO: [_slotId] call OSF_fnc_odaDismiss;
-	["tocSquadUI", format ["PLACEHOLDER: dismiss %1", _slotId]] call OSF_fnc_log;
+	[_slotId] call OSF_fnc_odaDismiss;
+	lnbSetCurSelRow [9100, -1];
+	[] call OSF_fnc_tocSquadUI;
 }];
 
-// --- CHANGE LOADOUT button ---
-(_display displayCtrl 9203) ctrlAddEventHandler ["ButtonClick", {
+// --- LOADOUT combo: apply selection immediately on change ---
+// Actual re-equipping applied when loadout system is built.
+(_display displayCtrl 9203) ctrlAddEventHandler ["LBSelChanged", {
+	params ["_ctrl", "_idx"];
 	private _row = lnbCurSelRow 9100;
 	if (_row <= 0) exitWith {};
+
+	private _loadouts = ["recon", "assault", "support", "sniper"];
+	if (_idx < 0 || _idx >= count _loadouts) exitWith {};
+
 	private _slotId = lnbData [9100, [_row, 0]];
-	// TODO: [_slotId] call OSF_fnc_odaSetLoadout;
-	["tocSquadUI", format ["PLACEHOLDER: change loadout %1", _slotId]] call OSF_fnc_log;
+	private _roster = [OSF_KEY_ODA_ROSTER, createHashMap] call OSF_fnc_getMissionVar;
+	private _slot = _roster getOrDefault [_slotId, createHashMap];
+	_slot set [OSF_ODA_LOADOUT, _loadouts select _idx];
+	[OSF_KEY_ODA_ROSTER, _roster] call OSF_fnc_setMissionVar;
+
+	lnbSetText [9100, [_row, 5], _loadouts select _idx];
+	// lnbSetCurSelRow [9100, -1];
 }];

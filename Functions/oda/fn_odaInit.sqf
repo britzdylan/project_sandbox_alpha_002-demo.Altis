@@ -28,9 +28,9 @@ private _odaRegistry = createHashMap;
 	_odaRegistry set [_s select 0, _slotMap];
 } forEach _odaDefs;
 
+[OSF_KEY_ODA_ROSTER, _odaRegistry] call OSF_fnc_setMissionVar;
+
 {
 	[_x] call OSF_fnc_odaSpawn;
 } forEach (keys _odaRegistry);
-
-[OSF_KEY_ODA_ROSTER, _odaRegistry] call OSF_fnc_setMissionVar;
 ["boot", format ["%1 ODA slot(s) initialized.", count (keys _odaRegistry)]] call OSF_fnc_log;

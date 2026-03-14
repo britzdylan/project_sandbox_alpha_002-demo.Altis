@@ -58,7 +58,7 @@ class CfgFunctions
         //     file = "scripts\oda";
             class odaInit            { description = "Initialise ODA roster and unit definitions"; };
             class odaSpawn           { description = "Spawn a single ODA slot; assigns identity and joins player group"; };
-            class odaMissionStart    { description = "Spawn all ODA slots near the player at mission start"; };
+            class odaDismiss         { description = "Remove a deployed ODA unit and return slot to standby"; };
         //     class odaPassives        { description = "Calculate and apply active passive bonuses"; };
         //     class odaIncap           { description = "Handle ODA member incapacitation event"; };
         //     class odaRevive          { description = "Player medkit revive logic"; };
@@ -438,16 +438,17 @@ class OSF_SquadUI
             colorBackground[] = {0.35, 0.22, 0.05, 1.0};
             action = "";
         };
-        class OSF_SquadUI_BtnLoadout : RscButton
+        class OSF_SquadUI_CmbLoadout : RscCombo
         {
             idc = 9203;
             x = "safeZoneX + safeZoneW * 0.395";
             y = "safeZoneY + safeZoneH * 0.767";
             w = "safeZoneW * 0.145";
             h = "safeZoneH * 0.034";
-            text = "CHANGE LOADOUT";
             colorBackground[] = {0.10, 0.18, 0.35, 1.0};
-            action = "";
+            colorSelect[] = {0.10, 0.18, 0.35, 1.0};
+            colorSelectBackground[] = {0.15, 0.25, 0.50, 1.0};
+            sizeEx = 0.022;
         };
 
         class OSF_SquadUI_BtnClose : RscButton

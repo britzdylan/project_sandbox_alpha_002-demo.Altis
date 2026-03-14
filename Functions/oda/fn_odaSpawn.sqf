@@ -62,14 +62,14 @@ private _identityClass = selectRandom _available;
 
 // --- Resolve spawn position ---
 if (count _spawnPos == 0) then {
-	_spawnPos = player getPos [3 + random 5, random 360];
+	_spawnPos = getPos player;
 };
 
 // --- Create unit then join player's group ---
 private _unitClass = _slot get OSF_ODA_UNIT_CLASS;
 private _rank = _slot get OSF_ODA_RANK;
 private _unit = group player createUnit [_unitClass, _spawnPos, [], 20, "NONE"];
-_unit setRank _ranked;
+_unit setRank _rank;
 _unit setSkill 0.75;
 [_unit] joinSilent (group player);
 

@@ -57,6 +57,8 @@ class CfgFunctions
         {
         //     file = "scripts\oda";
             class odaInit            { description = "Initialise ODA roster and unit definitions"; };
+            class odaSpawn           { description = "Spawn a single ODA slot; assigns identity and joins player group"; };
+            class odaMissionStart    { description = "Spawn all ODA slots near the player at mission start"; };
         //     class odaPassives        { description = "Calculate and apply active passive bonuses"; };
         //     class odaIncap           { description = "Handle ODA member incapacitation event"; };
         //     class odaRevive          { description = "Player medkit revive logic"; };

@@ -16,11 +16,11 @@ private _odaRegistry = createHashMap;
 		[OSF_ODA_MOS, _s select 3],
 		[OSF_ODA_PASSIVE_BONUS, _s select 4],
 		[OSF_ODA_UNIT_CLASS, _s select 5],
+		[OSF_ODA_LOADOUT, _s select 6], // apply default loadout
 		// Runtime-only fields — seeded empty; populated at spawn
 		[OSF_ODA_STATUS, OSF_ODA_STATUS_INACTIVE], // set to active by fn_odaSpawn
 		[OSF_ODA_IN_SQUAD, false],
 		[OSF_ODA_IDENTITY_CLASS, ""], // assigned at spawn
-		[OSF_ODA_LOADOUT, "recon"],
 		[OSF_ODA_UNIT_REF, objNull], // re-linked every load; never persisted
 		[OSF_ODA_INCAPACITATED_TIMER, -1], // -1 = not incapacitated
 		[OSF_ODA_REPLACEMENT_TIMER, -1]    // -1 = no pipeline running

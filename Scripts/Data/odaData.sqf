@@ -13,7 +13,7 @@
 //   [3] mos          (string) — MOS code
 //   [4] passiveBonus (string) — "" for none, or bonus identifier
 //   [5] unitClass    (string) — engine class passed to createUnit; fixed at spawn, never changes
-// 
+//   [6] loadout (string) - defualt loadout of the role
 // NOTE: Each unit can spawn as one of the options noted in the comments.
 //       The class chosen at spawn is permanent for that unit's lifetime.
 //       Loadout (gear preset) can still be changed at any time via the squad manager.
@@ -25,12 +25,13 @@
 
 [
 	[
-		"slot_scout_0", // Options: Rifleman, Marksman, Auto-rifleman
+		"slot_scout_0", // Options: Rifleman, Marksman, Auto-rifleman. Skins: Nato, Guerilla, Stealth
 		"PRIVATE",
 		"Scout",
 		"18X",
 		"",
-		"B_recon_F"
+		"B_recon_F",
+		"oda_nato_rifleman"
 	],
 	[
 		"slot_scout_1", // Options: Rifleman, Marksman, Auto-rifleman
@@ -38,7 +39,8 @@
 		"Scout",
 		"18X",
 		"",
-		"B_recon_F"
+		"B_recon_F",
+		"oda_nato_rifleman"
 	],
 	[
 		"slot_weapons_0", // Options: Grenadier, AT
@@ -46,7 +48,8 @@
 		"Weapons Sergeant",
 		"18B",
 		"",
-		"B_recon_GL_F"
+		"B_recon_GL_F",
+		"oda_nato_rifleman"
 	],
 	[
 		"slot_weapons_1", // Options: Grenadier, AT
@@ -54,7 +57,8 @@
 		"Weapons Sergeant",
 		"18B",
 		"",
-		"B_recon_AT_F"
+		"B_recon_AT_F",
+		"oda_nato_rifleman"
 	],
 	[
 		"slot_engineer_0", // Options: Demo, Mechanic
@@ -62,7 +66,8 @@
 		"Engineer",
 		"18C",
 		"osf_squad_passive_engineer",
-		"B_recon_exp_F"
+		"B_recon_exp_F",
+		"oda_nato_rifleman"
 	],
 	[
 		"slot_engineer_1", // Options: Demo, Mechanic
@@ -70,7 +75,8 @@
 		"Engineer",
 		"18C",
 		"osf_squad_passive_engineer",
-		"B_recon_exp_F"
+		"B_recon_exp_F",
+		"oda_nato_rifleman"
 	],
 	[
 		"slot_intelligence_0", // Options: UAV operator
@@ -78,7 +84,8 @@
 		"Intel officer",
 		"18F",
 		"osf_squad_passive_uav",
-		"B_recon_F"
+		"B_recon_F",
+		"oda_nato_rifleman"
 	],
 	[
 		"slot_intelligence_1", // Options: UAV operator
@@ -86,7 +93,8 @@
 		"Intel officer",
 		"18F",
 		"osf_squad_passive_uav",
-		"B_recon_F"
+		"B_recon_F",
+		"oda_nato_rifleman"
 	],
 	[
 		"slot_comms_0", // Options: Offshore support
@@ -94,7 +102,8 @@
 		"Communications officer",
 		"18E",
 		"osf_squad_comms",
-		"B_recon_JTAC_F"
+		"B_recon_JTAC_F",
+		"oda_nato_rifleman"
 	],
 	[
 		"slot_comms_1", // Options: Offshore support
@@ -102,7 +111,8 @@
 		"Communications officer",
 		"18E",
 		"osf_squad_comms",
-		"B_recon_JTAC_F"
+		"B_recon_JTAC_F",
+		"oda_nato_rifleman"
 	],
 	[
 		"slot_medic_0", // Options: Paramedic
@@ -110,6 +120,7 @@
 		"Paramedic",
 		"18D",
 		"osf_squad_passive_medical",
-		"B_recon_medic_F"
+		"B_recon_medic_F",
+		"oda_nato_rifleman"
 	]
 ]

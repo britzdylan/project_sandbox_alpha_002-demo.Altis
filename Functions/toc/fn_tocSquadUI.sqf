@@ -109,16 +109,11 @@ private _cntRedeployment= 0;
 // ============================================================
 // Event handlers — wired once on initial open only
 // ============================================================
-private _loadouts = ["recon", "assault", "support", "sniper"];
 lbClear 9203;
-// Populate the loadout combo once (items don't change)
-{
-	(_display displayCtrl 9203) lbAdd toUpper _x;
-} forEach _loadouts;
 
 if (_isOpen) exitWith {};
 
-// --- Row selection: enable buttons and sync combo to selected slot ---
+// --- Row selection: enable buttons and sync combo to selected slot and populates loadouts ---
 (_display displayCtrl 9100) ctrlAddEventHandler ["LBSelChanged", {
 	params ["_ctrl", "_row"];
 	private _display = ctrlParent _ctrl;
@@ -143,8 +138,12 @@ if (_isOpen) exitWith {};
 	(_display displayCtrl 9203) ctrlEnable (_status in [OSF_ODA_STATUS_ACTIVE, OSF_ODA_STATUS_INACTIVE]);
 
 	// Sync combo selection to the slot's current loadout
-	private _loadouts = ["recon", "assault", "support", "sniper"];
-	private _current = _slot getOrDefault [OSF_ODA_LOADOUT, "recon"];
+	private _loadouts = []; // TODO: get based on role
+	// Populate the loadout combo each time
+	{
+		(_display displayCtrl 9203) lbAdd toUpper _x;
+	} forEach _loadouts;
+	private _current = _slot getOrDefault [OSF_ODA_LOADOUT];
 	(_display displayCtrl 9203) lbSetCurSel (_loadouts find _current);
 }];
 
@@ -175,15 +174,13 @@ if (_isOpen) exitWith {};
 	private _row = lnbCurSelRow 9100;
 	if (_row <= 0) exitWith {};
 
-	private _loadouts = ["recon", "assault", "support", "sniper"];
+	private _loadouts = []; // TODO: get array based on role
 	if (_idx < 0 || _idx >= count _loadouts) exitWith {};
 
 	private _slotId = lnbData [9100, [_row, 0]];
-	private _roster = [OSF_KEY_ODA_ROSTER, createHashMap] call OSF_fnc_getMissionVar;
-	private _slot = _roster getOrDefault [_slotId, createHashMap];
-	_slot set [OSF_ODA_LOADOUT, _loadouts select _idx];
-	[OSF_KEY_ODA_ROSTER, _roster] call OSF_fnc_setMissionVar;
+	private _roster = [OSF_KEY_ODA_ROSTER] call OSF_fnc_getMissionVar;
+	private _loadoutId = _loadouts select _idx;
+	[_slotId, _loadoutId] call OSF_fnc_odaApplyLoadout;
 
-	lnbSetText [9100, [_row, 5], _loadouts select _idx];
-	// lnbSetCurSelRow [9100, -1];
+	lnbSetText [9100, [_row, 5], _loadoutId];
 }];

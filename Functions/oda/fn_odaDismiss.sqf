@@ -13,10 +13,10 @@
 
 params ["_slotId"];
 
-private _roster = [OSF_KEY_ODA_ROSTER, createHashMap] call OSF_fnc_getMissionVar;
-private _slot = _roster getOrDefault [_slotId, createHashMap];
+private _roster = [OSF_KEY_ODA_ROSTER] call OSF_fnc_getMissionVar;
+private _slot = [OSF_KEY_ODA_ROSTER, _slotId] call OSF_fnc_getState;
 
-if (count _slot == 0) exitWith {
+if (isNIl "_slot") exitWith {
 	["odaDismiss", format ["ERROR: slot '%1' not found in roster", _slotId]] call OSF_fnc_log;
 };
 

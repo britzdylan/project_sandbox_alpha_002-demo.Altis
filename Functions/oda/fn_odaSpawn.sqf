@@ -18,10 +18,10 @@
 params ["_slotId", ["_spawnPos", []]];
 
 // --- get slot from roster ---
-private _roster = [OSF_KEY_ODA_ROSTER, createHashMap] call OSF_fnc_getMissionVar;
-private _slot = _roster getOrDefault [_slotId, createHashMap];
+private _roster = [OSF_KEY_ODA_ROSTER] call OSF_fnc_getMissionVar;
+private _slot = [OSF_KEY_ODA_ROSTER, _slotId] call OSF_fnc_getState;
 
-if (count _slot == 0) exitWith {
+if (isNil "_slot") exitWith {
 	["odaSpawn", format ["ERROR: slot '%1' not found in roster", _slotId]] call OSF_fnc_log;
 	objNull
 };
@@ -68,14 +68,17 @@ if (count _spawnPos == 0) then {
 // --- Create unit then join player's group ---
 private _unitClass = _slot get OSF_ODA_UNIT_CLASS;
 private _rank = _slot get OSF_ODA_RANK;
+private _loadoutId = _slot get OSF_ODA_LOADOUT;
 private _unit = group player createUnit [_unitClass, _spawnPos, [], 20, "NONE"];
+
 _unit setRank _rank;
 _unit setSkill 0.75;
 [_unit] joinSilent (group player);
 
 // --- apply identity and display name ---
 _unit setIdentity _identityClass;
-private _surname = getText (configFile >> "CfgIdentities" >> _identityClass >> "name");
+
+
 
 // --- Update roster ---
 _slot set [OSF_ODA_STATUS, OSF_ODA_STATUS_ACTIVE];
@@ -84,5 +87,8 @@ _slot set [OSF_ODA_IDENTITY_CLASS, _identityClass];
 _slot set [OSF_ODA_UNIT_REF, _unit];
 [OSF_KEY_ODA_ROSTER, _roster] call OSF_fnc_setMissionVar;
 
-["odaSpawn", format ["Spawned %1 [%2] at %3", _surname, _slotId, _spawnPos]] call OSF_fnc_log;
+//apply loadout
+[_slotId, _loadoutId] call OSF_fnc_odaApplyLoadout;
+
+["odaSpawn", format ["Spawned %1 [%2]", _slotId, _spawnPos]] call OSF_fnc_log;
 _unit

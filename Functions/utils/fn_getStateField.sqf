@@ -10,7 +10,13 @@
 
 params ["_hashMap", "_ID", "_fieldName"];
 
-private _registry = [_hashMap, createHashMap] call OSF_fnc_getMissionVar;
+private _registry = [_hashMap, nil] call OSF_fnc_getMissionVar;
+
+if (isNil "_registry") exitWith {
+	["getStateField", format ["unknown _hashMap '%1'", _hashMap]] call OSF_fnc_log;
+	nil
+};
+
 private _hashItem = _registry getOrDefault [_ID, nil];
 
 if (isNil "_hashItem") exitWith {

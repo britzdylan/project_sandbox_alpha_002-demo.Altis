@@ -34,7 +34,7 @@ _x addItemToVest "FirstAidKit";
 for "_i" from 1 to 3 do {
 	_x addItemToVest "SmokeShell";
 };
-for "_i" from 1 to 8 do {
+for "_i" from 1 to 4 do {
 	_x addItemToVest "30Rnd_556x45_Stanag_Sand_red";
 };
 _x addHeadgear "H_Booniehat_oli";

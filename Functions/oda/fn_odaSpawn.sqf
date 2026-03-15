@@ -85,9 +85,8 @@ _slot set [OSF_ODA_STATUS, OSF_ODA_STATUS_ACTIVE];
 _slot set [OSF_ODA_IN_SQUAD, true];
 _slot set [OSF_ODA_IDENTITY_CLASS, _identityClass];
 _slot set [OSF_ODA_UNIT_REF, _unit];
-[OSF_KEY_ODA_ROSTER, _roster] call OSF_fnc_setMissionVar;
 
-//apply loadout
+// apply loadout
 [_slotId, _loadoutId] call OSF_fnc_odaApplyLoadout;
 
 ["odaSpawn", format ["Spawned %1 [%2]", _slotId, _spawnPos]] call OSF_fnc_log;

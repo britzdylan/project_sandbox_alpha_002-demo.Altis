@@ -1,4 +1,5 @@
 params ["_x"];
+
 comment "Exported from Arsenal by britz";
 
 comment "[!] UNIT MUST BE LOCAL [!]";
@@ -15,12 +16,11 @@ removeHeadgear _x;
 removeGoggles _x;
 
 comment "Add weapons";
-_x addWeapon "arifle_SPAR_03_snd_F";
-_x addPrimaryWeaponItem "suppressor_h_sand_lxWS";
+_x addWeapon "arifle_SPAR_01_snd_F";
+_x addPrimaryWeaponItem "muzzle_snds_m_snd_F";
 _x addPrimaryWeaponItem "Aegis_acc_pointer_DM_Sand";
-_x addPrimaryWeaponItem "optic_DMS";
-_x addPrimaryWeaponItem "20Rnd_762x51_Mag";
-_x addPrimaryWeaponItem "bipod_01_F_snd";
+_x addPrimaryWeaponItem "ef_optic_Holosight_coy";
+_x addPrimaryWeaponItem "30Rnd_556x45_Stanag_Sand_red";
 
 comment "Add containers";
 _x forceAddUniform "U_B_CTRG_Soldier_3_Arid_F";
@@ -31,16 +31,16 @@ _x addWeapon "Binocular";
 
 comment "Add items to containers";
 
+_x addItemToVest "Medikit";
 for "_i" from 1 to 2 do {
-	_x addItemToVest "20Rnd_762x51_Mag";
+	_x addItemToVest "FirstAidKit";
 };
-_x addItemToVest "FirstAidKit";
-for "_i" from 1 to 3 do {
-	_x addItemToVest "SmokeShell";
+_x addItemToVest "SmokeShell";
+for "_i" from 1 to 4 do {
+	_x addItemToVest "30Rnd_556x45_Stanag_Sand_red";
 };
-_x addItemToVest "20Rnd_762x51_Mag";
-_x addHeadgear "H_Booniehat_oli";
-_x addGoggles "G_Shemag_oli";
+_x addHeadgear "H_Cap_blk";
+_x addGoggles "Aegis_G_Condor_EyePro_F";
 
 comment "Add items";
 _x linkItem "ItemMap";

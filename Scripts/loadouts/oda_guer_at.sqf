@@ -1,4 +1,5 @@
 params ["_x"];
+
 comment "Exported from Arsenal by britz";
 
 comment "[!] UNIT MUST BE LOCAL [!]";
@@ -15,31 +16,24 @@ removeHeadgear _x;
 removeGoggles _x;
 
 comment "Add weapons";
-_x addWeapon "arifle_SPAR_03_snd_F";
-_x addPrimaryWeaponItem "suppressor_h_sand_lxWS";
-_x addPrimaryWeaponItem "Aegis_acc_pointer_DM_Sand";
-_x addPrimaryWeaponItem "optic_DMS";
-_x addPrimaryWeaponItem "20Rnd_762x51_Mag";
-_x addPrimaryWeaponItem "bipod_01_F_snd";
+_x addWeapon "Aegis_arifle_AKM74_sand_F";
+_x addPrimaryWeaponItem "Aegis_optic_1p87_snd";
+_x addPrimaryWeaponItem "30Rnd_545x39_Mag_Sand_F";
+_x addWeapon "Aegis_launch_RPG7M_F";
+_x addSecondaryWeaponItem "PSRL1_HEAT_RF";
 
 comment "Add containers";
-_x forceAddUniform "U_B_CTRG_Soldier_3_Arid_F";
-_x addVest "V_ChestrigF_rgr";
-
-comment "Add binoculars";
-_x addWeapon "Binocular";
+_x forceAddUniform "U_I_G_Story_Protagonist_F";
+_x addVest "Aegis_V_CarrierRigKBT_01_recon_olive_F";
+_x addBackpack "B_AssaultPack_blk";
 
 comment "Add items to containers";
-
-for "_i" from 1 to 2 do {
-	_x addItemToVest "20Rnd_762x51_Mag";
-};
 _x addItemToVest "FirstAidKit";
-for "_i" from 1 to 3 do {
-	_x addItemToVest "SmokeShell";
+for "_i" from 1 to 6 do {
+	_x addItemToVest "30Rnd_545x39_Mag_Sand_Green_F";
 };
-_x addItemToVest "20Rnd_762x51_Mag";
-_x addHeadgear "H_Booniehat_oli";
+_x addItemToBackpack "PSRL1_HEAT_RF";
+_x addHeadgear "Aegis_H_Helmet_FASTMT_Headset_cbr_F";
 _x addGoggles "G_Shemag_oli";
 
 comment "Add items";

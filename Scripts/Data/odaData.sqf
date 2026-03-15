@@ -40,7 +40,7 @@
 		"18X",
 		"",
 		"B_recon_F",
-		"oda_nato_rifleman"
+		"oda_nato_auto"
 	],
 	[
 		"slot_weapons_0", // Options: Grenadier, AT
@@ -49,7 +49,7 @@
 		"18B",
 		"",
 		"B_recon_GL_F",
-		"oda_nato_rifleman"
+		"oda_nato_grenadier"
 	],
 	[
 		"slot_weapons_1", // Options: Grenadier, AT
@@ -58,7 +58,7 @@
 		"18B",
 		"",
 		"B_recon_AT_F",
-		"oda_nato_rifleman"
+		"oda_nato_at"
 	],
 	[
 		"slot_engineer_0", // Options: Demo, Mechanic
@@ -67,7 +67,7 @@
 		"18C",
 		"osf_squad_passive_engineer",
 		"B_recon_exp_F",
-		"oda_nato_rifleman"
+		"oda_nato_demo"
 	],
 	[
 		"slot_engineer_1", // Options: Demo, Mechanic
@@ -76,7 +76,7 @@
 		"18C",
 		"osf_squad_passive_engineer",
 		"B_recon_exp_F",
-		"oda_nato_rifleman"
+		"oda_nato_eng"
 	],
 	[
 		"slot_intelligence_0", // Options: UAV operator
@@ -85,7 +85,7 @@
 		"18F",
 		"osf_squad_passive_uav",
 		"B_recon_F",
-		"oda_nato_rifleman"
+		"oda_nato_intel"
 	],
 	[
 		"slot_intelligence_1", // Options: UAV operator
@@ -94,7 +94,7 @@
 		"18F",
 		"osf_squad_passive_uav",
 		"B_recon_F",
-		"oda_nato_rifleman"
+		"oda_nato_intel"
 	],
 	[
 		"slot_comms_0", // Options: Offshore support
@@ -103,7 +103,7 @@
 		"18E",
 		"osf_squad_comms",
 		"B_recon_JTAC_F",
-		"oda_nato_rifleman"
+		"oda_nato_coms"
 	],
 	[
 		"slot_comms_1", // Options: Offshore support
@@ -112,7 +112,7 @@
 		"18E",
 		"osf_squad_comms",
 		"B_recon_JTAC_F",
-		"oda_nato_rifleman"
+		"oda_nato_coms"
 	],
 	[
 		"slot_medic_0", // Options: Paramedic
@@ -121,6 +121,6 @@
 		"18D",
 		"osf_squad_passive_medical",
 		"B_recon_medic_F",
-		"oda_nato_rifleman"
+		"oda_nato_med"
 	]
 ]

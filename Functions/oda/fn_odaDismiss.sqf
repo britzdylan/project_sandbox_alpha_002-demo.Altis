@@ -13,12 +13,8 @@
 
 params ["_slotId"];
 
-private _roster = [OSF_KEY_ODA_ROSTER] call OSF_fnc_getMissionVar;
 private _slot = [OSF_KEY_ODA_ROSTER, _slotId] call OSF_fnc_getState;
-
-if (isNIl "_slot") exitWith {
-	["odaDismiss", format ["ERROR: slot '%1' not found in roster", _slotId]] call OSF_fnc_log;
-};
+if (isNil "_slot") exitWith {};
 
 private _unit = _slot getOrDefault [OSF_ODA_UNIT_REF, objNull];
 if (!isNull _unit) then {
@@ -29,7 +25,5 @@ if (!isNull _unit) then {
 _slot set [OSF_ODA_STATUS,   OSF_ODA_STATUS_INACTIVE];
 _slot set [OSF_ODA_IN_SQUAD, false];
 _slot set [OSF_ODA_UNIT_REF, objNull];
-
-[OSF_KEY_ODA_ROSTER, _roster] call OSF_fnc_setMissionVar;
 
 ["odaDismiss", format ["Dismissed slot '%1'", _slotId]] call OSF_fnc_log;

@@ -46,7 +46,8 @@ private _statusColors = createHashMapFromArray [
 ];
 
 // --- Data rows ---
-private _roster = [OSF_KEY_ODA_ROSTER, createHashMap] call OSF_fnc_getMissionVar;
+private _roster = missionNamespace getVariable OSF_KEY_ODA_ROSTER;
+private _loadoutDefs = call compile preProcessFileLineNumbers "scripts\data\loadoutData.sqf";
 private _rowIdx = 1; // row 0 = header
 
 // Status counters for the stats bar
@@ -64,13 +65,19 @@ private _cntRedeployment= 0;
 	private _statusLabel = _statusLabels getOrDefault [_status, toUpper _status];
 	private _statusColor = _statusColors getOrDefault [_status, [0.9, 0.9, 0.9, 1.0]];
 
+	private _loadoutId   = _slot getOrDefault [OSF_ODA_LOADOUT, ""];
+	private _mos         = _slot getOrDefault [OSF_ODA_MOS, ""];
+	private _mosDefs     = _loadoutDefs getOrDefault [_mos, []];
+	private _defEntry    = _mosDefs findIf { (_x select 0) == _loadoutId };
+	private _loadoutLabel = if (_defEntry >= 0) then { (_mosDefs select _defEntry) select 1 } else { _loadoutId };
+
 	lnbAddRow [9100, [
 		_slot get OSF_ODA_RANK,
 		_slot get OSF_ODA_ROLE,
 		_slot get OSF_ODA_MOS,
 		_statusLabel,
 		if (_inSquad) then {"YES"} else {"NO"},
-		_slot get OSF_ODA_LOADOUT
+		_loadoutLabel
 	]];
 
 	// Store slotId as hidden data on col 0 — used by action handlers
@@ -126,8 +133,8 @@ if (_isOpen) exitWith {};
 	};
 
 	private _slotId = lnbData [9100, [_row, 0]];
-	private _roster = [OSF_KEY_ODA_ROSTER, createHashMap] call OSF_fnc_getMissionVar;
-	private _slot = _roster getOrDefault [_slotId, createHashMap];
+	private _slot = [OSF_KEY_ODA_ROSTER, _slotId] call OSF_fnc_getState;
+	if (isNil "_slot") exitWith {};
 	private _status = _slot getOrDefault [OSF_ODA_STATUS, ""];
 
 	// Deploy: only available from standby
@@ -137,14 +144,24 @@ if (_isOpen) exitWith {};
 	// Loadout combo: available when active or standby
 	(_display displayCtrl 9203) ctrlEnable (_status in [OSF_ODA_STATUS_ACTIVE, OSF_ODA_STATUS_INACTIVE]);
 
-	// Sync combo selection to the slot's current loadout
-	private _loadouts = []; // TODO: get based on role
-	// Populate the loadout combo each time
-	{
-		(_display displayCtrl 9203) lbAdd toUpper _x;
-	} forEach _loadouts;
-	private _current = _slot getOrDefault [OSF_ODA_LOADOUT];
-	(_display displayCtrl 9203) lbSetCurSel (_loadouts find _current);
+	// Populate combo with loadouts available for this slot's MOS
+	private _mos = _slot getOrDefault [OSF_ODA_MOS, ""];
+	private _loadoutDefs = call compile preProcessFileLineNumbers "scripts\data\loadoutData.sqf";
+	private _available = _loadoutDefs getOrDefault [_mos, []];
+
+	lbClear 9203;
+	{ (_display displayCtrl 9203) lbAdd (_x select 1); } forEach _available;
+	{ (_display displayCtrl 9203) lbSetData [_forEachIndex, (_x select 0)]; } forEach _available;
+
+	// Disable combo if no loadouts defined for this MOS yet
+	(_display displayCtrl 9203) ctrlEnable (
+		(_status in [OSF_ODA_STATUS_ACTIVE, OSF_ODA_STATUS_INACTIVE]) && count _available > 0
+	);
+
+	// Pre-select the slot's current loadout
+	private _current = _slot getOrDefault [OSF_ODA_LOADOUT, ""];
+	private _currentIdx = _available findIf { (_x select 0) == _current };
+	(_display displayCtrl 9203) lbSetCurSel (if (_currentIdx >= 0) then {_currentIdx} else {0});
 }];
 
 // --- DEPLOY button ---
@@ -174,13 +191,12 @@ if (_isOpen) exitWith {};
 	private _row = lnbCurSelRow 9100;
 	if (_row <= 0) exitWith {};
 
-	private _loadouts = []; // TODO: get array based on role
-	if (_idx < 0 || _idx >= count _loadouts) exitWith {};
+	// ID was stored on each combo item via lbSetData when the row was selected
+	private _loadoutId = lbData [9203, _idx];
+	if (_loadoutId == "") exitWith {};
 
 	private _slotId = lnbData [9100, [_row, 0]];
-	private _roster = [OSF_KEY_ODA_ROSTER] call OSF_fnc_getMissionVar;
-	private _loadoutId = _loadouts select _idx;
 	[_slotId, _loadoutId] call OSF_fnc_odaApplyLoadout;
 
-	lnbSetText [9100, [_row, 5], _loadoutId];
+	lnbSetText [9100, [_row, 5], lbText [9203, _idx]];
 }];

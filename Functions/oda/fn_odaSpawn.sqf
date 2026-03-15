@@ -77,9 +77,10 @@ _unit setSkill 0.75;
 
 // --- apply identity and display name ---
 _unit setIdentity _identityClass;
-
-
-
+_unit setVariable [OSF_ODA_SLOT_ID, _slotId];
+_unit addEventHandler ["killed", {
+	[_this] call OSF_fnc_odaHandleUnitDeath
+}];
 // --- Update roster ---
 _slot set [OSF_ODA_STATUS, OSF_ODA_STATUS_ACTIVE];
 _slot set [OSF_ODA_IN_SQUAD, true];

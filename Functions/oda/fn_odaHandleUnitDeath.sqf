@@ -1,0 +1,29 @@
+// ============================================================
+// OSF_fnc_odaHandleUnitDeath
+// Fired by the unit's "killed" event handler.
+// Marks the slot as KIA, clears inSquad and unitRef.
+//
+// params:
+//   _args (ARRAY) — [unit, killer, instigator] from the killed EH
+//
+// Returns: nothing
+// Usage: called internally via addEventHandler ["killed", { [_this] call OSF_fnc_odaHandleUnitDeath }]
+// ============================================================
+#include "..\..\scripts\constants.hpp"
+
+params ["_args"];
+private _unit = _args select 0;
+
+private _slotId = _unit getVariable [OSF_ODA_SLOT_ID, ""];
+if (_slotId == "") exitWith {
+	["odaHandleUnitDeath", "ERROR: killed unit has no slot ID variable"] call OSF_fnc_log;
+};
+
+private _slot = [OSF_KEY_ODA_ROSTER, _slotId] call OSF_fnc_getState;
+if (isNil "_slot") exitWith {};
+
+_slot set [OSF_ODA_STATUS,   OSF_ODA_STATUS_KIA];
+_slot set [OSF_ODA_IN_SQUAD, false];
+_slot set [OSF_ODA_UNIT_REF, objNull];
+
+["odaHandleUnitDeath", format ["Slot '%1' KIA", _slotId]] call OSF_fnc_log;

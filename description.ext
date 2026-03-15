@@ -62,9 +62,10 @@ class CfgFunctions
             class odaApplyLoadout      { description = "Apply loadout to a unit"; };
             class odaHandleUnitDeath   { description = "Handle unit killed EH — marks slot KIA and clears runtime refs"; };
             class odaReplacementWatcher { description = "Scheduled: waits out the replacement timer then returns slot to standby"; };
+            class odaIncap             { description = "Trigger incapacitation: animate, freeze damage, start timer, add revive action"; };
+            class odaIncapWatcher      { description = "Scheduled: medic proximity check and incap timer expiry loop"; };
+            class odaRevive            { description = "Execute revive sequence: sleep duration, restore unit, clear incap state"; };
         //     class odaPassives        { description = "Calculate and apply active passive bonuses"; };
-        //     class odaIncap           { description = "Handle ODA member incapacitation event"; };
-        //     class odaRevive          { description = "Player medkit revive logic"; };
         //     class odaMedicRevive     { description = "Medic auto-revive logic"; };
         //     class odaDeath           { description = "Handle permanent death and replacement timer"; };
         };

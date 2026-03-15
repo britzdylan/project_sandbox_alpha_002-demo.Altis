@@ -22,6 +22,11 @@ if (_slotId == "") exitWith {
 private _slot = [OSF_KEY_ODA_ROSTER, _slotId] call OSF_fnc_getState;
 if (isNil "_slot") exitWith {};
 
+// Guard: if still flagged incapacitated the watcher hasn't cleared it yet — ignore
+if (_unit getVariable [OSF_ODA_INCAPACITATED, false]) exitWith {
+	["odaHandleUnitDeath", format ["Slot '%1' — ignoring killed EH, unit is incapacitated", _slotId]] call OSF_fnc_log;
+};
+
 _slot set [OSF_ODA_STATUS,            OSF_ODA_STATUS_KIA];
 _slot set [OSF_ODA_IN_SQUAD,          false];
 _slot set [OSF_ODA_UNIT_REF,          objNull];

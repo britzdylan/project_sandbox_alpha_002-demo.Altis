@@ -77,7 +77,23 @@ _unit setSkill 0.75;
 
 // --- apply identity and display name ---
 _unit setIdentity _identityClass;
-_unit setVariable [OSF_ODA_SLOT_ID, _slotId];
+_unit setVariable [OSF_ODA_SLOT_ID,         _slotId];
+_unit setVariable [OSF_ODA_MOS,             _slot get OSF_ODA_MOS];
+_unit setVariable [OSF_ODA_INCAPACITATED,   false];
+
+_unit addEventHandler ["handleDamage", {
+	params ["_unit", "_selection", "_damage", "_source", "_projectile", "_hitIndex", "_instigator", "_hitPoint"];
+	
+	// Not fatal — pass through
+	if (_damage < 1) exitWith { _damage };
+	// Already incapacitated — let it pass (watcher will trigger KIA)
+	if (_unit getVariable [OSF_ODA_INCAPACITATED, false]) exitWith { _damage };
+	// Trigger incap; return sub-lethal value
+	_unit setVariable [OSF_ODA_INCAPACITATED, true];
+	[_unit] call OSF_fnc_odaIncap;
+	0.95
+}];
+
 _unit addEventHandler ["killed", {
 	[_this] call OSF_fnc_odaHandleUnitDeath
 }];

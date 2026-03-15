@@ -56,9 +56,18 @@
 
 // ------------------------------------------------------------
 // ODA timers (mission seconds)
-// Alpha: short values for testing. Production: OSF_REPLACEMENT_DURATION = 6 * 3600
+// Alpha: short values for testing.
+// Production: OSF_REPLACEMENT_DURATION = 21600, OSF_INCAP_DURATION = 30 * 60
 // ------------------------------------------------------------
-#define OSF_REPLACEMENT_DURATION 120  // 2 min (testing) | production: 21600
+#define OSF_REPLACEMENT_DURATION  120  // 2 min testing | production: 21600
+#define OSF_INCAP_DURATION        60   // 1 min testing | production: 1800
+#define OSF_REVIVE_DURATION_MEDIC 10   // medic with medkit (testing) | production: 30
+#define OSF_REVIVE_DURATION_PLAYER 20  // player with medkit (testing) | production: 120
+
+// Unit variable key — set directly on the object at spawn/incap time
+#define OSF_ODA_INCAPACITATED     "OSF_incapacitated"
+#define OSF_REVIVE_ACTION_ID      "OSF_reviveActionId"
+#define OSF_REVIVE_IN_PROGRESS    "OSF_reviveInProgress"
 
 // ------------------------------------------------------------
 // ODA member status values
@@ -66,6 +75,7 @@
 // ------------------------------------------------------------
 #define OSF_ODA_STATUS_ACTIVE           "active"
 #define OSF_ODA_STATUS_INACTIVE         "inactive"
+#define OSF_ODA_STATUS_INCAP            "incapacitated"
 #define OSF_ODA_STATUS_RR               "r&r"
 #define OSF_ODA_STATUS_KIA              "kia"
 #define OSF_ODA_STATUS_REDEPLOYMENT     "redeployment_in_progress"

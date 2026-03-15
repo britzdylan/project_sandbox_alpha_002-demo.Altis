@@ -32,6 +32,7 @@ for "_i" from 0 to 5 do {
 private _statusLabels = createHashMapFromArray [
 	[OSF_ODA_STATUS_ACTIVE,      "ACTIVE"],
 	[OSF_ODA_STATUS_INACTIVE,    "STANDBY"],
+	[OSF_ODA_STATUS_INCAP,       "INCAP"],
 	[OSF_ODA_STATUS_RR,          "R&R"],
 	[OSF_ODA_STATUS_KIA,         "KIA"],
 	[OSF_ODA_STATUS_REDEPLOYMENT,"INBOUND"]
@@ -40,6 +41,7 @@ private _statusLabels = createHashMapFromArray [
 private _statusColors = createHashMapFromArray [
 	[OSF_ODA_STATUS_ACTIVE,      [0.35, 0.85, 0.35, 1.0]],
 	[OSF_ODA_STATUS_INACTIVE,    [0.70, 0.70, 0.70, 1.0]],
+	[OSF_ODA_STATUS_INCAP,       [1.00, 0.55, 0.00, 1.0]],
 	[OSF_ODA_STATUS_RR,          [0.90, 0.75, 0.20, 1.0]],
 	[OSF_ODA_STATUS_KIA,         [0.90, 0.25, 0.25, 1.0]],
 	[OSF_ODA_STATUS_REDEPLOYMENT,[0.30, 0.75, 0.95, 1.0]]

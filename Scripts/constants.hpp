@@ -55,6 +55,12 @@
 #define OSF_ODA_REPLACEMENT_TIMER   "replacementTimer"
 
 // ------------------------------------------------------------
+// ODA timers (mission seconds)
+// Alpha: short values for testing. Production: OSF_REPLACEMENT_DURATION = 6 * 3600
+// ------------------------------------------------------------
+#define OSF_REPLACEMENT_DURATION 120  // 2 min (testing) | production: 21600
+
+// ------------------------------------------------------------
 // ODA member status values
 // Used with OSF_ODA_STATUS field
 // ------------------------------------------------------------

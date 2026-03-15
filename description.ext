@@ -61,6 +61,7 @@ class CfgFunctions
             class odaDismiss         { description = "Remove a deployed ODA unit and return slot to standby"; };
             class odaApplyLoadout      { description = "Apply loadout to a unit"; };
             class odaHandleUnitDeath   { description = "Handle unit killed EH — marks slot KIA and clears runtime refs"; };
+            class odaReplacementWatcher { description = "Scheduled: waits out the replacement timer then returns slot to standby"; };
         //     class odaPassives        { description = "Calculate and apply active passive bonuses"; };
         //     class odaIncap           { description = "Handle ODA member incapacitation event"; };
         //     class odaRevive          { description = "Player medkit revive logic"; };

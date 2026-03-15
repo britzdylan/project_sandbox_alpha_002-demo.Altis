@@ -22,8 +22,13 @@ if (_slotId == "") exitWith {
 private _slot = [OSF_KEY_ODA_ROSTER, _slotId] call OSF_fnc_getState;
 if (isNil "_slot") exitWith {};
 
-_slot set [OSF_ODA_STATUS,   OSF_ODA_STATUS_KIA];
-_slot set [OSF_ODA_IN_SQUAD, false];
-_slot set [OSF_ODA_UNIT_REF, objNull];
+_slot set [OSF_ODA_STATUS,            OSF_ODA_STATUS_KIA];
+_slot set [OSF_ODA_IN_SQUAD,          false];
+_slot set [OSF_ODA_UNIT_REF,          objNull];
 
-["odaHandleUnitDeath", format ["Slot '%1' KIA", _slotId]] call OSF_fnc_log;
+private _targetTime = time + OSF_REPLACEMENT_DURATION;
+_slot set [OSF_ODA_REPLACEMENT_TIMER, _targetTime];
+
+[_slotId, _targetTime] spawn OSF_fnc_odaReplacementWatcher;
+
+["odaHandleUnitDeath", format ["Slot '%1' KIA — replacement in %2s", _slotId, OSF_REPLACEMENT_DURATION]] call OSF_fnc_log;

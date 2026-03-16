@@ -1,6 +1,6 @@
 ## TOC todo
- - Manage militia
- - Manage squad
+ - ~~Manage militia (upgrades)~~
+ - ~~Manage squad~~a
     - ~~View squad UI~~
     - ~~Dismiss members~~
         - ~~members leaves squad and becomes inactive~~
@@ -9,8 +9,8 @@
     - ~~view member status~~
         - ~~Healthy, injured, KIA~~
     - ~~change member loadout from dropdown~~
-    - Recruit new members
-        - replenish open squad slot
+    - ~~Recruit new members~~
+        - ~~replenish open squad slot~~
  - Save game
  - ~~View strategic map~~
 

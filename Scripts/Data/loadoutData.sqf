@@ -36,14 +36,14 @@ createHashMapFromArray [
 	["18D", [
 		["oda_nato_med", "NATO - Paramedic"],
 		["oda_guer_med", "GUER - Paramedic"],
-		["oda_stealth_med", "NATO - Paramedic"]
+		["oda_stealth_med", "STEALTH - Paramedic"]
 	]],
 	["18E", [
 		["oda_nato_coms", "NATO - Communications"],
-		["oda_stealth_coms", "NATO - Communications"]
+		["oda_stealth_coms", "STEALTH - Communications"]
 	]],
 	["18F", [
 		["oda_nato_intel", "NATO - Intelligence"],
-		["oda_stealth_intel", "NATO - Intelligence"]
+		["oda_stealth_intel", "STEALTH - Intelligence"]
 	]]
 ]

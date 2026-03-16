@@ -3,6 +3,8 @@
 // 1: TOC Pos (Array)
 // 2: strategicMapMissions (Array)
 // 3: strategicMapObjectId (String)
+// 4: squadManageObjectId (String)
+// 5: fiaManagerObjectId (string)
 // ----------------------------------------------------------
 
 [
@@ -35,6 +37,7 @@
 			]
 		],
 		"OSF_toc_strategic_map_board_001",
-		"OSF_toc_squad_manager_001"
+		"OSF_toc_squad_manager_001",
+		"OSF_toc_fia_manager_001"
 	]
 ];

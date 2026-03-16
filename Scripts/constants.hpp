@@ -38,6 +38,7 @@
 #define OSF_TOC_STRATEGIC_MISSION   "strategicMapMission"
 #define OSF_TOC_STRATEGIC_OBJ_ID    "strategicMapObjectId"
 #define OSF_TOC_SQUAD_MANAGER_OBJ_ID    "squadManagerObjectId"
+#define OSF_TOC_FIA_MANAGER_OBJ_ID  "fiaManagerObjectId"
 
 // ------------------------------------------------------------
 // ODA member field names
@@ -62,8 +63,8 @@
 // Alpha: short values for testing.
 // Production: OSF_REPLACEMENT_DURATION = 21600, OSF_INCAP_DURATION = 30 * 60
 // ------------------------------------------------------------
-#define OSF_REPLACEMENT_DURATION  120  // 2 min testing | production: 21600
-#define OSF_INCAP_DURATION        60   // 1 min testing | production: 1800
+#define OSF_REPLACEMENT_DURATION  5  // 2 min testing | production: 21600
+#define OSF_INCAP_DURATION        5   // 1 min testing | production: 1800
 #define OSF_REVIVE_DURATION_MEDIC 10   // medic with medkit (testing) | production: 30
 #define OSF_REVIVE_DURATION_PLAYER 20  // player with medkit (testing) | production: 120
 

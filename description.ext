@@ -114,7 +114,7 @@ class CfgFunctions
                class strategicMapOpen   { description = "Open strategic map from TOC base object" };
                class tocInit            { description = "Initialise TOC interactions"; };
                class tocSquadUI         { description = "Squad management interface"; };
-        //     class tocMilitiaUI       { description = "Militia allocation interface"; };
+               class tocMilitiaUI       { description = "FIA Upgrade Command dialog"; };
         //     class tocRequisitionUI   { description = "Asset requisition interface"; };
         };
 
@@ -178,6 +178,7 @@ class CfgIdentities
 };
 
 #include "ui\defines.hpp"
+#include "ui\upgradeUI.hpp"
 
 // ============================================================
 // OSF_SquadUI — ODA Personnel Status Board

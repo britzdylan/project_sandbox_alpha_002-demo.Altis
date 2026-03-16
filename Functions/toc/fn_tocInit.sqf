@@ -20,7 +20,8 @@ private _tocRegistry = createHashMap;
 		[OSF_TOC_POS, _toc select 1],
 		[OSF_TOC_STRATEGIC_MISSION, _toc select 2],
 		[OSF_TOC_STRATEGIC_OBJ_ID, _toc select 3],
-		[OSF_TOC_SQUAD_MANAGER_OBJ_ID, _toc select 4]
+		[OSF_TOC_SQUAD_MANAGER_OBJ_ID, _toc select 4],
+		[OSF_TOC_FIA_MANAGER_OBJ_ID, _toc select 5]
 	];
 	_tocRegistry set [_toc select 0, _tocMap];
 } forEach _tocDefs;
@@ -39,6 +40,9 @@ private _tocRegistry = createHashMap;
 
 	private _squadManagerObjVarName = _entry get OSF_TOC_SQUAD_MANAGER_OBJ_ID;
 	private _squadManagerObj = missionNamespace getVariable [_squadManagerObjVarName, objNull];
+
+	private _fiaManagerObjVarName = _entry get OSF_TOC_FIA_MANAGER_OBJ_ID;
+	private _fiaManagerObj = missionNamespace getVariable [_fiaManagerObjVarName, objNull];
 
 	if (isNull _strategicMapObj) exitWith {
 		["tocInit", format ["WARNING: TOC object '%1' not found for TOC '%2'", _squadManagerObjVarName, _tocId]] call OSF_fnc_log;
@@ -102,6 +106,28 @@ private _tocRegistry = createHashMap;
 		{},
 		{
 			[] call OSF_fnc_tocSquadUI;
+		}, // _this#3 = arguments array
+		{},
+		[],
+		1,
+		0,
+		false,
+		false,
+		true
+	] call BIS_fnc_holdActionAdd;
+
+	// ------ FIA Manager
+	[
+		_fiaManagerObj,
+		"Open FIA management",
+		"\a3\ui_f\data\igui\cfg\actions\take_ca.paa",
+		"\a3\ui_f\data\igui\cfg\actions\take_ca.paa",
+		"(_this distance _target) < 2",
+		"(_this distance _target) < 2",
+		{},
+		{},
+		{
+			[] call OSF_fnc_tocMilitiaUI;
 		}, // _this#3 = arguments array
 		{},
 		[],

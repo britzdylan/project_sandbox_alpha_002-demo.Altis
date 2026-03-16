@@ -18,6 +18,9 @@
 #define OSF_KEY_ODA_ROSTER      "OSF_odaRoster"
 #define OSF_KEY_SECTOR_STATE    "OSF_sectorState"
 #define OSF_KEY_TOC_STATE       "OSF_tocState"
+#define OSF_KEY_UPGRADE_STATE   "OSF_upgradeState"
+#define OSF_KEY_UPGRADE_DEFS    "OSF_upgradeDefs"
+#define OSF_KEY_CP_POINTS       "OSF_cpPoints"
 
 // ------------------------------------------------------------
 // PROFILE namespace variable names

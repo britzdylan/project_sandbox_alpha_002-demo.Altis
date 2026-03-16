@@ -71,6 +71,7 @@ params [];
 
 [] call OSF_fnc_odaInit;
 [] call OSF_fnc_tocInit;
+[] call OSF_fnc_upgradeInit;
 
 
 ["initGameState", "complete."] call OSF_fnc_log;

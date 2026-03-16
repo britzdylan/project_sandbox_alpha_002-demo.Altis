@@ -70,14 +70,15 @@ class CfgFunctions
         //     class odaDeath           { description = "Handle permanent death and replacement timer"; };
         };
 
-        // ---- Militia ---- (Phase A4 — uncomment when building)
-        // class militia
-        // {
-        //     file = "scripts\militia";
-        //     class militiaInit        { description = "Initialise militia system"; };
-        //     class militiaSpawn       { description = "Spawn militia units on allocation"; };
-        //     class militiaDismiss     { description = "Dismiss militia group and free command points"; };
-        // };
+        // ---- Militia ---- (Phase A4)
+        class militia
+        {
+            class upgradeInit         { description = "Initialise upgrade tree state (16 nodes, CP counter)"; };
+            class upgradeHasNode      { description = "Query a single upgrade node boolean; primary API for other systems"; };
+            class upgradeCanPurchase  { description = "Validate prereqs and CP cost before purchase"; };
+            class upgradePurchase     { description = "Execute node purchase: deduct CP and flip boolean"; };
+            class upgradeAddPoints    { description = "Add command points to the pool (sector liberation, side objectives)"; };
+        };
 
         // ---- Counterattack ---- (Phase A5 — uncomment when building)
         // class counterattack

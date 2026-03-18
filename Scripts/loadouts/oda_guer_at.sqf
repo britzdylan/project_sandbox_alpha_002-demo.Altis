@@ -16,9 +16,9 @@ removeHeadgear _x;
 removeGoggles _x;
 
 comment "Add weapons";
-_x addWeapon "Aegis_arifle_AKM74_sand_F";
+_x addWeapon "arifle_TRG21_F";
 _x addPrimaryWeaponItem "Aegis_optic_1p87_snd";
-_x addPrimaryWeaponItem "30Rnd_545x39_Mag_Sand_F";
+_x addPrimaryWeaponItem "30Rnd_556x45_Stanag_red";
 _x addWeapon "Aegis_launch_RPG7M_F";
 _x addSecondaryWeaponItem "PSRL1_HEAT_RF";
 
@@ -30,7 +30,7 @@ _x addBackpack "B_AssaultPack_blk";
 comment "Add items to containers";
 _x addItemToVest "FirstAidKit";
 for "_i" from 1 to 6 do {
-	_x addItemToVest "30Rnd_545x39_Mag_Sand_Green_F";
+	_x addItemToVest "30Rnd_556x45_Stanag_red";
 };
 _x addItemToBackpack "PSRL1_HEAT_RF";
 _x addHeadgear "Aegis_H_Helmet_FASTMT_Headset_cbr_F";

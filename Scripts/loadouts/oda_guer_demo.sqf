@@ -16,9 +16,9 @@ removeHeadgear _x;
 removeGoggles _x;
 
 comment "Add weapons";
-_x addWeapon "Aegis_arifle_AKM74_sand_F";
+_x addWeapon "arifle_TRG21_F";
 _x addPrimaryWeaponItem "Aegis_optic_1p87_snd";
-_x addPrimaryWeaponItem "30Rnd_545x39_Mag_Sand_Green_F";
+_x addPrimaryWeaponItem "30Rnd_556x45_Stanag_red";
 
 comment "Add containers";
 _x forceAddUniform "U_BG_Guerilla2_3";
@@ -27,7 +27,7 @@ _x addVest "Aegis_V_CarrierRigKBT_01_recon_cbr_F";
 comment "Add items to containers";
 _x addItemToVest "FirstAidKit";
 for "_i" from 1 to 5 do {
-	_x addItemToVest "30Rnd_545x39_Mag_Sand_Green_F";
+	_x addItemToVest "30Rnd_556x45_Stanag_red";
 };
 for "_i" from 1 to 3 do {
 	_x addItemToVest "DemoCharge_Remote_Mag";

@@ -15,9 +15,9 @@ removeHeadgear _x;
 removeGoggles _x;
 
 comment "Add weapons";
-_x addWeapon "Aegis_arifle_AKM74_GL_plum_F";
+_x addWeapon "arifle_TRG21_GL_F";
 _x addPrimaryWeaponItem "Aegis_optic_1p87_snd";
-_x addPrimaryWeaponItem "30Rnd_545x39_Mag_Green_F";
+_x addPrimaryWeaponItem "30Rnd_556x45_Stanag_red";
 _x addPrimaryWeaponItem "1Rnd_HE_Grenade_shell";
 
 comment "Add containers";
@@ -33,7 +33,7 @@ for "_i" from 1 to 6 do {
 	_x addItemToVest "1Rnd_HE_Grenade_shell";
 };
 for "_i" from 1 to 8 do {
-	_x addItemToVest "30Rnd_545x39_Mag_Green_F";
+	_x addItemToVest "30Rnd_556x45_Stanag_red";
 };
 for "_i" from 1 to 3 do {
 	_x addItemToVest "1Rnd_Smoke_Grenade_shell";

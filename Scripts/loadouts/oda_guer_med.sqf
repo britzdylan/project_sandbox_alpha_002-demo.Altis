@@ -16,9 +16,9 @@ removeHeadgear _x;
 removeGoggles _x;
 
 comment "Add weapons";
-_x addWeapon "Aegis_arifle_AKM74_olive_F";
+_x addWeapon "arifle_TRG21_F";
 _x addPrimaryWeaponItem "Aegis_optic_1p87_lush";
-_x addPrimaryWeaponItem "30Rnd_545x39_Mag_Olive_F";
+_x addPrimaryWeaponItem "30Rnd_556x45_Stanag_red";
 
 comment "Add containers";
 _x forceAddUniform "U_I_L_Uniform_01_tshirt_black_F";
@@ -28,7 +28,7 @@ _x addBackpack "B_AssaultPack_cbr";
 comment "Add items to containers";
 _x addItemToVest "SmokeShell";
 for "_i" from 1 to 8 do {
-	_x addItemToVest "30Rnd_545x39_Mag_Olive_F";
+	_x addItemToVest "30Rnd_556x45_Stanag_red";
 };
 _x addItemToBackpack "Medikit";
 for "_i" from 1 to 5 do {

@@ -29,6 +29,9 @@ private _tocRegistry = createHashMap;
 [OSF_KEY_TOC_STATE, _tocRegistry] call OSF_fnc_setMissionVar;
 ["initGameState", format ["%1 TOC data initialized.", count (keys _tocRegistry)]] call OSF_fnc_log;
 
+// ---- TOC Supply Loadout ----
+[] call OSF_fnc_tocApplySupplyLoadout;
+
 // ---- TOC HoldActions ----
 
 {

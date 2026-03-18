@@ -112,9 +112,10 @@ class CfgFunctions
         {
         //     file = "scripts\toc";
                class strategicMapOpen   { description = "Open strategic map from TOC base object" };
-               class tocInit            { description = "Initialise TOC interactions"; };
-               class tocSquadUI         { description = "Squad management interface"; };
-               class tocMilitiaUI       { description = "FIA Upgrade Command dialog"; };
+               class tocInit                 { description = "Initialise TOC interactions"; };
+               class tocApplySupplyLoadout   { description = "Apply supply box loadout to OSF_toc_supply_001"; };
+               class tocSquadUI              { description = "Squad management interface"; };
+               class tocMilitiaUI            { description = "FIA Upgrade Command dialog"; };
         //     class tocRequisitionUI   { description = "Asset requisition interface"; };
         };
 

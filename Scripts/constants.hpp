@@ -59,6 +59,11 @@
 #define OSF_ODA_REPLACEMENT_TIMER   "replacementTimer"
 
 // ------------------------------------------------------------
+// World settings
+// ------------------------------------------------------------
+#define OSF_TIME_MULTIPLIER  (24 / 4)   // 6x — matches setTimeMultiplier in fn_boot
+
+// ------------------------------------------------------------
 // ODA timers (mission seconds)
 // Alpha: short values for testing.
 // Production: OSF_REPLACEMENT_DURATION = 21600, OSF_INCAP_DURATION = 30 * 60

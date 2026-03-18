@@ -22,7 +22,7 @@ params [];
 ["initGameState", "starting..."] call OSF_fnc_log;
 
 // ---- World Settings ----
-setTimeMultiplier (24 / 4);
+setTimeMultiplier OSF_TIME_MULTIPLIER;
 
 // ---- Global state ----
 // These are always initialized fresh; they are written to profileNamespace

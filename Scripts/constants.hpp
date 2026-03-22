@@ -68,10 +68,10 @@
 // Alpha: short values for testing.
 // Production: OSF_REPLACEMENT_DURATION = 21600, OSF_INCAP_DURATION = 30 * 60
 // ------------------------------------------------------------
-#define OSF_REPLACEMENT_DURATION  5  // 2 min testing | production: 21600
-#define OSF_INCAP_DURATION        5   // 1 min testing | production: 1800
-#define OSF_REVIVE_DURATION_MEDIC 10   // medic with medkit (testing) | production: 30
-#define OSF_REVIVE_DURATION_PLAYER 20  // player with medkit (testing) | production: 120
+#define OSF_REPLACEMENT_DURATION  21600  // 2 min testing | production: 21600
+#define OSF_INCAP_DURATION        1800   // 1 min testing | production: 1800
+#define OSF_REVIVE_DURATION_MEDIC 30   // medic with medkit (testing) | production: 30
+#define OSF_REVIVE_DURATION_PLAYER 120  // player with medkit (testing) | production: 120
 
 // Unit variable key — set directly on the object at spawn/incap time
 #define OSF_ODA_INCAPACITATED     "OSF_incapacitated"

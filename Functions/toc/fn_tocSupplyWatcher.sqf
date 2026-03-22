@@ -9,12 +9,14 @@
 // ============================================================
 #include "..\..\scripts\constants.hpp"
 
-// sleep uses real-time seconds; divide by OSF_TIME_MULTIPLIER to convert in-game hours to real seconds
-private _intervalSeconds = (48 * 3600) / OSF_TIME_MULTIPLIER;
+private _intervalGameSeconds = 48 * 3600;
+private _nextResupply = time + _intervalGameSeconds;
 
 while {true} do {
-	sleep _intervalSeconds;
+	waitUntil { sleep 30; time >= _nextResupply };
 
 	[] call OSF_fnc_tocApplySupplyLoadout;
 	["tocSupplyWatcher", "48-hour resupply cycle complete — supply box restocked."] call OSF_fnc_log;
+
+	_nextResupply = _nextResupply + _intervalGameSeconds;
 };

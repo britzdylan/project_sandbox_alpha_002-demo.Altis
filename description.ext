@@ -134,6 +134,17 @@ class CfgFunctions
             class getStateKeys   { description = "Returns all IDs from a state registry hashmap."; };
             class getStateValues { description = "Returns all item hashmaps from a state registry."; };
         };
+
+        // ---- action menu ----
+        class menu
+        {
+            class findCover { description = "Sends squad into cover, expecting contact"; };
+            class suppressArea { description = "Makes all squad members suppress the players cursor target, works fon friendly target too";};
+            class fireOnLead { description = "Units hold fire until player fire's a round";};
+            class retreat     { description = "All units drop smoke and sprint 150m away from nearest enemy"; };
+            class advance          { description = "All units sprint 50m ahead of the player's current facing"; };
+            class regroup {};
+        }
     };
 };
 

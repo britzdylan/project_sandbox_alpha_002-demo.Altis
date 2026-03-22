@@ -144,6 +144,8 @@ class CfgFunctions
             class retreat     { description = "All units drop smoke and sprint 150m away from nearest enemy"; };
             class advance          { description = "All units sprint 50m ahead of the player's current facing"; };
             class regroup {};
+            class skipTime {};
+            class vehicleDrop {};
         }
     };
 };

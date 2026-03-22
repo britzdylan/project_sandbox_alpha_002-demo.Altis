@@ -59,6 +59,13 @@
 #define OSF_ODA_REPLACEMENT_TIMER   "replacementTimer"
 
 // ------------------------------------------------------------
+// Vehicle drop
+// ------------------------------------------------------------
+#define OSF_KEY_LAST_VEHICLE_DROP  "OSF_lastVehicleDrop"
+#define OSF_VEHICLE_DROP_COOLDOWN  4   // in-game days between drops
+#define OSF_VEHICLE_DROP_SKIP_TIME 12  // hours to skip on drop
+
+// ------------------------------------------------------------
 // World settings
 // ------------------------------------------------------------
 #define OSF_TIME_MULTIPLIER  (24 / 4)   // 6x — matches setTimeMultiplier in fn_boot

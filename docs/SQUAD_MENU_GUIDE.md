@@ -27,9 +27,6 @@ These are the core custom movement orders. See the **Custom Functions** section 
 | Action | What it does |
 |--------|-------------|
 | **Advance** | Calls `fn_advance` — bound forward in pairs. |
-| **Flank Left** | *(Not yet implemented)* |
-| **Flank Right** | *(Not yet implemented)* |
-| **Stay Back** | *(Not yet implemented)* |
 | **Defend** | Calls `fn_findCover` — disperses squad to nearby cover. |
 | **Retreat** | Calls `fn_retreat` — withdraws squad away from contact. |
 
@@ -83,6 +80,62 @@ Sets the group formation. All standard Arma 3 formations:
 |--------|--------|
 | **Lasers On / Off** | Toggles IR lasers for all group members. |
 | **Lights On / Off** | Toggles weapon flashlights for all group members. |
+
+---
+
+## TEAM RED / TEAM BLUE
+
+Each color team has its own submenu that mirrors a subset of the SQUAD commands, scoped
+only to units assigned to that team. Use these to give independent orders to a split
+element without affecting the rest of the squad.
+
+Teams are assigned in the Eden Editor (or at runtime with `assignTeam`).
+Units with no team assigned will not be affected by team-scoped orders.
+
+### Movement
+
+| Action | What it does |
+|--------|-------------|
+| **Move** | Team moves to your screen center position. |
+| **Move Fast** | Same as Move at full speed. |
+| **Follow Me** | Calls `fn_regroup` scoped to this team. |
+| **Halt** | Team stops immediately. |
+| **Go Prone** | Forces team to lie down. |
+| **Stay Low** | Forces team to crouch. |
+| **Stand Up** | Forces team to stand. |
+
+### Tactical
+
+| Action | What it does |
+|--------|-------------|
+| **Advance** | Calls `fn_advance` scoped to this team. |
+| **Defend** | Calls `fn_findCover` scoped to this team. |
+| **Retreat** | Calls `fn_retreat` scoped to this team. |
+
+### Target
+
+| Action | What it does |
+|--------|-------------|
+| **Suppress** | Calls `fn_suppressArea` scoped to this team. |
+| **Watch** | Team watches your screen center position. |
+| **Target** | Team targets your cursor target object. |
+
+> ROE, Behaviour, Formation, and Equipment are squad-wide only and are not available
+> in the team submenus.
+
+---
+
+## MISC.
+
+| Action | What it does |
+|--------|-------------|
+| **Skip time +6H** | Advances the mission clock by 6 hours. |
+
+---
+
+## SUPPORT
+
+Reserved for future use (radio support, fire missions, etc.). Currently empty.
 
 ---
 

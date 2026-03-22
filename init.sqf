@@ -8,7 +8,6 @@
 // Builds or restores the sector hashmap, initializes global vars,
 // and updates all map markers. Must run before anything else.
 [] call OSF_fnc_boot;
-
 // ---- 2. Register HBQ module object references ----
 // Eden-placed HBQ modules are referenced by their editor variable names.
 // These refs must be re-registered every load (object refs can't be persisted).
@@ -42,6 +41,12 @@ waitUntil {
 		alive player
 	} && {
 		player == player
+	} && {
+		!isNil "dceReady" && {
+			dceReady
+		}
 	}
 };
+dceAvailable=false;
+
 hint format ["[OSF] Tutorial sector status: %1", [OSF_KEY_SECTOR_STATE, "sector_tutorial", "status"] call OSF_fnc_getStateField];

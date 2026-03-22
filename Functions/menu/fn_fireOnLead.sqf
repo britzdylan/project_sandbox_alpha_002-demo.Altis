@@ -1,4 +1,19 @@
-private _squadUnits = (units group player) - [player];
+/*
+	Function:    fn_fireOnLead
+	Description: Holds the squad at cease-fire until the player fires their weapon.
+	             On player fire, all units simultaneously switch to ENGAGE (RED).
+	             The event handler is self-removing after the first player shot.
+	Use when:    Coordinated ambushes or volley fire on a single trigger.
+*/
+params [["_teamColor", ""]];
+private _squadUnits = [];
+if (_teamColor == "") then {
+	_squadUnits = (units group player) - [player];
+} else {
+	_squadUnits = units group player select {
+		assignedTeam _x == _teamColor
+	};
+};
 
 // save current state for each unit and lock them to hold fire
 {

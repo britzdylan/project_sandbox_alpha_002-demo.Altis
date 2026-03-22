@@ -1,4 +1,20 @@
-private _squadUnits = (units group player) - [player];
+/*
+	Function:    fn_retreat
+	Description: Moves the squad away from the nearest enemy in pairs, 150m to the rear.
+	             All units drop prone and watch 360° on call. Pairs move under smoke cover
+	             one at a time with a 15s timeout per pair in case of stuck units.
+	             On arrival each pair holds in AWARE/WHITE/AUTO.
+	Use when:    Unexpected contact. Not suited for breaking out of a large ongoing engagement.
+*/
+params [["_teamColor", ""]];
+private _squadUnits = [];
+if (_teamColor == "") then {
+	_squadUnits = (units group player) - [player];
+} else {
+	_squadUnits = units group player select {
+		assignedTeam _x == _teamColor
+	};
+};
 private _numUnits = count _squadUnits;
 private _defendRadius = 20 max ((count _squadUnits) * 2);
 private _blackListPos = [];

@@ -1,4 +1,4 @@
-## TOC todo
+## TOC TODO
  - ~~Manage militia (upgrades)~~
  - ~~Manage squad~~a
     - ~~View squad UI~~
@@ -12,7 +12,46 @@
     - ~~Recruit new members~~
         - ~~replenish open squad slot~~
  - Save game
+ - Ammo supply
+ - Wait
+ - Fast travel from toc to toc
+ - Request vehicle drop
+ - TOC location two
+ - TOC location three
  - ~~View strategic map~~
+
+## Squad TODO
+- Passives
+
+## FIA Upgrades TODO
+- Track all FIA units
+- Update skill on upgrade
+
+## Player TODO
+- Respawn and death ?
+- loadout
+- identity
+
+## Sectors TODO
+- adjacent sector checks
+- counter attacks
+- enemy location
+- FIA Locations
+
+
+## Operations TODO
+
+## FIA objectives TODO
+
+## HUMINT Objectives TODO
+
+## Intel management TODO
+
+## Task manager TODO
+
+## Pub and sub events TODO
+
+## Save state
 
 
 

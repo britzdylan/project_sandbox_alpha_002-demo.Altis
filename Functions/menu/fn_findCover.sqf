@@ -1,11 +1,28 @@
+/*
+	Function:    fn_findCover
+	Description: Disperses squad units to nearby cover around the player's position.
+	             Each unit is assigned a unique safe position within the defend radius.
+	             If an empty static weapon emplacement is nearby, the unit crews it instead.
+	             Units set up in COMBAT/YELLOW facing forward once in position.
+	             Uses a 60s movement timeout per unit to prevent stalling.
+	Use when:    Taking fire and needing the squad to break from formation and find cover.
+*/
 if (missionNamespace getVariable ["OSF_advanceActive", false]) then {
 	missionNamespace setVariable ["OSF_advanceActive", false];
 };
 
+params [["_teamColor", ""]];
+private _squadUnits = [];
+if (_teamColor == "") then {
+	_squadUnits = (units group player) - [player];
+} else {
+	_squadUnits = units group player select {
+		assignedTeam _x == _teamColor
+	};
+};
 private _blackListPos = [];
 private _origin = getPos player;
 private _watchPos = player getRelPos [500, 0];
-private _squadUnits = (units group player) - [player];
 private _defendRadius = 30 max ((count _squadUnits) * 5);
 
 // find all empty static weapon emplacements within the defend radius, friendly/neutral only

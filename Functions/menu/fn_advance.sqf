@@ -1,6 +1,21 @@
-// Ideal for covering open terrain
+/*
+	Function:    fn_advance
+	Description: Sends the squad forward in pairs toward a position 75m ahead of the player.
+	             On call, all units immediately drop prone and watch 360°. After a short delay,
+	             pairs move up one at a time, each waiting to arrive before the next departs.
+	             On arrival each pair goes prone and holds in AWARE/WHITE.
+	Use when:    Ideal for covering open terrain or bounding forward. do not use on confined spaces like towns. Pairs can easily be ambushed by undetected enemies
+*/
 
-private _squadUnits = (units group player) - [player];
+params [["_teamColor", ""]];
+private _squadUnits = [];
+if (_teamColor == "") then {
+	_squadUnits = (units group player) - [player];
+} else {
+	_squadUnits = units group player select {
+		assignedTeam _x == _teamColor
+	};
+};
 private _numUnits = count _squadUnits;
 private _defendRadius = 20 max ((count _squadUnits) * 2);
 private _blackListPos = [];
@@ -47,14 +62,16 @@ while { _i < _numUnits } do {
 			_pairTargets pushBack [_x, _safePos];
 		};
 	} forEach _pair;
-
+	private _startTime = time;
 	waitUntil {
 		sleep 1;
 		(_pairTargets select {
 			((_x select 0) distance (_x select 1)) > 2 && {
 				alive (_x select 0)
 			}
-		}) isEqualTo []
+		}) isEqualTo [] || {
+			(time - _startTime) > 15
+		}
 	};
 
 	{

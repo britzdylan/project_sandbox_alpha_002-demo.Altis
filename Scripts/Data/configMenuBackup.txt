@@ -1,0 +1,81 @@
+[["SQUAD","submenu",[["Movement","submenu",[["Follow Me","action","[] call OSF_fnc_regroup; 
+","a3\3den\data\cfgwaypoints\follow_ca.paa"],["Halt","action","commandStop (units player - [player]); 
+ ","a3\3den\data\cfgwaypoints\hold_ca.paa"],["Prone","action","{ 
+  _x setUnitPos ""DOWN""; 
+ } forEach ((units group player) - [player]); 
+ ","a3\3den\data\attributes\Stance\down_ca.paa"],["Low","action","{ 
+  _x setUnitPos ""MIDDLE""; 
+ } forEach ((units group player) - [player]); 
+ ","a3\3den\data\attributes\Stance\middle_ca.paa"],["Up","action","{ 
+  _x setUnitPos ""UP""; 
+ } forEach ((units group player) - [player]); 
+","a3\3den\data\attributes\Stance\up_ca.paa"],["Normal","action","((units group player) select 0) setSpeedMode ""NORMAL"";","a3\3den\data\attributes\speedmode\normal_ca.paa"],["Limited","action","((units group player) select 0) setSpeedMode ""LIMITED"";","a3\3den\data\attributes\speedmode\limited_ca.paa"],["Full","action","((units group player) select 0) setSpeedMode ""FULL"";","a3\3den\data\attributes\speedmode\full_ca.paa"]],"a3\ui_f\data\igui\cfg\simpleTasks\types\walk_ca.paa"],["Tactical","submenu",[["Advance","action","[] call OSF_fnc_advance; 
+","a3\ui_f\data\igui\cfg\actions\arrow_up_gs.paa"],["Defend","action","[] call OSF_fnc_findCover; 
+","a3\ui_f\data\igui\cfg\simpletasks\types\defend_ca.paa"],["Retreat","action","[] call OSF_fnc_retreat; 
+","a3\ui_f\data\igui\cfg\simpletasks\types\run_ca.paa"]],"a3\ui_f\data\igui\cfg\simpletasks\letters\t_ca.paa"],["Target","submenu",[["Suppress","action","[] call OSF_fnc_suppressArea; 
+","a3\ui_f\data\igui\cfg\simpletasks\types\attack_ca.paa"],["Watch","action","(units group player - [player]) commandWatch (screenToWorld [0.5, 0.5]); 
+ ","a3\ui_f\data\igui\cfg\simpletasks\types\scout_ca.paa"],["Target","action","{ 
+  _x doTarget cursorTarget 
+ } forEach units group player; 
+","a3\ui_f\data\igui\cfg\simpletasks\types\kill_ca.paa"]],"a3\ui_f\data\igui\cfg\targeting\MarkedTarget_ca.paa"],["ROE","submenu",[["Hold Fire","action","(group player) setCombatMode 'BLUE'; 
+","a3\ui_f\data\igui\cfg\simpletasks\types\danger_ca.paa"],["Return Fire","action","(group player) setCombatMode 'WHITE'; 
+","a3\ui_f\data\igui\cfg\simpletasks\types\rifle_ca.paa"],["Fire on my lead","action","[] call OSF_fnc_fireOnLead; 
+","a3\ui_f\data\igui\cfg\simpletasks\types\wait_ca.paa"],["Engage at will","action","(group player) setCombatMode 'RED'; 
+ ","a3\ui_f\data\igui\cfg\simpletasks\types\target_ca.paa"]],"a3\ui_f\data\igui\cfg\commandbar\unitCombatMode_ca.paa"],["Behaviour","submenu",[["Combat","action","{ 
+  _x setBehaviour 'COMBAT'; 
+ } forEach (units group player); 
+ ","a3\ui_f\data\igui\cfg\commandbar\combatmode_texturemcombat_ca.paa"],["Stealth","action","{ 
+  _x setBehaviour 'STEALTH'; 
+ } forEach (units group player); 
+ ","a3\ui_f\data\igui\cfg\commandbar\combatmode_texturemstealth_ca.paa"],["Aware","action","{ 
+  _x setBehaviour 'AWARE'; 
+ } forEach (units group player); 
+","a3\ui_f\data\igui\cfg\commandbar\unitBehavior_ca.paa"]],"a3\ui_f\data\igui\cfg\commandbar\unitBehavior_ca.paa"],["Formation","submenu",[["Wedge","action","(group player) setFormation 'WEDGE'; 
+","a3\3den\data\attributes\formation\wedge_ca.paa"],["Column","action","(group player) setFormation 'COLUMN'; 
+","a3\3den\data\attributes\formation\column_ca.paa"],["Diamond","action","(group player) setFormation 'DIAMOND'; 
+","a3\3den\data\attributes\formation\diamond_ca.paa"],["Line","action","(group player) setFormation 'LINE'; 
+","a3\3den\data\attributes\formation\line_ca.paa"],["File","action","(group player) setFormation 'FILE'; 
+","a3\3den\data\attributes\formation\file_ca.paa"],["Staggered","action","(group player) setFormation 'STAG COLUMN'; 
+","a3\3den\data\attributes\formation\stag_column_ca.paa"],["Left","action","(group player) setFormation 'ECH LEFT'; 
+","a3\3den\data\attributes\formation\ech_left_ca.paa"],["Right","action","(group player) setFormation 'ECH RIGHT'; 
+","a3\3den\data\attributes\formation\ech_right_ca.paa"],["Vee","action","(group player) setFormation 'VEE'; 
+","a3\3den\data\attributes\formation\vee_ca.paa"]],"a3\3den\data\attributes\formation\vee_ca.paa"],["Equipment","submenu",[["Lasers on","action","group player enableIRLasers true; 
+","a3\ui_f\data\igui\cfg\actions\ico_on_ca.paa"],["Lasers off","action","group player enableIRLasers false; 
+","a3\ui_f\data\igui\cfg\actions\ico_off_ca.paa"],["Lights on","action","group player enableGunLights ""ForceOn""; 
+","a3\ui_f\data\igui\cfg\actions\beacons_on_ca.paa"],["Light off","action","group player enableGunLights ""ForceOff""; 
+","a3\ui_f\data\igui\cfg\actions\beacons_off_ca.paa"]],"a3\ui_f\data\igui\cfg\simpleTasks\types\backpack_ca.paa"]],"a3\ui_f\data\igui\cfg\simpleTasks\types\interact_ca.paa"],["TEAM RED","submenu",[["Movement","submenu",[["Follow Me","action","[""RED""] call OSF_fnc_regroup; 
+","a3\3den\data\cfgwaypoints\follow_ca.paa"],["Halt","action","commandStop (units player select { assignedTeam _x == ""RED"" }); 
+ ","a3\3den\data\cfgwaypoints\hold_ca.paa"],["Prone","action","{ 
+  _x setUnitPos ""DOWN""; 
+ } forEach (units group player select { assignedTeam _x == ""RED"" }); 
+ ","a3\3den\data\attributes\Stance\down_ca.paa"],["Low","action","{ 
+  _x setUnitPos ""MIDDLE""; 
+ } forEach (units group player select { assignedTeam _x == ""RED"" });  ","a3\3den\data\attributes\Stance\middle_ca.paa"],["Up","action","{ 
+  _x setUnitPos ""UP""; 
+ } forEach (units group player select { assignedTeam _x == ""RED"" });","a3\3den\data\attributes\Stance\up_ca.paa"]],"a3\3den\data\attributes\speedMode\limited_ca.paa"],["Tactical","submenu",[["Advance","action","[""RED""] call OSF_fnc_advance; 
+","a3\ui_f\data\igui\cfg\actions\arrow_up_gs.paa"],["Defend","action","[""RED""] call OSF_fnc_findCover; 
+","a3\ui_f\data\igui\cfg\simpletasks\types\defend_ca.paa"],["Retreat","action","[""RED""] call OSF_fnc_retreat; 
+","a3\ui_f\data\igui\cfg\simpletasks\types\run_ca.paa"]],"a3\ui_f\data\igui\cfg\simpletasks\letters\t_ca.paa"],["Target","submenu",[["Suppress","action","[""RED""] call OSF_fnc_suppressArea; 
+","a3\ui_f\data\igui\cfg\simpletasks\types\attack_ca.paa"],["Watch","action","(units group player select { assignedTeam _x == ""RED""}) commandWatch (screenToWorld [0.5, 0.5]); 
+ ","a3\ui_f\data\igui\cfg\simpletasks\types\scout_ca.paa"],["Target","action","{ 
+  _x doTarget cursorTarget 
+ } forEach (units group player select { assignedTeam _x == ""RED"" });","a3\ui_f\data\igui\cfg\simpletasks\types\kill_ca.paa"]],"a3\ui_f\data\igui\cfg\targeting\MarkedTarget_ca.paa"]],"a3\ui_f\data\igui\cfg\simpleTasks\types\interact_ca.paa"],["TEAM BLUE","submenu",[["Movement","submenu",[["Follow Me","action","[""BLUE""] call OSF_fnc_regroup; 
+","a3\3den\data\cfgwaypoints\follow_ca.paa"],["Halt","action","commandStop (units group player select { assignedTeam _x == ""BLUE"" }); 
+ ","a3\3den\data\cfgwaypoints\hold_ca.paa"],["Prone","action","{ 
+  _x setUnitPos ""DOWN""; 
+ } forEach (units group player select { assignedTeam _x == ""BLUE"" }); 
+ ","a3\3den\data\attributes\Stance\down_ca.paa"],["Low","action","{ 
+  _x setUnitPos ""MIDDLE""; 
+ } forEach (units group player select { assignedTeam _x == ""BLUE"" }); 
+ ","a3\3den\data\attributes\Stance\middle_ca.paa"],["Stand Up","action","{ 
+  _x setUnitPos ""UP""; 
+ } forEach (units group player select { assignedTeam _x == ""BLUE"" }); 
+","a3\3den\data\attributes\Stance\up_ca.paa"]],"a3\3den\data\attributes\speedMode\limited_ca.paa"],["Tactical","submenu",[["Advance","action","[""BLUE""] call OSF_fnc_advance; 
+","a3\ui_f\data\igui\cfg\actions\arrow_up_gs.paa"],["Defend","action","[""BLUE""] call OSF_fnc_findCover; 
+","a3\ui_f\data\igui\cfg\simpletasks\types\defend_ca.paa"],["Retreat","action","[""BLUE""] call OSF_fnc_retreat; 
+","a3\ui_f\data\igui\cfg\simpletasks\types\run_ca.paa"]],"a3\ui_f\data\igui\cfg\simpletasks\letters\t_ca.paa"],["Target","submenu",[["Suppress","action","[""BLUE""] call OSF_fnc_suppressArea; 
+","a3\ui_f\data\igui\cfg\simpletasks\types\attack_ca.paa"],["Watch","action","(units group player select { assignedTeam _x == ""BLUE"" }) commandWatch (screenToWorld [0.5, 0.5]); 
+ ","a3\ui_f\data\igui\cfg\simpletasks\types\scout_ca.paa"],["Target","action","{ 
+  _x doTarget cursorTarget 
+ } forEach units group player select { assignedTeam _x == ""BLUE"" }; 
+","a3\ui_f\data\igui\cfg\simpletasks\types\kill_ca.paa"]],"a3\ui_f\data\igui\cfg\targeting\MarkedTarget_ca.paa"]],"a3\ui_f\data\igui\cfg\simpleTasks\types\interact_ca.paa"],["MISC.","submenu",[["Skip time +6H","action","[] spawn OSF_fnc_skipTime; ","a3\ui_f\data\igui\cfg\simpleTasks\types\wait_ca.paa"]],"a3\ui_f\data\igui\cfg\simpleTasks\types\help_ca.paa"],["SUPPORT","submenu",[["Transport","submenu",[["AT Offroad","action","[0] call OSF_fnc_vehicleDrop;","a3\ui_f\data\map\VehicleIcons\iconTruck_ca.paa"],["HMG Offroad","action","[1] call OSF_fnc_vehicleDrop;","a3\ui_f\data\map\VehicleIcons\iconTruck_ca.paa"],["Offroad","action","[2] call OSF_fnc_vehicleDrop;","a3\ui_f\data\map\VehicleIcons\iconTruck_ca.paa"]],"a3\3den\data\cfg3den\object\iconDriver_ca.paa"]],"a3\ui_f\data\igui\cfg\simpleTasks\types\radio_ca.paa"]]

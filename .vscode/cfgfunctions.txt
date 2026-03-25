@@ -1,0 +1,119 @@
+
+    class OSF
+    {
+        // ---- Core ----
+        class core
+        {
+            class boot      { description = "Initialise global game state namespace"; };
+        };
+
+        // ---- Sectors ----
+        class sectors
+        {
+            class setSector          { description = "Set a named field and trigger side effects"; };
+            class updateMarker       { description = "Sync map marker color to sector status"; };
+        };
+
+        // ---- Save ----
+        class save
+        {
+            class saveState          { description = "Serialise game state to profileNamespace"; };
+            class loadState          { description = "Restore game state from profileNamespace"; };
+        };
+
+        // ---- ODA ---- (Phase A2 — uncomment when building)
+        class oda
+        {
+        //     file = "scripts\oda";
+            class odaInit            { description = "Initialise ODA roster and unit definitions"; };
+            class odaSpawn           { description = "Spawn a single ODA slot; assigns identity and joins player group"; };
+            class odaDismiss         { description = "Remove a deployed ODA unit and return slot to standby"; };
+            class odaApplyLoadout      { description = "Apply loadout to a unit"; };
+            class odaHandleUnitDeath   { description = "Handle unit killed EH — marks slot KIA and clears runtime refs"; };
+            class odaReplacementWatcher { description = "Scheduled: waits out the replacement timer then returns slot to standby"; };
+            class odaIncap             { description = "Trigger incapacitation: animate, freeze damage, start timer, add revive action"; };
+            class odaIncapWatcher      { description = "Scheduled: medic proximity check and incap timer expiry loop"; };
+            class odaRevive            { description = "Execute revive sequence: sleep duration, restore unit, clear incap state"; };
+        //     class odaPassives        { description = "Calculate and apply active passive bonuses"; };
+        //     class odaMedicRevive     { description = "Medic auto-revive logic"; };
+        //     class odaDeath           { description = "Handle permanent death and replacement timer"; };
+        };
+
+        // ---- Militia ---- (Phase A4)
+        class militia
+        {
+            class upgradeInit         { description = "Initialise upgrade tree state (16 nodes, CP counter)"; };
+            class upgradeHasNode      { description = "Query a single upgrade node boolean; primary API for other systems"; };
+            class upgradeCanPurchase  { description = "Validate prereqs and CP cost before purchase"; };
+            class upgradePurchase     { description = "Execute node purchase: deduct CP and flip boolean"; };
+            class upgradeAddPoints    { description = "Add command points to the pool (sector liberation, side objectives)"; };
+        };
+
+        // ---- Counterattack ---- (Phase A5 — uncomment when building)
+        // class counterattack
+        // {
+        //     file = "scripts\counterattack";
+        //     class caEvaluate         { description = "Evaluate whether a counterattack should trigger"; };
+        //     class caLaunch           { description = "Launch counterattack waves on a sector"; };
+        //     class caWave             { description = "Spawn a single counterattack wave"; };
+        // };
+
+        // ---- Operations ---- (Phase B4 — uncomment when building)
+        class operations
+        {
+            // class opSetup            { description = "Pre-operation setup and briefing"; };
+            // class opSuccess          { description = "Handle operation success"; };
+            // class opFailure          { description = "Handle operation failure"; };
+            // class opAlliedPool       { description = "Track allied AI force pool"; };
+        };
+
+        // ---- Side Objectives ---- (Phase A8 — uncomment when building)
+        // class sideobj
+        // {
+        //     file = "scripts\sideobj";
+        //     class soScout            { description = "Resolve question mark marker on player approach"; };
+        //     class soAADestroy        { description = "AA emplacement side objective"; };
+        //     class soIntelGather      { description = "Intel documents side objective"; };
+        // };
+
+        // ---- TOC ---- (Phase A2 — uncomment when building)
+        class toc
+        {
+        //     file = "scripts\toc";
+               class strategicMapOpen   { description = "Open strategic map from TOC base object" };
+               class tocInit                 { description = "Initialise TOC interactions"; };
+               class tocApplySupplyLoadout   { description = "Apply supply box loadout to OSF_toc_supply_001"; };
+               class tocSupplyWatcher        { description = "Scheduled loop: restock supply box every 48 in-game hours"; };
+               class tocSquadUI              { description = "Squad management interface"; };
+               class tocMilitiaUI            { description = "FIA Upgrade Command dialog"; };
+        //     class tocRequisitionUI   { description = "Asset requisition interface"; };
+        };
+
+        // ---- Utils ----
+        class utils
+        {
+            class setMissionVar      { description = "Set a missionNamespace variable with optional RPT logging"; };
+            class getMissionVar      { description = "Get a missionNamespace variable with default fallback and missing-key warning"; };
+            class setProfileVar      { description = "Set a profileNamespace variable with optional RPT logging"; };
+            class getProfileVar      { description = "Get a profileNamespace variable with default fallback and missing-key warning"; };
+            class hasVar             { description = "Check whether a key exists on any namespace"; };
+            class log                { description = "Write to RPT; also echoes to systemChat when OSF_debug is true"; };
+            class getState          { description = "Returns a missionNameSpace item state hashmap."; };
+            class getStateField  { description = "Returns a named field from an item's runtime state hashmap."; };
+            class getStateKeys   { description = "Returns all IDs from a state registry hashmap."; };
+            class getStateValues { description = "Returns all item hashmaps from a state registry."; };
+        };
+
+        // ---- action menu ----
+        class menu
+        {
+            class findCover { description = "Sends squad into cover, expecting contact"; };
+            class suppressArea { description = "Makes all squad members suppress the players cursor target, works fon friendly target too";};
+            class fireOnLead { description = "Units hold fire until player fire's a round";};
+            class retreat     { description = "All units drop smoke and sprint 150m away from nearest enemy"; };
+            class advance          { description = "All units sprint 50m ahead of the player's current facing"; };
+            class regroup {};
+            class skipTime {};
+            class vehicleDrop {};
+        }
+    };

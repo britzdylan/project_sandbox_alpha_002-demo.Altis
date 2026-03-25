@@ -40,6 +40,7 @@ class CfgFunctions
             class startupMenu     { description = "Mission start screen — Continue or New Game"; };
             class playerRespawn   { description = "Custom player death → respawn at TOC"; };
             class tutorialIntro   { description = "New game tutorial sequence leading to TOC"; };
+            class weatherCycle    { description = "Dynamic weather transition loop"; };
         };
 
         // ---- Sectors ----

@@ -186,6 +186,9 @@ if (_choice == "newgame") then {
 
 ["boot", "CBA events registered.", OSF_LOG_INFO] call OSF_fnc_log;
 
+// ---- Environment ----
+[] spawn OSF_fnc_weatherCycle;
+
 // ---- Debug overlay ----
 [] call OSF_fnc_debugOverlay;
 

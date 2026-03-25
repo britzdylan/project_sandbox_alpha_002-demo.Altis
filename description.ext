@@ -37,6 +37,7 @@ class CfgFunctions
         {
             class boot          { description = "Initialise global game state namespace"; };
             class debugOverlay  { description = "Togglable debug HUD overlay (Ctrl+F12)"; };
+            class startupMenu   { description = "Mission start screen — Continue or New Game"; };
         };
 
         // ---- Sectors ----
@@ -112,7 +113,7 @@ class CfgFunctions
         class toc
         {
         //     file = "scripts\toc";
-               class strategicMapOpen   { description = "Open strategic map from TOC base object" };
+               class strategicMapOpen   { description = "Open strategic map from TOC base object"; };
                class tocInit                 { description = "Initialise TOC interactions"; };
                class tocApplySupplyLoadout   { description = "Apply supply box loadout to OSF_toc_supply_001"; };
                class tocSupplyWatcher        { description = "Scheduled loop: restock supply box every 48 in-game hours"; };
@@ -188,13 +189,14 @@ class CfgIdentities
     class OSF_ODA_19  { name = "Hughes";  face = "WhiteHead_19"; glasses = "None"; speaker = "Male09ENG"; pitch = 1.07; nameSound = "Hughes";  };
     class OSF_ODA_20  { name = "Hunt";    face = "WhiteHead_20"; glasses = "None"; speaker = "Male10ENG"; pitch = 0.89; nameSound = "Hunt";    };
     class OSF_ODA_21  { name = "James";   face = "WhiteHead_21"; glasses = "None"; speaker = "Male01ENG"; pitch = 1.01; nameSound = "James";   };
-    class OSF_ODA_22  { name = "Kelly";   face = "WhiteHead_22"; glasses = "None"; speaker = "Male02ENG"; pitch = 0.98; nameSound = "Kelly";   };
-    class OSF_ODA_23  { name = "King";    face = "WhiteHead_23"; glasses = "None"; speaker = "Male03ENG"; pitch = 1.11; nameSound = "King";    };
-    class OSF_ODA_24  { name = "Lane";    face = "WhiteHead_24"; glasses = "None"; speaker = "Male04ENG"; pitch = 0.86; nameSound = "Lane";    };
+    class OSF_ODA_22  { name = "Kelly";   face = "WhiteHead_31"; glasses = "None"; speaker = "Male02ENG"; pitch = 0.98; nameSound = "Kelly";   };
+    class OSF_ODA_23  { name = "King";    face = "WhiteHead_32"; glasses = "None"; speaker = "Male03ENG"; pitch = 1.11; nameSound = "King";    };
+    class OSF_ODA_24  { name = "Lane";    face = "WhiteHead_23f"; glasses = "None"; speaker = "Male04ENG"; pitch = 0.86; nameSound = "Lane";    };
 };
 
 #include "ui\defines.hpp"
 #include "ui\upgradeUI.hpp"
+#include "ui\startupMenu.hpp"
 
 // ============================================================
 // OSF_SquadUI — ODA Personnel Status Board

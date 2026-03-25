@@ -1,136 +1,192 @@
 // ============================================================
 // OSF_fnc_boot
 // Bootstraps all global game state on mission start.
-// Called once from init.sqf before player-dependent code.
+// Called from init.sqf with the player's startup menu choice.
 //
-// Init order:
-//   1. World settings
-//   2. Global state vars
-//   3. Log verbosity map
-//   4. Sector state (from data or save)
-//   5. ODA roster
-//   6. TOC interactions
-//   7. Upgrade tree
-//   8. CBA event registration
-//   9. Debug overlay
+// Phase 1 (pre-display): world settings, debug flag, log verbosity
+//   — runs before player is ready, called with no args
+// Phase 2 (post-menu): domain init based on player choice
+//   — runs after startup menu, called with ["continue"] or ["newgame"]
 //
-// params: none
+// Init order (Phase 2):
+//   1. Save/Load branch (restore or fresh init)
+//   2. TOC interactions
+//   3. CBA event registration
+//   4. Debug overlay
+//
+// Params: [choice (string, optional — "" for phase 1, "continue"/"newgame" for phase 2)]
 // Returns: nothing
-// Usage:  [] call OSF_fnc_boot;
+// Usage:  [] call OSF_fnc_boot;              // phase 1
+//         ["newgame"] call OSF_fnc_boot;     // phase 2
 // ============================================================
 
 #include "..\..\scripts\constants.hpp"
 
-params [];
+params [["_choice", ""]];
 
-["boot", "starting...", OSF_LOG_INFO] call OSF_fnc_log;
+// ============================================================
+// PHASE 1 — Pre-display setup (no args)
+// ============================================================
+if (_choice == "") exitWith {
+    ["boot", "Phase 1 — pre-display init...", OSF_LOG_INFO] call OSF_fnc_log;
 
-// ---- 1. World settings ----
-setTimeMultiplier OSF_TIME_MULTIPLIER;
+    // ---- World settings ----
+    setTimeMultiplier OSF_TIME_MULTIPLIER;
 
-// ---- 2. Global state vars ----
-// Always initialized fresh; persisted separately by fn_saveState / fn_loadState.
-[OSF_KEY_DEBUG,           true] call OSF_fnc_setMissionVar;   // set false for release
-[OSF_KEY_OP_FAILURES,       0] call OSF_fnc_setMissionVar;   // game over at 3
-[OSF_KEY_CAMPAIGN_PHASE,    1] call OSF_fnc_setMissionVar;   // 1=early, 2=mid, 3=late
-[OSF_KEY_ASSET_INVENTORY,  []] call OSF_fnc_setMissionVar;   // populated by requisition system (B5)
+    // ---- Debug flag ----
+    [OSF_KEY_DEBUG, true] call OSF_fnc_setMissionVar;   // set false for release
 
-// ---- 3. Log verbosity map ----
-// Per-domain threshold: 0=off, 1=error, 2=warn, 3=info, 4=verbose
-// Adjust during development; set all to 1-2 for release.
-private _verbosity = createHashMapFromArray [
-    ["boot",       OSF_LOG_INFO],
-    ["oda",        OSF_LOG_INFO],
-    ["sectors",    OSF_LOG_INFO],
-    ["toc",        OSF_LOG_INFO],
-    ["save",       OSF_LOG_INFO],
-    ["militia",    OSF_LOG_INFO],
-    ["menu",       OSF_LOG_WARN],
-    ["operations", OSF_LOG_INFO],
-    ["utils",      OSF_LOG_WARN]
-];
-missionNamespace setVariable ["OSF_logVerbosity", _verbosity];
+    // ---- Log verbosity map ----
+    private _verbosity = createHashMapFromArray [
+        ["boot",       OSF_LOG_INFO],
+        ["oda",        OSF_LOG_INFO],
+        ["sectors",    OSF_LOG_INFO],
+        ["toc",        OSF_LOG_INFO],
+        ["save",       OSF_LOG_INFO],
+        ["militia",    OSF_LOG_INFO],
+        ["menu",       OSF_LOG_WARN],
+        ["operations", OSF_LOG_INFO],
+        ["utils",      OSF_LOG_WARN],
+        ["events",     OSF_LOG_INFO]
+    ];
+    missionNamespace setVariable ["OSF_logVerbosity", _verbosity];
 
-// ---- 4. Sector state ----
-// TODO: uncomment when sector system is active
-// private _sectorDefs = call compile preProcessFileLineNumbers "scripts\data\sectorData.sqf";
-// private _registry = createHashMap;
-// {
-//     private _def = _x;
-//     private _sectorMap = createHashMapFromArray [
-//         ["id", _def select 0],
-//         ["displayName", _def select 1],
-//         ["operationId", _def select 2],
-//         ["boundaryMarker", _def select 3],
-//         ["status", _def select 4],
-//         ["adjacency", _def select 5],
-//         ["commandPoints", _def select 6],
-//         ["importance", _def select 7],
-//         ["sideObjectives", _def select 8],
-//         ["completedSideObjectives", []],
-//         ["counterattackActive", false]
-//     ];
-//     _registry set [_def select 0, _sectorMap];
-// } forEach _sectorDefs;
-// [OSF_KEY_SECTOR_STATE, _registry] call OSF_fnc_setMissionVar;
-// {
-//     [_x] call OSF_fnc_updateMarker;
-// } forEach (keys _registry);
-// ["boot", format ["%1 sector(s) initialized.", count (keys _registry)], OSF_LOG_INFO] call OSF_fnc_log;
+    ["boot", "Phase 1 complete.", OSF_LOG_INFO] call OSF_fnc_log;
+};
 
-// ---- 5. ODA roster ----
-[] call OSF_fnc_odaInit;
+// ============================================================
+// PHASE 2 — Domain init (after startup menu choice)
+// ============================================================
+["boot", format ["Phase 2 — domain init (choice: %1)...", _choice], OSF_LOG_INFO] call OSF_fnc_log;
 
-// ---- 6. TOC interactions ----
+if (_choice == "continue") then {
+    // ---- Restore from save ----
+    private _loaded = [] call OSF_fnc_loadState;
+
+    if (_loaded) then {
+        ["boot", "Save restored.", OSF_LOG_INFO] call OSF_fnc_log;
+
+        // Re-spawn ODA units from restored roster state
+        private _roster = missionNamespace getVariable [OSF_KEY_ODA_ROSTER, createHashMap];
+        {
+            private _slotId = _x;
+            private _slot = _y;
+            private _status = _slot getOrDefault [OSF_ODA_STATUS, OSF_ODA_STATUS_INACTIVE];
+
+            if (_status == OSF_ODA_STATUS_ACTIVE) then {
+                [_slotId] call OSF_fnc_odaSpawn;
+            };
+
+            if (_status == OSF_ODA_STATUS_REDEPLOYMENT) then {
+                [_slotId] spawn OSF_fnc_odaReplacementWatcher;
+            };
+        } forEach _roster;
+
+        ["boot", format ["%1 ODA slot(s) restored from save.", count _roster], OSF_LOG_INFO] call OSF_fnc_log;
+
+        // Upgrade defs are static — reload from file
+        private _nodeDefs = call compile preProcessFileLineNumbers "scripts\data\upgradeData.sqf";
+        private _defsIndex = createHashMapFromArray (_nodeDefs apply { [_x select 0, _x] });
+        [OSF_KEY_UPGRADE_DEFS, _defsIndex] call OSF_fnc_setMissionVar;
+    } else {
+        // Load failed — treat as new game
+        ["boot", "Save load failed — falling back to new game.", OSF_LOG_WARN] call OSF_fnc_log;
+        _choice = "newgame";
+    };
+};
+
+if (_choice == "newgame") then {
+    // ---- Wipe any existing save ----
+    [OSF_PROFILE_SAVE_EXISTS, false] call OSF_fnc_setProfileVar;
+    [OSF_PROFILE_SAVE_DATA, createHashMap] call OSF_fnc_setProfileVar;
+    saveProfileNamespace;
+
+    // ---- Fresh game state ----
+    [OSF_KEY_OP_FAILURES,       0] call OSF_fnc_setMissionVar;
+    [OSF_KEY_CAMPAIGN_PHASE,    1] call OSF_fnc_setMissionVar;
+    [OSF_KEY_ASSET_INVENTORY,  []] call OSF_fnc_setMissionVar;
+    [OSF_KEY_CP_POINTS,         0] call OSF_fnc_setMissionVar;
+
+    // Sector state from data
+    // TODO: uncomment when sector system is active
+    // private _sectorDefs = call compile preProcessFileLineNumbers "scripts\data\sectorData.sqf";
+    // private _registry = createHashMap;
+    // {
+    //     private _def = _x;
+    //     private _sectorMap = createHashMapFromArray [
+    //         ["id", _def select 0],
+    //         ["displayName", _def select 1],
+    //         ["operationId", _def select 2],
+    //         ["boundaryMarker", _def select 3],
+    //         ["status", _def select 4],
+    //         ["adjacency", _def select 5],
+    //         ["commandPoints", _def select 6],
+    //         ["importance", _def select 7],
+    //         ["sideObjectives", _def select 8],
+    //         ["completedSideObjectives", []],
+    //         ["counterattackActive", false]
+    //     ];
+    //     _registry set [_def select 0, _sectorMap];
+    // } forEach _sectorDefs;
+    // [OSF_KEY_SECTOR_STATE, _registry] call OSF_fnc_setMissionVar;
+    // {
+    //     [_x] call OSF_fnc_updateMarker;
+    // } forEach (keys _registry);
+
+    // ODA roster — fresh from data
+    [] call OSF_fnc_odaInit;
+
+    // Upgrade tree — fresh
+    [] call OSF_fnc_upgradeInit;
+
+    ["boot", "Fresh game initialized.", OSF_LOG_INFO] call OSF_fnc_log;
+};
+
+// ---- TOC — always from data (object refs don't persist) ----
 [] call OSF_fnc_tocInit;
 
-// ---- 7. Upgrade tree ----
-[] call OSF_fnc_upgradeInit;
-
-// ---- 8. CBA event registration ----
-// Listeners are registered here so all handlers are centralized.
-// Fire events from domain code: [OSF_EVT_SECTOR_LIBERATED, [_sectorId]] call CBA_fnc_localEvent;
-// Handlers added below — uncomment and implement as each system comes online.
-
-// [OSF_EVT_SECTOR_LIBERATED, {
-//     params ["_sectorId"];
-//     ["events", format ["Sector liberated: %1", _sectorId], OSF_LOG_INFO] call OSF_fnc_log;
-//     // TODO: trigger FIA camp spawn, HUMINT availability, counter-attack timer
-// }] call CBA_fnc_addEventHandler;
+// ---- CBA event registration ----
+// Autosave on sector liberation
+[OSF_EVT_SECTOR_LIBERATED, {
+    params ["_sectorId"];
+    ["events", format ["Sector liberated: %1", _sectorId], 3] call OSF_fnc_log;
+    ["auto"] call OSF_fnc_saveState;
+}] call CBA_fnc_addEventHandler;
 
 // [OSF_EVT_SECTOR_LOST, {
 //     params ["_sectorId"];
-//     ["events", format ["Sector lost: %1", _sectorId], OSF_LOG_WARN] call OSF_fnc_log;
-//     // TODO: HUMINT lockout, FIA camp removal
+//     ["events", format ["Sector lost: %1", _sectorId], 2] call OSF_fnc_log;
 // }] call CBA_fnc_addEventHandler;
 
 // [OSF_EVT_CP_CHANGED, {
 //     params ["_newBalance"];
-//     ["events", format ["CP changed: %1", _newBalance], OSF_LOG_INFO] call OSF_fnc_log;
-//     // TODO: UI update
+//     ["events", format ["CP changed: %1", _newBalance], 3] call OSF_fnc_log;
 // }] call CBA_fnc_addEventHandler;
 
-// [OSF_EVT_OPERATION_COMPLETE, {
-//     params ["_operationId"];
-//     ["events", format ["Operation complete: %1", _operationId], OSF_LOG_INFO] call OSF_fnc_log;
-//     // TODO: sector state change, CP award
-// }] call CBA_fnc_addEventHandler;
+// Autosave on operation complete
+[OSF_EVT_OPERATION_COMPLETE, {
+    params ["_operationId"];
+    ["events", format ["Operation complete: %1", _operationId], 3] call OSF_fnc_log;
+    ["auto"] call OSF_fnc_saveState;
+}] call CBA_fnc_addEventHandler;
 
 // [OSF_EVT_OPERATION_FAILED, {
 //     params ["_operationId"];
-//     ["events", format ["Operation failed: %1", _operationId], OSF_LOG_WARN] call OSF_fnc_log;
-//     // TODO: fail counter increment
+//     ["events", format ["Operation failed: %1", _operationId], 2] call OSF_fnc_log;
 // }] call CBA_fnc_addEventHandler;
 
-// [OSF_EVT_QUEST_STATE_CHANGED, {
-//     params ["_questId", "_newState"];
-//     ["events", format ["Quest %1 -> %2", _questId, _newState], OSF_LOG_INFO] call OSF_fnc_log;
-//     // TODO: task UI update, diary entry
-// }] call CBA_fnc_addEventHandler;
+// Autosave on quest complete (covers HUMINT)
+[OSF_EVT_QUEST_STATE_CHANGED, {
+    params ["_questId", "_newState"];
+    ["events", format ["Quest %1 -> %2", _questId, _newState], 3] call OSF_fnc_log;
+    if (_newState == "COMPLETE") then {
+        ["auto"] call OSF_fnc_saveState;
+    };
+}] call CBA_fnc_addEventHandler;
 
-["boot", "CBA events defined (handlers commented until systems are built).", OSF_LOG_INFO] call OSF_fnc_log;
+["boot", "CBA events registered.", OSF_LOG_INFO] call OSF_fnc_log;
 
-// ---- 9. Debug overlay ----
+// ---- Debug overlay ----
 [] call OSF_fnc_debugOverlay;
 
-["boot", "complete.", OSF_LOG_INFO] call OSF_fnc_log;
+["boot", "Phase 2 complete.", OSF_LOG_INFO] call OSF_fnc_log;

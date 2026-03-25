@@ -1,53 +1,88 @@
 // ============================================================
 // OSF_fnc_saveState
-// Serializes all sector runtime state to profileNamespace.
+// Serializes all domain states into a single hashmap and writes
+// it to profileNamespace. Called from TOC save action or autosave.
 //
-// Object reference fields (militia groups, hbqModules) are intentionally
+// Save schema (version 1):
+//   "version"          — (number)  schema version for migration
+//   "operationFailures"— (number)  0-3
+//   "campaignPhase"    — (number)  1/2/3
+//   "cpPoints"         — (number)  command points balance
+//   "assetInventory"   — (array)   unlocked asset classnames
+//   "sectors"          — (hashmap) sectorId → stripped sector hashmap
+//   "odaRoster"        — (hashmap) slotId → stripped slot hashmap
+//   "upgrades"         — (hashmap) nodeId → boolean
+//   "playerLoadout"    — (array)   getUnitLoadout result
+//
+// Object references (unitRef, hbqModules, militia groups) are
 // excluded — they are invalid across session boundaries.
-// Militia allocations are saved separately by the militia system.
 //
-// Params: none
+// Params: [source (string, optional — "manual" or "auto", for logging)]
 // Returns: nothing
-// Usage:  [] call OSF_fnc_saveState;
+// Usage:  ["manual"] call OSF_fnc_saveState;
+//         ["auto"] call OSF_fnc_saveState;
 // ============================================================
 
 #include "..\..\scripts\constants.hpp"
 
-params [];
+params [["_source", "manual"]];
 
-private _registry = [OSF_KEY_SECTOR_STATE, createHashMap] call OSF_fnc_getMissionVar;
+private _save = createHashMap;
 
-// Fields safe to persist — order must match fn_loadState exactly
-private _safeFields = [
-    "id",
-    "displayName",
-    "poiPos",
-    "boundaryMarker",
-    "status",
-    "adjacency",
-    "commandPoints",
-    "importance",
-    "sideObjectives",
-    "completedSideObjectives",
-    "counterattackActive"
-];
+// ---- Meta ----
+_save set ["version", OSF_SAVE_VERSION];
+_save set ["operationFailures", missionNamespace getVariable [OSF_KEY_OP_FAILURES, 0]];
+_save set ["campaignPhase", missionNamespace getVariable [OSF_KEY_CAMPAIGN_PHASE, 1]];
+_save set ["cpPoints", missionNamespace getVariable [OSF_KEY_CP_POINTS, 0]];
+_save set ["assetInventory", missionNamespace getVariable [OSF_KEY_ASSET_INVENTORY, []]];
 
-private _saveData = [];
-
+// ---- Sectors ----
+// Strip object-reference fields; keep only persistable data
+private _sectorReg = missionNamespace getVariable [OSF_KEY_SECTOR_STATE, createHashMap];
+private _sectorSave = createHashMap;
 {
-    private _sectorID  = _x;
-    private _sectorMap = _registry get _sectorID;
-    private _entry     = [];
-
+    private _sectorId = _x;
+    private _sectorMap = _y;
+    private _stripped = createHashMap;
     {
-        _entry pushBack (_sectorMap getOrDefault [_x, ""]);
-    } forEach _safeFields;
+        // Skip runtime-only fields
+        if !(_x in ["militia", "hbqModules"]) then {
+            _stripped set [_x, _y];
+        };
+    } forEach _sectorMap;
+    _sectorSave set [_sectorId, _stripped];
+} forEach _sectorReg;
+_save set ["sectors", _sectorSave];
 
-    _saveData pushBack [_sectorID, _entry];
-} forEach (keys _registry);
+// ---- ODA Roster ----
+// Save status, loadout, timers per slot. Exclude unitRef (object).
+private _odaReg = missionNamespace getVariable [OSF_KEY_ODA_ROSTER, createHashMap];
+private _odaSave = createHashMap;
+{
+    private _slotId = _x;
+    private _slotMap = _y;
+    private _stripped = createHashMap;
+    {
+        if (_x != OSF_ODA_UNIT_REF) then {
+            _stripped set [_x, _y];
+        };
+    } forEach _slotMap;
+    _odaSave set [_slotId, _stripped];
+} forEach _odaReg;
+_save set ["odaRoster", _odaSave];
 
-[OSF_PROFILE_SECTOR_SAVE, _saveData] call OSF_fnc_setProfileVar;
-[OSF_PROFILE_SAVE_EXISTS, true]      call OSF_fnc_setProfileVar;
+// ---- Upgrades ----
+_save set ["upgrades", missionNamespace getVariable [OSF_KEY_UPGRADE_STATE, createHashMap]];
+
+// ---- Player loadout ----
+_save set ["playerLoadout", getUnitLoadout player];
+
+// ---- Write to profile ----
+[OSF_PROFILE_SAVE_DATA, _save] call OSF_fnc_setProfileVar;
+[OSF_PROFILE_SAVE_EXISTS, true] call OSF_fnc_setProfileVar;
 saveProfileNamespace;
 
-["saveState", format ["Game state saved. %1 sector(s) written.", count _saveData]] call OSF_fnc_log;
+["save", format ["Game saved (%1). Version %2. Sectors: %3, ODA: %4.",
+    _source, OSF_SAVE_VERSION, count _sectorSave, count _odaSave], OSF_LOG_INFO] call OSF_fnc_log;
+
+hint "Game saved.";

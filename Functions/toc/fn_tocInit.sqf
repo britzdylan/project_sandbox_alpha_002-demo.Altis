@@ -141,4 +141,27 @@ private _tocRegistry = createHashMap;
 		false,
 		true
 	] call BIS_fnc_holdActionAdd;
+
+	// ------ Save Game (on strategic map object — player is at TOC)
+	[
+		_strategicMapObj,
+		"Save Game",
+		"\a3\ui_f\data\igui\cfg\actions\gear_ca.paa",
+		"\a3\ui_f\data\igui\cfg\actions\gear_ca.paa",
+		"(_this distance _target) < 2",
+		"(_this distance _target) < 2",
+		{},
+		{},
+		{
+			["manual"] call OSF_fnc_saveState;
+		},
+		{},
+		[],
+		2,
+		-1,
+		false,
+		false,
+		true
+	] call BIS_fnc_holdActionAdd;
+
 } forEach (keys _tocRegistry);

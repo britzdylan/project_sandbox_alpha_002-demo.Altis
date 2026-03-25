@@ -26,8 +26,11 @@
 // PROFILE namespace variable names
 // Used with OSF_fnc_getProfileVar / OSF_fnc_setProfileVar
 // ------------------------------------------------------------
-#define OSF_PROFILE_SECTOR_SAVE    "OSF_sectorSave"
+#define OSF_PROFILE_SAVE_DATA      "OSF_saveData"
 #define OSF_PROFILE_SAVE_EXISTS    "OSF_saveExists"
+
+// Save schema version — increment when save format changes
+#define OSF_SAVE_VERSION  1
 
 // ------------------------------------------------------------
 // TOC entry field names

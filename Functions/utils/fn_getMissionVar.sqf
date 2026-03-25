@@ -8,13 +8,18 @@
 // Usage:  _phase = ["OSF_campaignPhase", 1] call OSF_fnc_getMissionVar;
 // ============================================================
 
-params ["_key"];
+params ["_key", ["_default", nil]];
 
 private _value = missionNamespace getVariable _key;
 
 if (isNil "_value") then {
-	["getMissionVar", format ["FATAL: '%1' not in missionNamespace", _key]] call OSF_fnc_log;
-	nil
+	if (isNil "_default") then {
+		["getMissionVar", format ["FATAL: '%1' not in missionNamespace", _key], 1] call OSF_fnc_log;
+		nil
+	} else {
+		["getMissionVar", format ["WARN: '%1' not in missionNamespace, using default: %2", _key, _default], 2] call OSF_fnc_log;
+		_default
+	};
 } else {
 	_value
 };

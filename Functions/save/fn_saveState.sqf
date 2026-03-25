@@ -31,14 +31,14 @@ private _save = createHashMap;
 
 // ---- Meta ----
 _save set ["version", OSF_SAVE_VERSION];
-_save set ["operationFailures", missionNamespace getVariable [OSF_KEY_OP_FAILURES, 0]];
-_save set ["campaignPhase", missionNamespace getVariable [OSF_KEY_CAMPAIGN_PHASE, 1]];
-_save set ["cpPoints", missionNamespace getVariable [OSF_KEY_CP_POINTS, 0]];
-_save set ["assetInventory", missionNamespace getVariable [OSF_KEY_ASSET_INVENTORY, []]];
+_save set ["operationFailures", [OSF_KEY_OP_FAILURES, 0] call OSF_fnc_getMissionVar];
+_save set ["campaignPhase", [OSF_KEY_CAMPAIGN_PHASE, 1] call OSF_fnc_getMissionVar];
+_save set ["cpPoints", [OSF_KEY_CP_POINTS, 0] call OSF_fnc_getMissionVar];
+_save set ["assetInventory", [OSF_KEY_ASSET_INVENTORY, []] call OSF_fnc_getMissionVar];
 
 // ---- Sectors ----
 // Strip object-reference fields; keep only persistable data
-private _sectorReg = missionNamespace getVariable [OSF_KEY_SECTOR_STATE, createHashMap];
+private _sectorReg = [OSF_KEY_SECTOR_STATE, createHashMap] call OSF_fnc_getMissionVar;
 private _sectorSave = createHashMap;
 {
     private _sectorId = _x;
@@ -56,7 +56,7 @@ _save set ["sectors", _sectorSave];
 
 // ---- ODA Roster ----
 // Save status, loadout, timers per slot. Exclude unitRef (object).
-private _odaReg = missionNamespace getVariable [OSF_KEY_ODA_ROSTER, createHashMap];
+private _odaReg = [OSF_KEY_ODA_ROSTER, createHashMap] call OSF_fnc_getMissionVar;
 private _odaSave = createHashMap;
 {
     private _slotId = _x;
@@ -72,7 +72,7 @@ private _odaSave = createHashMap;
 _save set ["odaRoster", _odaSave];
 
 // ---- Upgrades ----
-_save set ["upgrades", missionNamespace getVariable [OSF_KEY_UPGRADE_STATE, createHashMap]];
+_save set ["upgrades", [OSF_KEY_UPGRADE_STATE, createHashMap] call OSF_fnc_getMissionVar];
 
 // ---- Player loadout ----
 _save set ["playerLoadout", getUnitLoadout player];

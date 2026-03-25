@@ -32,6 +32,12 @@
 //
 // ============================================================
 #include "scripts\constants.hpp"
+// disable player input
+player enableSimulation false;
+player allowDamage false;
+
+// fade out audio and screen
+["start", false] call BIS_fnc_blackOut;
 
 // ---- 1. Boot phase 1 — pre-display setup ----
 [] call OSF_fnc_boot;
@@ -49,6 +55,7 @@ waitUntil {
     }
 };
 dceAvailable = false;
+0 fadeSound 0;
 
 ["init", "Player ready.", OSF_LOG_INFO] call OSF_fnc_log;
 
@@ -73,5 +80,20 @@ if (count _pendingLoadout > 0) then {
 // Example:
 // ["sector_tutorial", "hbqModules", [hbqModule_tutorial_1, hbqModule_tutorial_2]]
 //     call OSF_fnc_setSector;
+
+// ---- 6. Player respawn system ----
+[] call OSF_fnc_playerRespawn;
+
+// ---- 7. Tutorial or resume ----
+if (_choice == "newgame") then {
+    [] spawn OSF_fnc_tutorialIntro;
+} else {
+    ["start"] call BIS_fnc_blackIn;
+    3 fadeSound 1;
+    // Returning player — skip tutorial
+    missionNamespace setVariable ["OSF_tutorialComplete", true];
+    hint "Welcome back, Team Lead.";
+    [] spawn { sleep 4; hintSilent ""; };
+};
 
 ["init", "init.sqf complete.", OSF_LOG_INFO] call OSF_fnc_log;

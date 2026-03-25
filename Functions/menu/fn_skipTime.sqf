@@ -8,11 +8,8 @@
 */
 params [["_hours", 6, [0]]];
 
-private _label = format [
-	"+%1H00",
-	_hours
-];
-private _text = format ["<t align='center' font='PuristaBold' size='2' shadow='1' shadowColor='#000000' color='#ffffff'>%1</t>", _label];
+private _label = format ["+%1H00", _hours];
+private _text = [_label] call OSF_fnc_titleText;
 // disable player input
 player enableSimulation false;
 player allowDamage false;

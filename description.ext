@@ -35,9 +35,11 @@ class CfgFunctions
         // ---- Core ----
         class core
         {
-            class boot          { description = "Initialise global game state namespace"; };
-            class debugOverlay  { description = "Togglable debug HUD overlay (Ctrl+F12)"; };
-            class startupMenu   { description = "Mission start screen — Continue or New Game"; };
+            class boot            { description = "Initialise global game state namespace"; };
+            class debugOverlay    { description = "Togglable debug HUD overlay (Ctrl+F12)"; };
+            class startupMenu     { description = "Mission start screen — Continue or New Game"; };
+            class playerRespawn   { description = "Custom player death → respawn at TOC"; };
+            class tutorialIntro   { description = "New game tutorial sequence leading to TOC"; };
         };
 
         // ---- Sectors ----
@@ -135,6 +137,7 @@ class CfgFunctions
             class getStateField  { description = "Returns a named field from an item's runtime state hashmap."; };
             class getStateKeys   { description = "Returns all IDs from a state registry hashmap."; };
             class getStateValues { description = "Returns all item hashmaps from a state registry."; };
+            class titleText     { description = "Returns styled structured-text string for titleText"; };
         };
 
         // ---- action menu ----

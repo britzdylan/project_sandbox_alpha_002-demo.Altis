@@ -57,13 +57,13 @@ missionNamespace setVariable ["OSF_debugOverlayVisible", false];
         if (_visible) then {
             private _fps = round diag_fps;
             private _aiCount = {alive _x && !isPlayer _x} count allUnits;
-            private _phase = missionNamespace getVariable ["OSF_campaignPhase", "?"];
-            private _cp = missionNamespace getVariable ["OSF_cpPoints", 0];
-            private _failures = missionNamespace getVariable ["OSF_operationFailures", 0];
-            private _debug = missionNamespace getVariable ["OSF_debug", false];
+            private _phase = [OSF_KEY_CAMPAIGN_PHASE, "?"] call OSF_fnc_getMissionVar;
+            private _cp = [OSF_KEY_CP_POINTS, 0] call OSF_fnc_getMissionVar;
+            private _failures = [OSF_KEY_OP_FAILURES, 0] call OSF_fnc_getMissionVar;
+            private _debug = [OSF_KEY_DEBUG, false] call OSF_fnc_getMissionVar;
 
             // Sector summary — count by status
-            private _sectorReg = missionNamespace getVariable ["OSF_sectorState", createHashMap];
+            private _sectorReg = [OSF_KEY_SECTOR_STATE, createHashMap] call OSF_fnc_getMissionVar;
             private _libCount = 0;
             private _conCount = 0;
             private _occCount = 0;

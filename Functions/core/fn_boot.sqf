@@ -67,7 +67,7 @@ if (_choice == "continue") then {
         ["boot", "Save restored.", OSF_LOG_INFO] call OSF_fnc_log;
 
         // Re-spawn ODA units from restored roster state
-        private _roster = missionNamespace getVariable [OSF_KEY_ODA_ROSTER, createHashMap];
+        private _roster = [OSF_KEY_ODA_ROSTER, createHashMap] call OSF_fnc_getMissionVar;
         {
             private _slotId = _x;
             private _slot = _y;

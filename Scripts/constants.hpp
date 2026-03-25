@@ -86,6 +86,27 @@
 #define OSF_REVIVE_IN_PROGRESS    "OSF_reviveInProgress"
 
 // ------------------------------------------------------------
+// Log verbosity levels
+// Used as 3rd param to OSF_fnc_log
+// ------------------------------------------------------------
+#define OSF_LOG_ERROR    1
+#define OSF_LOG_WARN     2
+#define OSF_LOG_INFO     3
+#define OSF_LOG_VERBOSE  4
+
+// ------------------------------------------------------------
+// CBA event names
+// Fired via [eventName, params] call CBA_fnc_localEvent
+// Listened via [eventName, handler] call CBA_fnc_addEventHandler
+// ------------------------------------------------------------
+#define OSF_EVT_SECTOR_LIBERATED    "OSF_evt_sectorLiberated"
+#define OSF_EVT_SECTOR_LOST         "OSF_evt_sectorLost"
+#define OSF_EVT_CP_CHANGED          "OSF_evt_cpChanged"
+#define OSF_EVT_OPERATION_COMPLETE  "OSF_evt_operationComplete"
+#define OSF_EVT_OPERATION_FAILED    "OSF_evt_operationFailed"
+#define OSF_EVT_QUEST_STATE_CHANGED "OSF_evt_questStateChanged"
+
+// ------------------------------------------------------------
 // ODA member status values
 // Used with OSF_ODA_STATUS field
 // ------------------------------------------------------------

@@ -2,6 +2,39 @@
 // init.sqf — Operation Sovereign Fury
 // Mission entry point. Runs on every load (fresh and save restore).
 // ============================================================
+//
+// ---- Project Conventions ----
+//
+// Folder layout:
+//   Functions/<domain>/fn_<name>.sqf   — SQF functions, auto-registered via CfgFunctions
+//   scripts/data/<domain>Data.sqf      — Static config arrays (sectors, ODA, loadouts, upgrades, TOC)
+//   scripts/loadouts/oda_<variant>_<role>.sqf — Preset loadout definitions
+//   scripts/constants.hpp              — All #define constants (keys, timers, event names)
+//   ui/                                — Dialog .hpp includes (defines.hpp, upgradeUI.hpp, etc.)
+//   third-party/                       — External scripts (HBQ, Drongos, action menu)
+//   docs/                              — Developer and player guides
+//
+// Naming:
+//   Functions  : OSF_fnc_<name>         (auto from CfgFunctions class OSF)
+//   Constants  : OSF_KEY_*              (missionNamespace keys)
+//                OSF_PROFILE_*          (profileNamespace keys)
+//                OSF_TOC_*, OSF_ODA_*   (hashmap field name keys)
+//   Events     : OSF_evt_*              (CBA event names)
+//   Globals    : OSF_*                  (all runtime globals carry the OSF_ prefix)
+//   Log levels : OSF_LOG_ERROR/WARN/INFO/VERBOSE (1-4)
+//
+// Init order (fn_boot.sqf):
+//   1. World settings (time multiplier)
+//   2. Global state vars (debug flag, fail counter, campaign phase, assets)
+//   3. Log verbosity map
+//   4. Sector state (from sectorData.sqf or save)
+//   5. ODA roster (odaInit)
+//   6. TOC interactions (tocInit)
+//   7. Upgrade tree (upgradeInit)
+//   8. CBA event registration
+//   9. Debug overlay init
+//
+// ============================================================
 #include "scripts\constants.hpp"
 
 // ---- 1. Boot game state ----

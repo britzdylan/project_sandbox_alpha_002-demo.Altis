@@ -21,7 +21,8 @@ private _tocRegistry = createHashMap;
 		[OSF_TOC_STRATEGIC_MISSION, _toc select 2],
 		[OSF_TOC_STRATEGIC_OBJ_ID, _toc select 3],
 		[OSF_TOC_SQUAD_MANAGER_OBJ_ID, _toc select 4],
-		[OSF_TOC_FIA_MANAGER_OBJ_ID, _toc select 5]
+		[OSF_TOC_FIA_MANAGER_OBJ_ID, _toc select 5],
+		[OSF_TOC_FLAG_OBJ_ID, _toc select 6]
 	];
 	_tocRegistry set [_toc select 0, _tocMap];
 } forEach _tocDefs;
@@ -47,6 +48,9 @@ private _tocRegistry = createHashMap;
 
 	private _fiaManagerObjVarName = _entry get OSF_TOC_FIA_MANAGER_OBJ_ID;
 	private _fiaManagerObj = missionNamespace getVariable [_fiaManagerObjVarName, objNull];
+
+	private _flagManagerObjVarName = _entry get OSF_TOC_FLAG_OBJ_ID;
+	private _flagManagerObj = missionNamespace getVariable [_flagManagerObjVarName, objNull];
 
 	if (isNull _strategicMapObj) exitWith {
 		["tocInit", format ["WARNING: TOC object '%1' not found for TOC '%2'", _squadManagerObjVarName, _tocId]] call OSF_fnc_log;
@@ -144,7 +148,7 @@ private _tocRegistry = createHashMap;
 
 	// ------ Save Game (on strategic map object — player is at TOC)
 	[
-		_strategicMapObj,
+		_flagManagerObj,
 		"Save Game",
 		"\a3\ui_f\data\igui\cfg\actions\gear_ca.paa",
 		"\a3\ui_f\data\igui\cfg\actions\gear_ca.paa",
@@ -163,5 +167,4 @@ private _tocRegistry = createHashMap;
 		false,
 		true
 	] call BIS_fnc_holdActionAdd;
-
 } forEach (keys _tocRegistry);

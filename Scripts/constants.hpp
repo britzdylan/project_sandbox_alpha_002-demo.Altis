@@ -54,6 +54,7 @@
 #define OSF_TOC_STRATEGIC_OBJ_ID    "strategicMapObjectId"
 #define OSF_TOC_SQUAD_MANAGER_OBJ_ID    "squadManagerObjectId"
 #define OSF_TOC_FIA_MANAGER_OBJ_ID  "fiaManagerObjectId"
+#define OSF_TOC_FLAG_OBJ_ID "flagGameManagerObjectId"
 
 // ------------------------------------------------------------
 // ODA member field names

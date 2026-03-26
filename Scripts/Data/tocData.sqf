@@ -5,6 +5,7 @@
 // 3: strategicMapObjectId (String)
 // 4: squadManageObjectId (String)
 // 5: fiaManagerObjectId (string)
+// 6: flagGameManagerObjectId (string)
 // ----------------------------------------------------------
 
 [
@@ -13,7 +14,7 @@
 	    // ----------------------------------------------------------
 	[
 		"TOC_001",
-		[5193.56,21284.2,0],
+		[5193.56, 21284.2, 0],
 		[
 			[
 				[9184.61, 21649.3],
@@ -38,6 +39,7 @@
 		],
 		"OSF_toc_strategic_map_board_001",
 		"OSF_toc_squad_manager_001",
-		"OSF_toc_fia_manager_001"
+		"OSF_toc_fia_manager_001",
+		"OSF_toc_flag_001"
 	]
 ];

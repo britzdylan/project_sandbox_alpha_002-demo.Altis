@@ -54,12 +54,12 @@ Goal: Prove the core loop works end-to-end before building content.
 
 ## Locations
 
-- [ ] **TOC** — placed near Abdera, functional:
-  - [ ] Object(s) the player interacts with (table, tent, flag — whatever represents the command post)
+- [x] **TOC** — placed near Abdera, functional:
+  - [xm] Object(s) the player interacts with (table, tent, flag — whatever represents the command post)
   - [ ] Save action on TOC object
-  - [ ] Squad menu access point
-  - [ ] FIA upgrades access point
-  - [ ] Strategic map access point
+  - [x] Squad menu access point
+  - [x] FIA upgrades access point
+  - [x] Strategic map access point
   - [ ] Campaign overview access point
 - [ ] **Abdera Airfield** — operation sector:
   - [ ] Sector boundary defined (trigger area or marker radius)
@@ -198,7 +198,7 @@ Goal: Prove the core loop works end-to-end before building content.
 - [ ] Operation timer (when active)
 - [ ] CP balance
 - [ ] Active quest/objective indicator (current task name + direction)
-- [ ] Notification toast system (CP earned, objective updated, sector liberated)
+- [x] Notification toast system (CP earned, objective updated, sector liberated)
 
 ### TOC Menus
 

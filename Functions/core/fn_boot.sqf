@@ -32,6 +32,7 @@ if (_choice == "") exitWith {
 
     // ---- World settings ----
     setTimeMultiplier OSF_TIME_MULTIPLIER;
+    setDate [2035,3,24,3,21];
 
     // ---- Debug flag ----
     [OSF_KEY_DEBUG, true] call OSF_fnc_setMissionVar;   // set false for release
@@ -96,6 +97,7 @@ if (_choice == "continue") then {
 };
 
 if (_choice == "newgame") then {
+    // ---- Set player ----
     // ---- Wipe any existing save ----
     [OSF_PROFILE_SAVE_EXISTS, false] call OSF_fnc_setProfileVar;
     [OSF_PROFILE_SAVE_DATA, createHashMap] call OSF_fnc_setProfileVar;
@@ -137,13 +139,13 @@ if (_choice == "newgame") then {
     [] call OSF_fnc_odaInit;
 
     // Upgrade tree — fresh
-    [] call OSF_fnc_upgradeInit;
+    [] spawn OSF_fnc_upgradeInit;
 
     ["boot", "Fresh game initialized.", OSF_LOG_INFO] call OSF_fnc_log;
 };
 
 // ---- TOC — always from data (object refs don't persist) ----
-[] call OSF_fnc_tocInit;
+[] spawn OSF_fnc_tocInit;
 
 // ---- CBA event registration ----
 // Autosave on sector liberation
@@ -190,6 +192,6 @@ if (_choice == "newgame") then {
 [] spawn OSF_fnc_weatherCycle;
 
 // ---- Debug overlay ----
-[] call OSF_fnc_debugOverlay;
+[] spawn OSF_fnc_debugOverlay;
 
 ["boot", "Phase 2 complete.", OSF_LOG_INFO] call OSF_fnc_log;

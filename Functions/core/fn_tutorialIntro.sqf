@@ -36,8 +36,6 @@ sleep 3;
 ["start"] call BIS_fnc_blackIn;
 3 fadeSound 1;
 // re-enable player input
-player enableSimulation true;
-player allowDamage true;
 sleep 2;
 
 // ---- Radio message ----

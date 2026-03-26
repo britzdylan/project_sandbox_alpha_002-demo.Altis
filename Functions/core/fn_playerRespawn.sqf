@@ -1,12 +1,14 @@
 // ============================================================
 // OSF_fnc_playerRespawn
 // Custom player respawn system. On fatal damage:
-//   1. Prevent actual death (sub-lethal damage return)
+//   1. Block the killing blow (return 0, allowDamage false)
 //   2. Black screen + text
 //   3. Heal and teleport player to TOC
 //   4. Teleport living squad members to TOC
 //
-// Call once after player is ready to register the handleDamage EH.
+// Uses handleDamage EH as primary intercept + killed EH as failsafe.
+//
+// Call once after player is ready to register the EHs.
 //
 // Params: none
 // Returns: nothing
@@ -19,66 +21,91 @@
 if (player getVariable ["OSF_respawnEHRegistered", false]) exitWith {};
 player setVariable ["OSF_respawnEHRegistered", true];
 
-player addEventHandler ["handleDamage", {
-    params ["_unit", "_selection", "_damage"];
+// ---- Shared respawn logic (called from both EHs) ----
+OSF_fnc_doPlayerRespawn = {
+    if (player getVariable ["OSF_respawnInProgress", false]) exitWith {};
+    player setVariable ["OSF_respawnInProgress", true];
 
-    // Not fatal — pass through
-    if (_damage < 1) exitWith { _damage };
+    // Immediately make invincible
+    player allowDamage false;
+    player enableSimulation false;
 
-    // Already in respawn sequence — block all damage
-    if (_unit getVariable ["OSF_respawnInProgress", false]) exitWith { 0 };
-
-    // ---- Trigger respawn sequence ----
-    _unit setVariable ["OSF_respawnInProgress", true];
+    ["respawn", false] call BIS_fnc_blackOut;
 
     [] spawn {
-        private _unit = player;
-
-        // Freeze player
-        _unit allowDamage false;
-        _unit enableSimulation false;
-
-        // Black screen
-        cutText ["", "BLACK OUT", 1];
         sleep 1;
 
         // Get TOC position
         private _tocReg = [OSF_KEY_TOC_STATE, createHashMap] call OSF_fnc_getMissionVar;
-        private _tocPos = [0, 0, 0];
+        private _tocPos = OSF_TOC_SPAWN_POS_001;
         {
-            _tocPos = _y getOrDefault [OSF_TOC_POS, [0, 0, 0]];
-        } forEach _tocReg;  // Use first TOC found
+            _tocPos = _y getOrDefault [OSF_TOC_POS, OSF_TOC_SPAWN_POS_001];
+        } forEach _tocReg;
 
         // Show message during black screen
-        titleText ["You have been critically wounded.\nMEDEVAC to TOC.", "PLAIN", 0.5];
+        private _text = ["You have been critically wounded.\nMEDEVAC to TOC."] call OSF_fnc_titleText;
+        titleText [_text, "PLAIN", true, true];
         sleep 2;
 
         // Teleport and heal player
-        _unit setPos _tocPos;
-        _unit setDamage 0;
-        _unit allowDamage true;
-        _unit enableSimulation true;
+        player setPos _tocPos;
+        player setDamage 0;
+        player enableSimulation true;
+        player allowDamage true;
 
         // Teleport living squad members nearby
         {
             if (alive _x && _x != player) then {
-                private _offset = [_tocPos select 0, _tocPos select 1, 0] vectorAdd [3 + random 5 - 4, 3 + random 5 - 4, 0];
+                private _offset = [
+                    (_tocPos select 0) + (random 8) - 4,
+                    (_tocPos select 1) + (random 8) - 4,
+                    0
+                ];
                 _x setPos _offset;
             };
         } forEach (units group player);
 
         // Fade in
         sleep 0.5;
-        cutText ["", "BLACK IN", 2];
-        titleText ["", "PLAIN"];
+        ["respawn"] call BIS_fnc_blackIn;
+        3 fadeSound 1;
 
-        _unit setVariable ["OSF_respawnInProgress", false];
+        player setVariable ["OSF_respawnInProgress", false];
 
         ["core", "Player respawned at TOC.", OSF_LOG_INFO] call OSF_fnc_log;
     };
+};
 
-    // Return sub-lethal damage to prevent actual death
-    0.9
+// ---- Primary: handleDamage EH ----
+// Intercepts fatal hits before death. Returns 0 and disables damage immediately.
+player addEventHandler ["handleDamage", {
+    params ["_unit", "_selection", "_damage"];
+
+    // Already in respawn — block everything
+    if (_unit getVariable ["OSF_respawnInProgress", false]) exitWith { 0 };
+
+    // Not fatal — pass through
+    if (_damage < 1) exitWith { _damage };
+
+    // Fatal hit — block it and trigger respawn
+    _unit allowDamage false;
+    [] call OSF_fnc_doPlayerRespawn;
+    0
+}];
+
+// ---- Failsafe: killed EH ----
+// If something bypasses handleDamage (explosions, collision, engine quirks),
+// this catches the death and forces a respawn.
+player addEventHandler ["killed", {
+    params ["_unit"];
+
+    ["core", "Player killed despite handleDamage — failsafe triggered.", OSF_LOG_WARN] call OSF_fnc_log;
+
+    // Force revive the corpse
+    _unit setDamage 0;
+    _unit setUnconscious false;
+
+    [] call OSF_fnc_doPlayerRespawn;
 }];
 
 ["core", "Player respawn system registered.", OSF_LOG_INFO] call OSF_fnc_log;

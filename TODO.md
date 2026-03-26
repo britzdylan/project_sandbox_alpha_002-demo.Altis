@@ -8,25 +8,25 @@ Goal: Prove the core loop works end-to-end before building content.
 
 ## Systems Architecture
 
-- [ ] Define file/folder structure (scripts per domain)
-- [ ] Init chain: `init.sqf` → domain inits in defined order
-- [ ] Global variable naming convention decided and documented
-- [ ] Basic event system (CBA events or custom global variable flags)
-- [ ] Debug overlay togglable with a keybind (shows: AI count, FPS, current game state, CP balance)
-- [ ] RPT logging per domain with toggleable verbosity
+- [x] Define file/folder structure (scripts per domain)
+- [x] Init chain: `init.sqf` → domain inits in defined order
+- [x] Global variable naming convention decided and documented
+- [x] Basic event system (CBA events or custom global variable flags)
+- [x] Debug overlay togglable with a keybind (shows: AI count, FPS, current game state, CP balance)
+- [x] RPT logging per domain with toggleable verbosity
 
 ---
 
 ## Player State & Persistence
 
-- [ ] Save data schema defined (all fields, types, defaults, version number)
-- [ ] Save function: serialize all domain states to `profileNamespace`
-- [ ] Load function: deserialize and restore all domain states
-- [ ] Save only available at TOC (action on TOC object)
-- [ ] Autosave triggers: on sector liberation, on operation start, on HUMINT complete
-- [ ] New game initializer (fresh state, first-time flag)
-- [ ] Save data validation on load (check for missing/corrupt fields, apply defaults)
-- [ ] Verify: save at TOC → close Arma → relaunch → load → world state intact
+- [x] Save data schema defined (all fields, types, defaults, version number)
+- [x] Save function: serialize all domain states to `profileNamespace`
+- [x] Load function: deserialize and restore all domain states
+- [x] Save only available at TOC (action on TOC object)
+- [x] Autosave triggers: on sector liberation, on operation start, on HUMINT complete
+- [x] New game initializer (fresh state, first-time flag)
+- [x] Save data validation on load (check for missing/corrupt fields, apply defaults)
+- [x] Verify: save at TOC → close Arma → relaunch → load → world state intact
 
 ---
 
@@ -43,9 +43,9 @@ Goal: Prove the core loop works end-to-end before building content.
 
 ## Environment
 
-- [ ] Altis loaded, no terrain restrictions needed for POC (but mentally scope testing to NE corner)
-- [ ] Dynamic weather running (`setWeather` random or scripted cycle)
-- [ ] Time multiplier set to 6x (`setTimeMultiplier 6`)
+- [x] Altis loaded, no terrain restrictions needed for POC (but mentally scope testing to NE corner)
+- [x] Dynamic weather running (`setWeather` random or scripted cycle)
+- [x] Time multiplier set to 6x (`setTimeMultiplier 6`)
 - [ ] Basic ambient life near Abdera: 2-3 abandoned vehicle wrecks (static compositions)
 - [ ] 1-2 destroyed/vandalized building clusters near sector
 - [ ] Verify: day/night cycle feels right at 6x, weather transitions aren't jarring

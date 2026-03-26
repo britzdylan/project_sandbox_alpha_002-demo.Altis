@@ -33,6 +33,14 @@
 #define OSF_SAVE_VERSION  1
 
 // ------------------------------------------------------------
+// Player constants
+// Keys used inside for the player
+// ------------------------------------------------------------
+#define OSF_START_POS              [2977.05,21475.4,9.53674e-07]
+#define OSF_TOC_SPAWN_POS_001      [5193.56,21284.2,0]
+
+
+// ------------------------------------------------------------
 // TOC entry field names
 // Keys used inside individual TOC state hashmaps
 // ------------------------------------------------------------

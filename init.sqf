@@ -35,6 +35,7 @@
 // disable player input
 player enableSimulation false;
 player allowDamage false;
+enableSaving [false, false];
 
 // fade out audio and screen
 ["start", false] call BIS_fnc_blackOut;
@@ -55,7 +56,6 @@ waitUntil {
     }
 };
 dceAvailable = false;
-0 fadeSound 0;
 
 ["init", "Player ready.", OSF_LOG_INFO] call OSF_fnc_log;
 
@@ -75,12 +75,6 @@ if (count _pendingLoadout > 0) then {
     ["init", "Player loadout restored from save.", OSF_LOG_INFO] call OSF_fnc_log;
 };
 
-// Register HBQ module object references
-// Eden-placed HBQ modules must be re-registered every load (object refs can't be persisted).
-// Example:
-// ["sector_tutorial", "hbqModules", [hbqModule_tutorial_1, hbqModule_tutorial_2]]
-//     call OSF_fnc_setSector;
-
 // ---- 6. Player respawn system ----
 [] call OSF_fnc_playerRespawn;
 
@@ -95,5 +89,8 @@ if (_choice == "newgame") then {
     hint "Welcome back, Team Lead.";
     [] spawn { sleep 4; hintSilent ""; };
 };
+
+player enableSimulation true;
+player allowDamage true;
 
 ["init", "init.sqf complete.", OSF_LOG_INFO] call OSF_fnc_log;

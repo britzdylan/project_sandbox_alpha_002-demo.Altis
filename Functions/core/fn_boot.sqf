@@ -67,7 +67,7 @@ if (_choice == "") exitWith {
 ["boot", format ["Phase 2 — domain init (choice: %1)...", _choice], OSF_LOG_INFO] call OSF_fnc_log;
 
 if (_choice == "continue") then {
-		player setPos OSF_TOC_SPAWN_POS_001;
+	player setPos OSF_TOC_SPAWN_POS_001;
 
     // ---- Restore from save ----
     private _loaded = [] call OSF_fnc_loadState;
@@ -83,7 +83,7 @@ if (_choice == "continue") then {
             private _status = _slot getOrDefault [OSF_ODA_STATUS, OSF_ODA_STATUS_INACTIVE];
 
             if (_status == OSF_ODA_STATUS_ACTIVE) then {
-                [_slotId] call OSF_fnc_odaSpawn;
+                [_slotId] spawn OSF_fnc_odaSpawn;
             };
 
             if (_status == OSF_ODA_STATUS_REDEPLOYMENT) then {
@@ -146,7 +146,7 @@ if (_choice == "newgame") then {
     // } forEach (keys _registry);
 
     // ODA roster — fresh from data
-    [] call OSF_fnc_odaInit;
+    [] spawn OSF_fnc_odaInit;
 
     // Upgrade tree — fresh
     [] spawn OSF_fnc_upgradeInit;

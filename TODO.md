@@ -55,8 +55,8 @@ Goal: Prove the core loop works end-to-end before building content.
 ## Locations
 
 - [x] **TOC** — placed near Abdera, functional:
-  - [xm] Object(s) the player interacts with (table, tent, flag — whatever represents the command post)
-  - [ ] Save action on TOC object
+  - [x] Object(s) the player interacts with (table, tent, flag — whatever represents the command post)
+  - [x] Save action on TOC object
   - [x] Squad menu access point
   - [x] FIA upgrades access point
   - [x] Strategic map access point
@@ -121,10 +121,10 @@ Goal: Prove the core loop works end-to-end before building content.
 
 ## Progression (Minimal for POC)
 
-- [ ] CP variable initialized at 0
+- [x] CP variable initialized at 0
 - [ ] CP earned on: HUMINT completion (+1), FIA Support Op completion (+1)
 - [ ] CP display somewhere visible (HUD element or debug overlay)
-- [ ] FIA level system: Level 0 at start
+- [x] FIA level system: Level 0 at start
 - [ ] 1 upgrade purchasable with CP to prove the system works (e.g., FIA gear tier 1 OR unlock one support asset)
 - [ ] Upgrade state saved/loaded
 - [ ] Verify: earn CP → spend CP → effect visible in world or available support
@@ -216,7 +216,7 @@ Goal: Prove the core loop works end-to-end before building content.
 
 - [ ] 1 diary subject for notifications (auto-populated on events)
 - [ ] 1 briefing entry for the current operation
-- [ ] 1 codex entry (e.g., "FIA" faction description) — proves the codex population system works
+- [ ] 1 codex entry (e.g., "FIA" factio n description) — proves the codex population system works
 
 ---
 

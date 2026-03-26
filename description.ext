@@ -30,6 +30,9 @@ enableDebugConsole = 1;  // Set to 0 for release
 
 class CfgFunctions
 {
+    // ---- Tinter Furniture ----
+    #include "furniture\func.hpp"
+
     class OSF
     {
         // ---- Core ----
@@ -41,6 +44,7 @@ class CfgFunctions
             class playerRespawn   { description = "Custom player death → respawn at TOC"; };
             class tutorialIntro   { description = "New game tutorial sequence leading to TOC"; };
             class weatherCycle    { description = "Dynamic weather transition loop"; };
+            class blackListBuildings { description = "Exclude buildings from furniture script"}
         };
 
         // ---- Sectors ----
@@ -157,6 +161,15 @@ class CfgFunctions
             class skipTime {};
             class vehicleDrop {};
         }
+    };
+};
+
+// ============================================================
+// Extended_PreInit_EventHandlers — Tinter Furniture (requires CBA)
+// ============================================================
+class Extended_PreInit_EventHandlers {
+    class tinter_furniture_pre_init {
+        init = "call compile preprocessFileLineNumbers 'furniture\XEH_preInit.sqf'";
     };
 };
 

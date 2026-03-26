@@ -32,13 +32,14 @@
 // 
 // ============================================================
 #include "scripts\constants.hpp"
+["start", false] call BIS_fnc_blackOut;
+
 // disable player input
 player enableSimulation false;
 player allowDamage false;
 enableSaving [false, false];
 
-// fade out audio and screen
-["start", false] call BIS_fnc_blackOut;
+[] call OSF_fnc_blackListBuildings;
 
 // ---- 1. Boot phase 1 — pre-display setup ----
 [] call OSF_fnc_boot;
@@ -91,5 +92,6 @@ if (_choice == "newgame") then {
 
 player enableSimulation true;
 player allowDamage true;
-
+// Launch Drongo's DMP
+dmpWaitForGo = false;
 ["init", "init.sqf complete.", OSF_LOG_INFO] call OSF_fnc_log;

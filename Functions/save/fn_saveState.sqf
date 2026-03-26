@@ -74,6 +74,9 @@ _save set ["odaRoster", _odaSave];
 // ---- Upgrades ----
 _save set ["upgrades", [OSF_KEY_UPGRADE_STATE, createHashMap] call OSF_fnc_getMissionVar];
 
+// ---- Task states ----
+_save set ["taskStates", [OSF_KEY_TASK_STATES, createHashMap] call OSF_fnc_getMissionVar];
+
 // ---- Player loadout ----
 _save set ["playerLoadout", getUnitLoadout player];
 

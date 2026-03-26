@@ -138,7 +138,10 @@ class CfgFunctions
             class getStateField  { description = "Returns a named field from an item's runtime state hashmap."; };
             class getStateKeys   { description = "Returns all IDs from a state registry hashmap."; };
             class getStateValues { description = "Returns all item hashmaps from a state registry."; };
-            class titleText     { description = "Returns styled structured-text string for titleText"; };
+            class titleText          { description = "Returns styled structured-text string for titleText"; };
+            class taskCreate         { description = "Create a BIS task from the task registry"; };
+            class taskSetState       { description = "Set BIS task state and update runtime tracking"; };
+            class taskRecreateAll    { description = "Recreate all tasks from saved state on mission load"; };
         };
 
         // ---- action menu ----

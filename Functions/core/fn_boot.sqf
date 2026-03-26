@@ -48,9 +48,15 @@ if (_choice == "") exitWith {
         ["menu",       OSF_LOG_WARN],
         ["operations", OSF_LOG_INFO],
         ["utils",      OSF_LOG_WARN],
-        ["events",     OSF_LOG_INFO]
+        ["events",     OSF_LOG_INFO],
+        ["task",        OSF_LOG_INFO]
     ];
     missionNamespace setVariable ["OSF_logVerbosity", _verbosity];
+
+    // ---- Task registry ----
+    private _taskRegistry = call compile preprocessFileLineNumbers "scripts\data\taskData.sqf";
+    [OSF_KEY_TASK_REGISTRY, _taskRegistry] call OSF_fnc_setMissionVar;
+    [OSF_KEY_TASK_STATES, createHashMap] call OSF_fnc_setMissionVar;
 
     ["boot", "Phase 1 complete.", OSF_LOG_INFO] call OSF_fnc_log;
 };
@@ -181,7 +187,7 @@ if (_choice == "newgame") then {
 [OSF_EVT_QUEST_STATE_CHANGED, {
     params ["_questId", "_newState"];
     ["events", format ["Quest %1 -> %2", _questId, _newState], 3] call OSF_fnc_log;
-    if (_newState == "COMPLETE") then {
+    if (_newState in ["SUCCEEDED", "FAILED", "CANCELED"]) then {
         ["auto"] call OSF_fnc_saveState;
     };
 }] call CBA_fnc_addEventHandler;

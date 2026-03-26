@@ -87,17 +87,8 @@ if (_choice == "newgame") then {
     // Returning player — skip tutorial
     [OSF_KEY_TUTORIAL_COMPLETE, true] call OSF_fnc_setMissionVar;
 
-    // Recreate completed tasks (BIS tasks don't persist across mission loads)
-    [
-        true,
-        ["task_establish_toc"],
-        ["Establish your Tactical Operations Center at the marked position. This will be your base of operations.", "Establish TOC", "TOC"],
-        nil,
-        "SUCCEEDED",
-        -1,
-        false,
-        "navigate"
-    ] call BIS_fnc_taskCreate;
+    // Recreate all tasks from saved state (BIS tasks don't persist across mission loads)
+    [] call OSF_fnc_taskRecreateAll;
 
     hint "Welcome back, Team Lead.";
     [] spawn { sleep 4; hintSilent ""; };

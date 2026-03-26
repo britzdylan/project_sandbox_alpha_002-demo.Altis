@@ -23,6 +23,8 @@
 #define OSF_KEY_CP_POINTS       "OSF_cpPoints"
 #define OSF_KEY_PENDING_LOADOUT "OSF_pendingPlayerLoadout"
 #define OSF_KEY_TUTORIAL_COMPLETE "OSF_tutorialComplete"
+#define OSF_KEY_TASK_STATES     "OSF_taskStates"
+#define OSF_KEY_TASK_REGISTRY   "OSF_taskRegistry"
 
 // ------------------------------------------------------------
 // PROFILE namespace variable names

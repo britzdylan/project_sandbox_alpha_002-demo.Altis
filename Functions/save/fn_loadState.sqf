@@ -92,6 +92,11 @@ private _upgradeSave = _save getOrDefault ["upgrades", createHashMap];
 ["save", format ["%1 upgrade node(s) restored. CP: %2.",
     count _upgradeSave, _save getOrDefault ["cpPoints", 0]], OSF_LOG_INFO] call OSF_fnc_log;
 
+// ---- Task states ----
+private _taskStates = _save getOrDefault ["taskStates", createHashMap];
+[OSF_KEY_TASK_STATES, _taskStates] call OSF_fnc_setMissionVar;
+["save", format ["%1 task state(s) restored.", count _taskStates], OSF_LOG_INFO] call OSF_fnc_log;
+
 // ---- Player loadout ----
 // Applied after player object is ready (deferred to init.sqf waitUntil block)
 private _playerLoadout = _save getOrDefault ["playerLoadout", []];

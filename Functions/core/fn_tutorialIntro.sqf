@@ -55,16 +55,7 @@ hintSilent "";
 
 // ---- Create task pointing to TOC ----
 private _taskId = "task_establish_toc";
-[
-	true,
-	[_taskId],
-	["Establish your Tactical Operations Center at the marked position. This will be your base of operations.", "Establish TOC", "TOC"],
-	_tocPos,
-	"CREATED",
-	-1,
-	true,
-	"navigate"
-] call BIS_fnc_taskCreate;
+[_taskId, _tocPos, "CREATED"] call OSF_fnc_taskCreate;
 
 hint "Follow the objective marker to establish your TOC.";
 sleep 6;
@@ -77,7 +68,7 @@ waitUntil {
 };
 
 // ---- Establish TOC ----
-[_taskId, "SUCCEEDED"] call BIS_fnc_taskSetState;
+[_taskId, "SUCCEEDED"] call OSF_fnc_taskSetState;
 sleep 1;
 
 titleText ["TOC ESTABLISHED\nAccess the strategic map, squad manager, and upgrades here.", "PLAIN", 1];

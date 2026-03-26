@@ -148,6 +148,7 @@ class CfgFunctions
             class taskRecreateAll    { description = "Recreate all tasks from saved state on mission load"; };
             class notify             { description = "Custom notification bar — replaces hint/hintSilent"; };
             class damageBuildings    { description = "Randomly damage buildings within a trigger or position+radius"; };
+            class spawnOpenField     { description = "Find 27 open field positions and spawn objects at each"; };
         };
 
         // ---- action menu ----

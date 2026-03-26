@@ -88,4 +88,4 @@ saveProfileNamespace;
 ["save", format ["Game saved (%1). Version %2. Sectors: %3, ODA: %4.",
     _source, OSF_SAVE_VERSION, count _sectorSave, count _odaSave], OSF_LOG_INFO] call OSF_fnc_log;
 
-hint "Game saved.";
+["Game saved.", "success"] call OSF_fnc_notify;

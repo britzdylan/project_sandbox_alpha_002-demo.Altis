@@ -21,7 +21,7 @@ if (_typeIndex < 0) then {
 };
 
 if (_typeIndex >= count _vehicleTypes) exitWith {
-	hint "Invalid vehicle type.";
+	["Invalid vehicle type.", "error"] call OSF_fnc_notify;
 };
 
 // ---- cooldown check ----
@@ -33,7 +33,7 @@ if (_lastDrop > 0 && {
 }) then {
 	private _remaining = (OSF_VEHICLE_DROP_COOLDOWN / 365) - (_now - _lastDrop);
 	private _remainHours = round (_remaining * 365 * 24);
-	hint format ["Vehicle drop unavailable. Next drop in ~%1h.", _remainHours];
+	[format ["Vehicle drop unavailable. Next drop in ~%1h.", _remainHours], "warning"] call OSF_fnc_notify;
 } else {
 	// ---- drop pad: relPos from player ----
 	private _dropPos = player getRelPos [15, 0];
@@ -53,5 +53,5 @@ if (_lastDrop > 0 && {
 	// record drop time
 	missionNamespace setVariable [OSF_KEY_LAST_VEHICLE_DROP, dateToNumber date];
 
-	hint format ["%1 has been delivered to the TOC.", _displayName];
+	[format ["%1 has been delivered to the TOC.", _displayName], "success"] call OSF_fnc_notify;
 };

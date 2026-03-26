@@ -142,6 +142,7 @@ class CfgFunctions
             class taskCreate         { description = "Create a BIS task from the task registry"; };
             class taskSetState       { description = "Set BIS task state and update runtime tracking"; };
             class taskRecreateAll    { description = "Recreate all tasks from saved state on mission load"; };
+            class notify             { description = "Custom notification bar — replaces hint/hintSilent"; };
         };
 
         // ---- action menu ----
@@ -199,6 +200,19 @@ class CfgIdentities
     class OSF_ODA_22  { name = "Kelly";   face = "WhiteHead_31"; glasses = "None"; speaker = "Male02ENG"; pitch = 0.98; nameSound = "Kelly";   };
     class OSF_ODA_23  { name = "King";    face = "WhiteHead_32"; glasses = "None"; speaker = "Male03ENG"; pitch = 1.11; nameSound = "King";    };
     class OSF_ODA_24  { name = "Lane";    face = "WhiteHead_23f"; glasses = "None"; speaker = "Male04ENG"; pitch = 0.86; nameSound = "Lane";    };
+};
+
+// ============================================================
+// CfgSounds — custom sounds (used by OSF_fnc_notify)
+// ============================================================
+class CfgSounds
+{
+    class incoming
+    {
+        name = "incoming";
+        sound[] = {"sounds\incoming.ogg", 0.8, 1};
+        titles[] = {};
+    };
 };
 
 #include "ui\defines.hpp"

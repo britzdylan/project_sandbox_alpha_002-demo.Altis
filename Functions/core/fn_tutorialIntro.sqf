@@ -44,22 +44,16 @@ player sideChat "Team lead, this is Aegis Actual. Proceed to the rally point and
 sleep 4;
 
 // ---- Movement hint ----
-hint "Use WASD to move. Hold SHIFT to sprint.\nPress M to open your map.";
-sleep 8;
-hintSilent "";
+["Use WASD to move. Hold SHIFT to sprint.\nPress M to open your map.", "tip", 8] call OSF_fnc_notify;
 
 // ---- Squad command hint ----
-hint "Your ODA is with you. Use the action menu\n for squad commands.";
-sleep 8;
-hintSilent "";
+["Your ODA is with you. Use the action menu for squad commands.", "tip", 8] call OSF_fnc_notify;
 
 // ---- Create task pointing to TOC ----
 private _taskId = "task_establish_toc";
 [_taskId, _tocPos, "CREATED"] call OSF_fnc_taskCreate;
 
-hint "Follow the objective marker to establish your TOC.";
-sleep 6;
-hintSilent "";
+["Follow the objective marker to establish your TOC.", "info", 6] call OSF_fnc_notify;
 
 // ---- Wait for player to reach TOC ----
 waitUntil {
@@ -76,9 +70,7 @@ sleep 4;
 titleText ["", "PLAIN"];
 
 // Combat hint
-hint "Tip: When wounded, your medic can auto-revive nearby teammates.\nUse Ctrl+F12 to toggle the debug overlay.";
-sleep 8;
-hintSilent "";
+["When wounded, your medic can auto-revive nearby teammates.\nUse Ctrl+F12 to toggle the debug overlay.", "tip", 8] call OSF_fnc_notify;
 
 // Mark tutorial as complete
 missionNamespace setVariable ["OSF_tutorialComplete", true];

@@ -86,11 +86,7 @@ if (_choice == "newgame") then {
 	    // Recreate all tasks from saved state (BIS tasks don't persist across mission loads)
 	[] call OSF_fnc_taskRecreateAll;
 
-	hint "Welcome back, Team Lead.";
-	[] spawn {
-		sleep 4;
-		hintSilent "";
-	};
+	["Welcome back, Team Lead.", "info", 4] call OSF_fnc_notify;
 };
 
 player enableSimulation true;

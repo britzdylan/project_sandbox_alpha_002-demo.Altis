@@ -86,6 +86,19 @@ if (_choice == "newgame") then {
     3 fadeSound 1;
     // Returning player — skip tutorial
     missionNamespace setVariable ["OSF_tutorialComplete", true];
+
+    // Recreate completed tasks (BIS tasks don't persist across mission loads)
+    [
+        true,
+        ["task_establish_toc"],
+        ["Establish your Tactical Operations Center at the marked position. This will be your base of operations.", "Establish TOC", "TOC"],
+        nil,
+        "SUCCEEDED",
+        -1,
+        false,
+        "navigate"
+    ] call BIS_fnc_taskCreate;
+
     hint "Welcome back, Team Lead.";
     [] spawn { sleep 4; hintSilent ""; };
 };

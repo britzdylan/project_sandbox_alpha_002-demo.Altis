@@ -22,13 +22,13 @@
 
 // ---- get TOC position ----
 private _tocReg = [OSF_KEY_TOC_STATE, createHashMap] call OSF_fnc_getMissionVar;
-private _tocPos = [0, 0, 0];
+private _tocPos = OSF_TOC_SPAWN_POS_001;
 private _tocId = "";
 {
 	_tocId = _x;
-	_tocPos = _y getOrDefault [OSF_TOC_POS, [0, 0, 0]];
+	_tocPos = _y getOrDefault [OSF_TOC_POS, OSF_TOC_SPAWN_POS_001];
 } forEach _tocReg;
-private _text = ["ALTIS, 2020s\nOperation Sovereign Fury"] call OSF_fnc_titleText;
+private _text = ["Operation Sovereign Fury"] call OSF_fnc_titleText;
 // ---- Scene-setting text ----
 sleep 2;
 titleText [_text, "PLAIN", 0.5, true, true];

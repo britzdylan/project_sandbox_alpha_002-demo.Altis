@@ -48,12 +48,10 @@ OSF_fnc_doPlayerRespawn = {
 		sleep 2.5;
 
 		        // get TOC position
-		// private _tocReg = [OSF_KEY_TOC_STATE, createHashMap] call OSF_fnc_getMissionVar;
+		private _tocReg = [OSF_KEY_TOC_STATE, createHashMap] call OSF_fnc_getMissionVar;
 		private _tocPos = OSF_TOC_SPAWN_POS_001;
-		// {
-			// _tocPos = _y getOrDefault [OSF_TOC_POS, OSF_TOC_SPAWN_POS_001];
-			// 
-			//
+		{
+			_tocPos = _y getOrDefault [OSF_TOC_POS, OSF_TOC_SPAWN_POS_001];
 		} forEach _tocReg;
 
 		        // Teleport and heal player

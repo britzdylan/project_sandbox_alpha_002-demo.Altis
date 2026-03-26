@@ -71,7 +71,7 @@ private _choice = [] call OSF_fnc_startupMenu;
 private _pendingLoadout = [OSF_KEY_PENDING_LOADOUT, []] call OSF_fnc_getMissionVar;
 if (count _pendingLoadout > 0) then {
     player setUnitLoadout _pendingLoadout;
-    [OSF_KEY_PENDING_LOADOUT, nil] call OSF_fnc_setMissionVar;
+    missionNamespace setVariable [OSF_KEY_PENDING_LOADOUT, nil];
     ["init", "Player loadout restored from save.", OSF_LOG_INFO] call OSF_fnc_log;
 };
 

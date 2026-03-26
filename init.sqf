@@ -68,10 +68,10 @@ private _choice = [] call OSF_fnc_startupMenu;
 // ---- 5. Post-init ----
 
 // Apply saved player loadout (if restoring from save)
-private _pendingLoadout = missionNamespace getVariable ["OSF_pendingPlayerLoadout", []];
+private _pendingLoadout = [OSF_KEY_PENDING_LOADOUT, []] call OSF_fnc_getMissionVar;
 if (count _pendingLoadout > 0) then {
     player setUnitLoadout _pendingLoadout;
-    missionNamespace setVariable ["OSF_pendingPlayerLoadout", nil];
+    [OSF_KEY_PENDING_LOADOUT, nil] call OSF_fnc_setMissionVar;
     ["init", "Player loadout restored from save.", OSF_LOG_INFO] call OSF_fnc_log;
 };
 
@@ -85,7 +85,7 @@ if (_choice == "newgame") then {
     ["start"] call BIS_fnc_blackIn;
     3 fadeSound 1;
     // Returning player — skip tutorial
-    missionNamespace setVariable ["OSF_tutorialComplete", true];
+    [OSF_KEY_TUTORIAL_COMPLETE, true] call OSF_fnc_setMissionVar;
 
     // Recreate completed tasks (BIS tasks don't persist across mission loads)
     [

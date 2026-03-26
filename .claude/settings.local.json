@@ -4,7 +4,9 @@
       "WebFetch(domain:community.bistudio.com)",
       "WebSearch",
       "Bash(python3 -c \":*)",
-      "Bash(powershell.exe -NoProfile:*)"
+      "Bash(powershell.exe -NoProfile:*)",
+      "Bash(curl -s -L https://community.bistudio.com/wiki/Arma_3:_Task_Framework)",
+      "WebFetch(domain:webcache.googleusercontent.com)"
     ]
   }
 }

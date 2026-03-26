@@ -21,6 +21,8 @@
 #define OSF_KEY_UPGRADE_STATE   "OSF_upgradeState"
 #define OSF_KEY_UPGRADE_DEFS    "OSF_upgradeDefs"
 #define OSF_KEY_CP_POINTS       "OSF_cpPoints"
+#define OSF_KEY_PENDING_LOADOUT "OSF_pendingPlayerLoadout"
+#define OSF_KEY_TUTORIAL_COMPLETE "OSF_tutorialComplete"
 
 // ------------------------------------------------------------
 // PROFILE namespace variable names

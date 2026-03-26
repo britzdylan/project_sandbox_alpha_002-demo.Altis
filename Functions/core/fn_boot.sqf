@@ -29,18 +29,19 @@ params [["_choice", ""]];
 // ============================================================
 if (_choice == "") exitWith {
     ["boot", "Phase 1 — pre-display init...", OSF_LOG_INFO] call OSF_fnc_log;
+    // ---- Debug flag ----
+    [OSF_KEY_DEBUG, true] call OSF_fnc_setMissionVar;   // set false for release
 
     // ---- World settings ----
     setTimeMultiplier OSF_TIME_MULTIPLIER;
-    setDate [2035,3,24,3,21];
+    setDate [2035,3,24,8,21];
     [] spawn OSF_fnc_weatherCycle;
     [] call OSF_fnc_blackListBuildings;
-    [[[14130.3,15419.2], 16000], 0.5, 1, 0.5] call OSF_fnc_damageBuildings;
+    [[[14130.3,15419.2], 16000], 0.5, 1, 0.1] call OSF_fnc_damageBuildings;
     // ---- TOC — always from data (object refs don't persist) ----
     [] spawn OSF_fnc_tocInit;
 
-    // ---- Debug flag ----
-    [OSF_KEY_DEBUG, true] call OSF_fnc_setMissionVar;   // set false for release
+
 
     // ---- Log verbosity map ----
     private _verbosity = createHashMapFromArray [

@@ -30,6 +30,7 @@ while { missionNamespace getVariable ["OSF_startupChoice", ""] == "" } do {
 
     // Wait for SPACE key (DIK code 57) via display keyDown EH
     missionNamespace setVariable ["OSF_spacePressed", false];
+    waitUntil { !isNull findDisplay 46 };
     private _displayMain = findDisplay 46;
     private _ehIdx = _displayMain displayAddEventHandler ["KeyDown", {
         params ["_display", "_key"];

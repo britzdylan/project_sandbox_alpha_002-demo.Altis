@@ -210,7 +210,7 @@ class CfgSounds
     class incoming
     {
         name = "incoming";
-        sound[] = {"sounds\incoming.ogg", 0.8, 1};
+        sound[] = {"sounds\incoming.ogg", 0.5, 1};
         titles[] = {};
     };
 };

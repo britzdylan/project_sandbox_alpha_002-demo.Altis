@@ -104,7 +104,7 @@ _slot set [OSF_ODA_IDENTITY_CLASS, _identityClass];
 _slot set [OSF_ODA_UNIT_REF, _unit];
 
 // apply loadout
-[_slotId, _loadoutId] call OSF_fnc_odaApplyLoadout;
+[_slotId, _loadoutId] spawn OSF_fnc_odaApplyLoadout;
 
 ["odaSpawn", format ["Spawned %1 [%2]", _slotId, _spawnPos]] call OSF_fnc_log;
 _unit

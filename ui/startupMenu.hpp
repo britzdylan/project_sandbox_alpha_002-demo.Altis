@@ -71,7 +71,7 @@ class OSF_StartupMenu
             w = "safeZoneW * 0.38";
             h = "safeZoneH * 0.04";
             text = "OPERATION SOVEREIGN FURY";
-            sizeEx = 0.038;
+            sizeEx = 0.05;
             colorBackground[] = {0, 0, 0, 0};
             colorText[] = {0.62, 0.80, 0.42, 1.0};
         };
@@ -85,7 +85,7 @@ class OSF_StartupMenu
             w = "safeZoneW * 0.38";
             h = "safeZoneH * 0.02";
             text = "Green Beret ODA — Unconventional Warfare Campaign";
-            sizeEx = 0.018;
+            sizeEx = 0.04;
             colorBackground[] = {0, 0, 0, 0};
             colorText[] = {0.95, 0.78, 0.30, 1.0};
         };
@@ -143,7 +143,7 @@ class OSF_StartupMenu
             w = "safeZoneW * 0.28";
             h = "safeZoneH * 0.025";
             text = "";
-            sizeEx = 0.018;
+            sizeEx = 0.03;
             style = 2;
             colorBackground[] = {0, 0, 0, 0};
             colorText[] = {0.60, 0.65, 0.55, 0.8};
@@ -158,7 +158,7 @@ class OSF_StartupMenu
             w = "safeZoneW * 0.14";
             h = "safeZoneH * 0.02";
             text = "CLASSIFIED // OSF";
-            sizeEx = 0.016;
+            sizeEx = 0.03;
             style = 1;
             colorBackground[] = {0, 0, 0, 0};
             colorText[] = {0.88, 0.22, 0.22, 0.6};

@@ -85,7 +85,8 @@ if (_choice == "continue") then {
             };
 
             if (_status == OSF_ODA_STATUS_REDEPLOYMENT) then {
-                [_slotId] spawn OSF_fnc_odaReplacementWatcher;
+                private _time = _slot getOrDefault [OSF_ODA_REPLACEMENT_TIMER, 0]; 
+                [_slotId, _time] spawn OSF_fnc_odaReplacementWatcher;
             };
         } forEach _roster;
 

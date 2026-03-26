@@ -39,12 +39,12 @@ OSF_fnc_doPlayerRespawn = {
 
 		        // Phase 1 — "You're hit" message, hold on black
 		private _text1 = ["You have been critically wounded.", 1.8, "#cc3333"] call OSF_fnc_titleText;
-		titleText [_text1, "PLAIN", 2, true, true];
+		titleText [_text1, "PLAIN", 3, true, true];
 		sleep 3;
 
 		        // Phase 2 — MEDEVAC message
 		private _text2 = ["Requesting MEDEVAC...", 1.4, "#cccccc"] call OSF_fnc_titleText;
-		titleText [_text2, "PLAIN", 2, true, true];
+		titleText [_text2, "PLAIN", 3, true, true];
 		sleep 2.5;
 
 		        // get TOC position
@@ -59,6 +59,9 @@ OSF_fnc_doPlayerRespawn = {
 		player setDamage 0;
 
 		        // Teleport living squad members nearby
+		// TODO: move units into pre placed pos with ambient animations.
+		// remove from player control
+		// player will move to group and they will auto join
 		{
 			if (alive _x && _x != player) then {
 				private _offset = [
@@ -72,19 +75,19 @@ OSF_fnc_doPlayerRespawn = {
 
 		sleep 1;
 
-		        // Phase 3 — Wake up at TOC
-		private _text3 = ["HOURS LATER...", 1.6] call OSF_fnc_titleText;
+		// Phase 3 — Wake up at TOC
+		private _text3 = ["A FEW HOURS LATER...", 1.6] call OSF_fnc_titleText;
 		titleText [_text3, "PLAIN", 2, true, true];
+		skipTime 3;
 		sleep 3;
+		// Start lying down — player wakes up from prone
 		player switchMove "AinjPpneMstpSnonWrflDnon";
 		["respawn"] call BIS_fnc_blackIn;
 		sleep 1;
 
-		        // Re-enable player in prone/recovering pose before fade-in
+		// Re-enable player in prone/recovering pose before fade-in
 		player enableSimulation true;
 		player allowDamage true;
-
-		        // Start lying down — player wakes up from prone
 
 		8 fadeSound 1;
 
@@ -93,27 +96,6 @@ OSF_fnc_doPlayerRespawn = {
 		["core", "Player respawned at TOC.", OSF_LOG_INFO] call OSF_fnc_log;
 	};
 };
-
-// ---- Primary: handleDamage EH ----
-// Intercepts fatal hits before death. Returns 0 and disables damage immediately.
-player addEventHandler ["handleDamage", {
-	params ["_unit", "_selection", "_damage"];
-
-	    // Already in respawn — block everything
-	if (_unit getVariable ["OSF_respawnInProgress", false]) exitWith {
-		0
-	};
-
-	    // not fatal — pass through
-	if (_damage < 1) exitWith {
-		_damage
-	};
-
-	    // Fatal hit — block it and trigger respawn
-	_unit allowDamage false;
-	[] call OSF_fnc_doPlayerRespawn;
-	0
-}];
 
 // ---- Failsafe: killed EH ----
 // if something bypasses handleDamage (explosions, collision, engine quirks),

@@ -39,8 +39,6 @@ player enableSimulation false;
 player allowDamage false;
 enableSaving [false, false];
 
-[] call OSF_fnc_blackListBuildings;
-
 // ---- 1. Boot phase 1 — pre-display setup ----
 [] call OSF_fnc_boot;
 
@@ -80,7 +78,6 @@ if (_choice == "newgame") then {
 	[] spawn OSF_fnc_tutorialIntro;
 } else {
 	["start"] call BIS_fnc_blackIn;
-	3 fadeSound 1;
 	    // Returning player — skip tutorial
 	[OSF_KEY_TUTORIAL_COMPLETE, true] call OSF_fnc_setMissionVar;
 

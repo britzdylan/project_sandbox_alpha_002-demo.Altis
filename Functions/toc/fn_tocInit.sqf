@@ -60,6 +60,10 @@ private _tocRegistry = createHashMap;
 		["tocInit", format ["WARNING: TOC object '%1' not found for TOC '%2'", _squadManagerObjVarName, _tocId]] call OSF_fnc_log;
 	};
 
+	if (isNull _flagManagerObj) exitWith {
+		["tocInit", format ["WARNING: TOC object '%1' not found for TOC '%2'", _flagManagerObj, _tocId]] call OSF_fnc_log;
+	};
+
 	/* [
 			    target, 
 			    title, 
@@ -162,7 +166,7 @@ private _tocRegistry = createHashMap;
 		{},
 		[],
 		2,
-		-1,
+		0,
 		false,
 		false,
 		true

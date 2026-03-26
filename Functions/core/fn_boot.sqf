@@ -33,6 +33,11 @@ if (_choice == "") exitWith {
     // ---- World settings ----
     setTimeMultiplier OSF_TIME_MULTIPLIER;
     setDate [2035,3,24,3,21];
+    [] spawn OSF_fnc_weatherCycle;
+    [] call OSF_fnc_blackListBuildings;
+    [[[14130.3,15419.2], 16000], 0.5, 1, 0.5] call OSF_fnc_damageBuildings;
+    // ---- TOC — always from data (object refs don't persist) ----
+    [] spawn OSF_fnc_tocInit;
 
     // ---- Debug flag ----
     [OSF_KEY_DEBUG, true] call OSF_fnc_setMissionVar;   // set false for release
@@ -154,8 +159,7 @@ if (_choice == "newgame") then {
     ["boot", "Fresh game initialized.", OSF_LOG_INFO] call OSF_fnc_log;
 };
 
-// ---- TOC — always from data (object refs don't persist) ----
-[] spawn OSF_fnc_tocInit;
+
 
 // ---- CBA event registration ----
 // Autosave on sector liberation
@@ -199,7 +203,7 @@ if (_choice == "newgame") then {
 ["boot", "CBA events registered.", OSF_LOG_INFO] call OSF_fnc_log;
 
 // ---- Environment ----
-[] spawn OSF_fnc_weatherCycle;
+
 
 // ---- Debug overlay ----
 [] spawn OSF_fnc_debugOverlay;

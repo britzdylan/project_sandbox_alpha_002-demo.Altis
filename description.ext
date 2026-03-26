@@ -147,6 +147,7 @@ class CfgFunctions
             class taskSetState       { description = "Set BIS task state and update runtime tracking"; };
             class taskRecreateAll    { description = "Recreate all tasks from saved state on mission load"; };
             class notify             { description = "Custom notification bar — replaces hint/hintSilent"; };
+            class damageBuildings    { description = "Randomly damage buildings within a trigger or position+radius"; };
         };
 
         // ---- action menu ----

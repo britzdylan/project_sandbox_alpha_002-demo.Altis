@@ -67,6 +67,8 @@ if (_choice == "") exitWith {
 ["boot", format ["Phase 2 — domain init (choice: %1)...", _choice], OSF_LOG_INFO] call OSF_fnc_log;
 
 if (_choice == "continue") then {
+		player setPos OSF_TOC_SPAWN_POS_001;
+
     // ---- Restore from save ----
     private _loaded = [] call OSF_fnc_loadState;
 
@@ -105,6 +107,7 @@ if (_choice == "continue") then {
 
 if (_choice == "newgame") then {
     // ---- Set player ----
+	player setPos OSF_START_POS;
     // ---- Wipe any existing save ----
     [OSF_PROFILE_SAVE_EXISTS, false] call OSF_fnc_setProfileVar;
     [OSF_PROFILE_SAVE_DATA, createHashMap] call OSF_fnc_setProfileVar;

@@ -1,9 +1,8 @@
 // ============================================================
 // OSF_fnc_startupMenu
-// Shows the startup menu dialog. Player chooses Continue or New Game.
-// Blocks execution until a choice is made via OSF_startupChoice.
-//
-// If no save exists, the Continue button is greyed out.
+// Shows a "Press SPACE to launch" prompt, then opens the startup
+// menu dialog. If the player closes the dialog with Escape (no
+// choice made), the prompt reappears and the cycle repeats.
 //
 // Params: none
 // Returns: "continue" or "newgame" (string)
@@ -20,44 +19,78 @@ missionNamespace setVariable ["OSF_startupChoice", ""];
 // Check for existing save
 private _saveExists = [OSF_PROFILE_SAVE_EXISTS, false] call OSF_fnc_getProfileVar;
 
-// Open dialog
-createDialog "OSF_StartupMenu";
+// ---- Loop: show prompt → open dialog → repeat if escaped ----
+while { missionNamespace getVariable ["OSF_startupChoice", ""] == "" } do {
 
-private _display = findDisplay 9003;
-if (isNull _display) exitWith {
-    ["boot", "Failed to open startup menu dialog.", OSF_LOG_ERROR] call OSF_fnc_log;
-    "newgame"
-};
+    // Show "Press SPACE to launch" prompt
+    titleText [
+        (["PRESS SPACE TO LAUNCH", 1.6, "#9ece6a"] call OSF_fnc_titleText),
+        "PLAIN", -1, true, true
+    ];
 
-// ---- Wire Continue button ----
-private _btnContinue = _display displayCtrl 9502;
-private _btnNewGame = _display displayCtrl 9503;
-private _lblStatus = _display displayCtrl 9504;
-
-if (_saveExists) then {
-    _lblStatus ctrlSetText "Save data found.";
-
-    _btnContinue ctrlAddEventHandler ["ButtonClick", {
-        missionNamespace setVariable ["OSF_startupChoice", "continue"];
-        closeDialog 0;
+    // Wait for SPACE key (DIK code 57) via display keyDown EH
+    missionNamespace setVariable ["OSF_spacePressed", false];
+    private _displayMain = findDisplay 46;
+    private _ehIdx = _displayMain displayAddEventHandler ["KeyDown", {
+        params ["_display", "_key"];
+        if (_key == 57) then {
+            missionNamespace setVariable ["OSF_spacePressed", true];
+            true // consume the key
+        } else {
+            false
+        };
     }];
-} else {
-    _lblStatus ctrlSetText "No save data.";
 
-    // Grey out continue button
-    _btnContinue ctrlEnable false;
-    _btnContinue ctrlSetTextColor [0.4, 0.4, 0.4, 0.5];
-    _btnContinue ctrlSetBackgroundColor [0.08, 0.08, 0.08, 0.6];
+    waitUntil { missionNamespace getVariable ["OSF_spacePressed", false] };
+
+    _displayMain displayRemoveEventHandler ["KeyDown", _ehIdx];
+    missionNamespace setVariable ["OSF_spacePressed", nil];
+
+    // Clear the prompt
+    titleText ["", "PLAIN"];
+
+    // Open dialog
+    createDialog "OSF_StartupMenu";
+
+    private _display = findDisplay 9003;
+    if (isNull _display) then {
+        ["boot", "Failed to open startup menu dialog.", OSF_LOG_ERROR] call OSF_fnc_log;
+        missionNamespace setVariable ["OSF_startupChoice", "newgame"];
+    } else {
+
+        // ---- Wire Continue button ----
+        private _btnContinue = _display displayCtrl 9502;
+        private _btnNewGame = _display displayCtrl 9503;
+        private _lblStatus = _display displayCtrl 9504;
+
+        if (_saveExists) then {
+            _lblStatus ctrlSetText "Save data found.";
+
+            _btnContinue ctrlAddEventHandler ["ButtonClick", {
+                missionNamespace setVariable ["OSF_startupChoice", "continue"];
+                closeDialog 0;
+            }];
+        } else {
+            _lblStatus ctrlSetText "No save data.";
+
+            // Grey out continue button
+            _btnContinue ctrlEnable false;
+            _btnContinue ctrlSetTextColor [0.4, 0.4, 0.4, 0.5];
+            _btnContinue ctrlSetBackgroundColor [0.08, 0.08, 0.08, 0.6];
+        };
+
+        // ---- Wire New Game button ----
+        _btnNewGame ctrlAddEventHandler ["ButtonClick", {
+            missionNamespace setVariable ["OSF_startupChoice", "newgame"];
+            closeDialog 0;
+        }];
+
+        // Wait until dialog is closed (either by button or Escape)
+        waitUntil { isNull findDisplay 9003 };
+
+        // If closed without a choice (Escape), loop will repeat
+    };
 };
-
-// ---- Wire New Game button ----
-_btnNewGame ctrlAddEventHandler ["ButtonClick", {
-    missionNamespace setVariable ["OSF_startupChoice", "newgame"];
-    closeDialog 0;
-}];
-
-// ---- Block until choice is made ----
-waitUntil { missionNamespace getVariable ["OSF_startupChoice", ""] != "" };
 
 private _choice = missionNamespace getVariable ["OSF_startupChoice", "newgame"];
 ["boot", format ["Startup menu choice: %1", _choice], OSF_LOG_INFO] call OSF_fnc_log;

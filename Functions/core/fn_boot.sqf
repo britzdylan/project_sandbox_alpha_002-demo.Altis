@@ -37,7 +37,10 @@ if (_choice == "") exitWith {
     setDate [2035,3,24,8,21];
     [] spawn OSF_fnc_weatherCycle;
     [] call OSF_fnc_blackListBuildings;
-    [[[14130.3,15419.2], 16000], 0.5, 1, 0.1] call OSF_fnc_damageBuildings;
+    [] call OSF_fnc_addVehicleToGarage;
+    [] call OSF_fnc_addVehPeh;
+    [] spawn OSF_fnc_damageBuildings;
+    [] spawn OSF_fnc_spawnWrecks;
     // ---- TOC — always from data (object refs don't persist) ----
     [] spawn OSF_fnc_tocInit;
 

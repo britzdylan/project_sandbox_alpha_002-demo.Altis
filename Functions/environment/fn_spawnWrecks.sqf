@@ -57,10 +57,10 @@ for "_i" from 1 to 27 do {
 	_positions pushBack _safePos;
 
 	// --- Debug marker ---
-	if (["OSF_debug", false] call OSF_fnc_getMissionVar && false) then {
+	if (["OSF_debug", false] call OSF_fnc_getMissionVar) then {
 		private _mName = format ["dbg_openfield_%1", _i];
 		private _m = createMarkerLocal [_mName, _safePos];
-		_m setMarkerTypeLocal "mil_dot";
+		_m setMarkerTypeLocal "Contact_circle1";
 		_m setMarkerSizeLocal [0.6, 0.6];
 		_m setMarkerColorLocal "ColorGreen";
 		_m setMarkerTextLocal format ["Open %1", _i];

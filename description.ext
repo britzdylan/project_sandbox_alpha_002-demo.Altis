@@ -46,6 +46,16 @@ class CfgFunctions
             class weatherCycle    { description = "Dynamic weather transition loop"; };
             class blackListBuildings { description = "Exclude buildings from furniture script"}
         };
+        // ---- environment ----
+
+        class environment
+        {
+            class addVehPeh { description = "Randomly add vehicles to fas stations" };
+            class findBuildings     { description = "Find all buildings based on query"};
+            class damageBuildings    { description = "Randomly damage buildings within a trigger or position+radius"; };
+            class spawnWrecks    { description = "Find 27 open field positions and spawn objects at each"; };
+            class addVehicleToGarage { description = "Randomly adds vehicles to civilian garages"};
+        };
 
         // ---- Sectors ----
         class sectors
@@ -147,8 +157,6 @@ class CfgFunctions
             class taskSetState       { description = "Set BIS task state and update runtime tracking"; };
             class taskRecreateAll    { description = "Recreate all tasks from saved state on mission load"; };
             class notify             { description = "Custom notification bar — replaces hint/hintSilent"; };
-            class damageBuildings    { description = "Randomly damage buildings within a trigger or position+radius"; };
-            class spawnOpenField     { description = "Find 27 open field positions and spawn objects at each"; };
         };
 
         // ---- action menu ----

@@ -87,6 +87,7 @@
 #define OSF_TIME_MULTIPLIER  (24 / 4)   // 6x — matches setTimeMultiplier in fn_boot
 #define OSF_WEATHER_INTERVAL   1800     // seconds between weather transitions (30 min)(1800)
 #define OSF_WEATHER_TRANSITION 300    // seconds for weather to smoothly transition (5 min)(300)
+#define OSF_MAP_CENTER [16085.1,16997.9,0] // map center
 // ------------------------------------------------------------
 // ODA timers (mission seconds)
 // Alpha: short values for testing.

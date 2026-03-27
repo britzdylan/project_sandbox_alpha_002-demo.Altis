@@ -1,10 +1,30 @@
 
+    // ---- Tinter Furniture ----
+class tint {
+  class furniture {
+    file = "furniture\functions";
+    class dressDown {};
+    class dressUp {};
+    class translate {};
+    class updateHouse {};
+    class init {};
+    class preinit {preInit=1;};
+  };
+};
+
+
     class OSF
     {
         // ---- Core ----
         class core
         {
-            class boot      { description = "Initialise global game state namespace"; };
+            class boot            { description = "Initialise global game state namespace"; };
+            class debugOverlay    { description = "Togglable debug HUD overlay (Ctrl+F12)"; };
+            class startupMenu     { description = "Mission start screen — Continue or New Game"; };
+            class playerRespawn   { description = "Custom player death → respawn at TOC"; };
+            class tutorialIntro   { description = "New game tutorial sequence leading to TOC"; };
+            class weatherCycle    { description = "Dynamic weather transition loop"; };
+            class blackListBuildings { description = "Exclude buildings from furniture script"}
         };
 
         // ---- Sectors ----
@@ -80,7 +100,7 @@
         class toc
         {
         //     file = "scripts\toc";
-               class strategicMapOpen   { description = "Open strategic map from TOC base object" };
+               class strategicMapOpen   { description = "Open strategic map from TOC base object"; };
                class tocInit                 { description = "Initialise TOC interactions"; };
                class tocApplySupplyLoadout   { description = "Apply supply box loadout to OSF_toc_supply_001"; };
                class tocSupplyWatcher        { description = "Scheduled loop: restock supply box every 48 in-game hours"; };
@@ -102,6 +122,13 @@
             class getStateField  { description = "Returns a named field from an item's runtime state hashmap."; };
             class getStateKeys   { description = "Returns all IDs from a state registry hashmap."; };
             class getStateValues { description = "Returns all item hashmaps from a state registry."; };
+            class titleText          { description = "Returns styled structured-text string for titleText"; };
+            class taskCreate         { description = "Create a BIS task from the task registry"; };
+            class taskSetState       { description = "Set BIS task state and update runtime tracking"; };
+            class taskRecreateAll    { description = "Recreate all tasks from saved state on mission load"; };
+            class notify             { description = "Custom notification bar — replaces hint/hintSilent"; };
+            class damageBuildings    { description = "Randomly damage buildings within a trigger or position+radius"; };
+            class spawnOpenField     { description = "Find 27 open field positions and spawn objects at each"; };
         };
 
         // ---- action menu ----

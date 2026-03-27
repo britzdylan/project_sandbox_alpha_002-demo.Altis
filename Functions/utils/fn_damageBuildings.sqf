@@ -108,7 +108,7 @@ private _count = 0;
 		_count = _count + 1;
 
 		        // --- Debug marker (remove for release) ---
-		if (["OSF_debug", false] call OSF_fnc_getMissionVar) then {
+		if (["OSF_debug", false] call OSF_fnc_getMissionVar && false) then {
 			private _mName = format ["dbg_dmg_%1", _count];
 			private _m = createMarkerLocal [_mName, getPosATL _x];
 			_m setMarkerTypeLocal "mil_dot";
@@ -148,7 +148,7 @@ private _count = 0;
 			_obj setVectorUp _normal;
 
 			// --- Debug marker for debris ---
-			if (["OSF_debug", false] call OSF_fnc_getMissionVar) then {
+			if (["OSF_debug", false] call OSF_fnc_getMissionVar && false) then {
 				private _mName = format ["dbg_debris_%1_%2", _count, _i];
 				private _m = createMarkerLocal [_mName, [_safePos select 0, _safePos select 1, 0]];
 				_m setMarkerTypeLocal "mil_triangle";

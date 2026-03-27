@@ -47,7 +47,7 @@ for "_i" from 1 to 27 do {
 	private _safePos = [_center, 150, 8000, 15, 0, 0.3, 0] call BIS_fnc_findSafePos;
 	private _class = selectRandom _wreckClasses;
 
-	// TODO: spawn something at _safePos
+	// spawn something at _safePos
 	private _obj = createSimpleObject [_class, _center];
 	_obj setDir random 360;
 	private _normal = surfaceNormal _safePos;
@@ -57,7 +57,7 @@ for "_i" from 1 to 27 do {
 	_positions pushBack _safePos;
 
 	// --- Debug marker ---
-	if (["OSF_debug", false] call OSF_fnc_getMissionVar) then {
+	if (["OSF_debug", false] call OSF_fnc_getMissionVar && false) then {
 		private _mName = format ["dbg_openfield_%1", _i];
 		private _m = createMarkerLocal [_mName, _safePos];
 		_m setMarkerTypeLocal "mil_dot";

@@ -63,32 +63,46 @@ private _choice = [] call OSF_fnc_startupMenu;
 // ---- 5. Post-init ----
 
 // apply saved player loadout (if restoring from save)
-private _pendingLoadout = [OSF_KEY_PENDING_LOADOUT, []] call OSF_fnc_getMissionVar;
-if (count _pendingLoadout > 0) then {
-	player setUnitLoadout _pendingLoadout;
-	missionNamespace setVariable [OSF_KEY_PENDING_LOADOUT, nil];
-	["init", "Player loadout restored from save.", OSF_LOG_INFO] call OSF_fnc_log;
-};
+// private _pendingLoadout = [OSF_KEY_PENDING_LOADOUT, []] call OSF_fnc_getMissionVar;
+// if (count _pendingLoadout > 0) then {
+	// player setUnitLoadout _pendingLoadout;
+	// missionNamespace setVariable [OSF_KEY_PENDING_LOADOUT, nil];
+	// ["init", "Player loadout restored from save.", OSF_LOG_INFO] call OSF_fnc_log;
+	// 
 
-// ---- 6. player respawn system ----
-[] call OSF_fnc_playerRespawn;
+	// ---- 6. player respawn system ----
+	[] call OSF_fnc_playerRespawn;
 
-// ---- 7. Tutorial or resume ----
-if (_choice == "newgame") then {
-	[] spawn OSF_fnc_tutorialIntro;
-} else {
-	["start"] call BIS_fnc_blackIn;
-	    // Returning player — skip tutorial
-	[OSF_KEY_TUTORIAL_COMPLETE, true] call OSF_fnc_setMissionVar;
+	// ---- 7. Tutorial or resume ----
+	if (_choice == "newgame") then {
+		[] spawn OSF_fnc_tutorialIntro;
+	} else {
+		["start"] call BIS_fnc_blackIn;
+		    // Returning player — skip tutorial
+		[OSF_KEY_TUTORIAL_COMPLETE, true] call OSF_fnc_setMissionVar;
 
-	    // Recreate all tasks from saved state (BIS tasks don't persist across mission loads)
-	[] call OSF_fnc_taskRecreateAll;
+		    // Recreate all tasks from saved state (BIS tasks don't persist across mission loads)
+		[] call OSF_fnc_taskRecreateAll;
 
-	["Welcome back, Team Lead.", "info", 4] call OSF_fnc_notify;
-};
+		["Welcome back, Team Lead.", "info", 4] call OSF_fnc_notify;
+	};
 
-player enableSimulation true;
-player allowDamage true;
-// Launch Drongo's DMP
-dmpWaitForGo = false;
-["init", "init.sqf complete.", OSF_LOG_INFO] call OSF_fnc_log;
+	player enableSimulation true;
+	player allowDamage true;
+	// Launch Drongo's DMP
+	dmpWaitForGo = false;
+	["init", "init.sqf complete.", OSF_LOG_INFO] call OSF_fnc_log;
+
+	{
+		if (!(_x getVariable ["OSF_firedNearEH", false]) && side _x == independent) then {
+			_x addEventHandler ["FiredNear", {
+				params ["_unit"];
+				_unit setVariable ["OSF_firedNear", true];
+			}];
+			_x addEventHandler ["Explosion", {
+				params ["_unit", "_damage"];
+				_unit setVariable ["OSF_firedNear", true];
+			}];
+			_x setVariable ["OSF_firedNearEH", true];
+		};
+	} forEach allUnits;

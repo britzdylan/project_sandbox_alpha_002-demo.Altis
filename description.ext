@@ -55,6 +55,8 @@ class CfgFunctions
             class damageBuildings    { description = "Randomly damage buildings within a trigger or position+radius"; };
             class spawnWrecks    { description = "Find 27 open field positions and spawn objects at each"; };
             class addVehicleToGarage { description = "Randomly adds vehicles to civilian garages"};
+            class trackSupportLoss  { description = "Track support asset losses per class via Killed EH"};
+            class killedRadio       { description = "Play group-specific radio message when a friendly unit is killed"};
         };
 
         // ---- Sectors ----
@@ -228,6 +230,32 @@ class CfgIdentities
 // ============================================================
 // CfgSounds — custom sounds (used by OSF_fnc_notify)
 // ============================================================
+// ============================================================
+// CfgRadio — group-specific killed radio messages
+// ============================================================
+class CfgRadio
+{
+    // Uncomment and add entries as you create sound files
+    class radioAlphaDown
+    {
+        name = "radioAlphaDown";
+        sound[] = {"sounds\radio_alpha_down.ogg", 5, 1};
+        title = "Alpha: We lost one!";
+    };
+    // class radioBravoDown
+    // {
+    //     name = "radioBravoDown";
+    //     sound[] = {"sounds\radio_bravo_down.ogg", 1, 1};
+    //     title = "Bravo: Man down!";
+    // };
+    // class radioCharlieDown
+    // {
+    //     name = "radioCharlieDown";
+    //     sound[] = {"sounds\radio_charlie_down.ogg", 1, 1};
+    //     title = "Charlie: Man down!";
+    // };
+};
+
 class CfgSounds
 {
     class incoming

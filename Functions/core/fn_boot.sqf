@@ -30,11 +30,11 @@ params [["_choice", ""]];
 if (_choice == "") exitWith {
     ["boot", "Phase 1 — pre-display init...", OSF_LOG_INFO] call OSF_fnc_log;
     // ---- Debug flag ----
-    [OSF_KEY_DEBUG, true] call OSF_fnc_setMissionVar;   // set false for release
+    [OSF_KEY_DEBUG, false] call OSF_fnc_setMissionVar;   // set false for release
 
     // ---- World settings ----
     setTimeMultiplier OSF_TIME_MULTIPLIER;
-    setDate [2035,3,24,8,21];
+    setDate [2035,3,24,0,21];
     [] spawn OSF_fnc_weatherCycle;
     [] call OSF_fnc_blackListBuildings;
     [] call OSF_fnc_addVehicleToGarage;
@@ -76,7 +76,7 @@ if (_choice == "") exitWith {
 ["boot", format ["Phase 2 — domain init (choice: %1)...", _choice], OSF_LOG_INFO] call OSF_fnc_log;
 
 if (_choice == "continue") then {
-	player setPos OSF_TOC_SPAWN_POS_001;
+	// player setPos OSF_TOC_SPAWN_POS_001;
 
     // ---- Restore from save ----
     private _loaded = [] call OSF_fnc_loadState;
